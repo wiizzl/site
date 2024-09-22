@@ -14,6 +14,8 @@ const LangSelect = () => {
     const Lang = [
         { label: "English", value: "en" },
         { label: "Français", value: "fr" },
+        { label: "Español", value: "es" },
+        { label: "Deutsch", value: "de" },
     ];
 
     return (
