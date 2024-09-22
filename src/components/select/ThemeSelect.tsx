@@ -4,10 +4,10 @@ import { useScopedI18n } from "@/locales/client";
 import { Moon, Sun } from "lucide-react";
 
 const ThemeSelect = () => {
-    const t = useScopedI18n("themeSelect");
+    const t = useScopedI18n("layout.header");
 
     return (
-        <label title={t("changeTheme")} className="btn btn-ghost swap swap-rotate">
+        <label title={t("changeTheme")} className="btn btn-square btn-ghost swap swap-rotate">
             <input type="checkbox" className="theme-controller" value="light" />
             <Moon className="swap-off" />
             <Sun className="swap-on" />

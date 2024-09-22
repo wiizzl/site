@@ -10,10 +10,10 @@ import { Config } from "@/config";
 import { getScopedI18n } from "@/locales/server";
 
 export default async function Home() {
-    const t = await getScopedI18n("heroPage");
+    const t = await getScopedI18n("pages.hero");
 
     return (
-        <section className="min-h-screen overflow-x-hidden my-28">
+        <section className="my-28 min-h-screen overflow-x-hidden">
             <MaxWidthWrapper>
                 <div className="max-w-2xl space-y-5">
                     <h1 className="text-5xl font-bold">

@@ -1,3 +1,9 @@
+import { MaxWidthWrapper } from "@/components/layout/MaxWidthWrapper";
+
 export default function AboutPage() {
-    return <div>AboutPage</div>;
+    return (
+        <section className="my-12 min-h-screen">
+            <MaxWidthWrapper>About</MaxWidthWrapper>
+        </section>
+    );
 }

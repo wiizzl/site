@@ -7,20 +7,18 @@ import { cn } from "@/lib/utils";
 import { useChangeLocale, useCurrentLocale, useScopedI18n } from "@/locales/client";
 
 const LangSelect = () => {
-    const t = useScopedI18n("langSelect");
+    const t = useScopedI18n("layout.header");
     const currentLocale = useCurrentLocale();
     const changeLocale = useChangeLocale();
 
     const Lang = [
         { label: "English", value: "en" },
         { label: "Français", value: "fr" },
-        { label: "Español", value: "es" },
-        { label: "Deutsch", value: "de" },
     ];
 
     return (
         <div title={t("changeLocale")} className="dropdown dropdown-end">
-            <button tabIndex={0} className="btn btn-ghost">
+            <button tabIndex={0} className="btn btn-square btn-ghost">
                 <Languages />
             </button>
             <div
