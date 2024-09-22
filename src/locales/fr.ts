@@ -4,7 +4,7 @@ export default {
             about: "à propos",
             projects: "projets",
             monitoring: "veille",
-            guestbook: "signatures",
+            guestbook: "livre d'or",
 
             changeLocale: "Changer la langue",
             changeTheme: "Changer le thème",
@@ -27,14 +27,14 @@ export default {
             experience: {
                 title: "Expérience & Éducation",
                 now: "Présent",
-                webDev: "Web Developer",
+                webDev: "Développeur Web",
                 bac: "BAC Général (Maths - SI)",
                 bts: "BTS SIO (Option SLAM)",
                 downloadCV: "Télécharger mon CV",
             },
         },
         guestbook: {
-            title: "Signer mon livre",
+            title: "Signer mon livre d'or",
             signIn: "Connexion",
             signOut: "Déconnexion",
 
@@ -49,7 +49,7 @@ export default {
 
             notif: {
                 success: "Votre message a bien été envoyé !",
-                alreadyFound: "Vous avez déjà signé le livre",
+                alreadyFound: "Vous avez déjà signé le livre d'or",
                 error: "Une erreur est survenue. Veuillez réessayer plus tard",
             },
         },
