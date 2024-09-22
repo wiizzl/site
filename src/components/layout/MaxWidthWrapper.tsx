@@ -5,10 +5,8 @@ type MaxWidthWrapperProps = {
     className?: string;
 };
 
-const MaxWidthWrapper = (props: MaxWidthWrapperProps) => {
-    return (
-        <div className={cn("h-full mx-auto w-full max-w-6xl px-2.5 md:px-20", props.className)}>{props.children}</div>
-    );
-};
+const MaxWidthWrapper = (props: MaxWidthWrapperProps) => (
+    <div className={cn("h-full mx-auto w-full max-w-6xl px-2.5 md:px-20", props.className)}>{props.children}</div>
+);
 
 export { MaxWidthWrapper };
