@@ -1,5 +1,6 @@
 import "@/styles.css";
 
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 
 import { Footer } from "@/components/layout/Footer";
@@ -45,6 +46,7 @@ export default async function RootLayout(props: RootLayoutProps) {
     return (
         <html className="transition-colors duration-300">
             <body className="antialiased">
+                <Analytics />
                 <Providers locale={props.params.locale} session={session}>
                     <Header />
                     <main>{props.children}</main>
