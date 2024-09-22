@@ -11,6 +11,9 @@ export default {
             getSource: "Voir le code source",
         },
         footer: {
+            terms: "Termes",
+            privacy: "Confidentialité",
+
             allRightReserved: "Tous droits réservés",
         },
     },
@@ -20,14 +23,28 @@ export default {
             slug: "Je transforme des idées en réalité",
             description:
                 "Je suis un étudiant de 18 ans basé en France (Rouen), et je suis passionné par la création d'environnements virtuels. J'aime étudier et concevoir des solutions aux besoins techniques.",
+            experience: {
+                title: "Expérience & Éducation",
+                now: "Présent",
+                webDev: "Web Developer",
+                bac: "BAC Général (Maths - SI)",
+                bts: "BTS SIO (Option SLAM)",
+                downloadCV: "Télécharger mon CV",
+            },
         },
         guestbook: {
-            sign: "Signer mon livre",
-            signIn: "Connexion avec",
+            title: "Signer mon livre",
+            signIn: "Connexion",
             signOut: "Déconnexion",
 
             writeMessage: "Rédiger un message",
             messageContent: "Contenu de votre message",
+
+            info: {
+                title: "À lire avant utilisation",
+                description:
+                    "Lors de la connexion, je collecterai uniquement votre nom et votre adresse mail afin d'éviter que vous mettiez plusieurs messages. Je n'utiliserai pas ces données pour vous envoyer des emails.",
+            },
 
             notif: {
                 success: "Votre message a bien été envoyé !",

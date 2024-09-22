@@ -1,28 +1,30 @@
 "use client";
 
-import Link from "next/link";
-
 import { MaxWidthWrapper } from "@/components/layout/MaxWidthWrapper";
 
 import { useScopedI18n } from "@/locales/client";
-
-import { Config } from "@/config";
+import Link from "next/link";
 
 const Footer = () => {
     const t = useScopedI18n("layout.footer");
 
+    const nav = [
+        { name: t("terms"), href: "/terms" },
+        { name: t("privacy"), href: "/privacy" },
+    ];
+
     return (
         <MaxWidthWrapper>
-            <footer className="footer items-center justify-between border-t border-neutral-content/50 py-10">
+            <footer className="flex flex-col items-center justify-between space-y-5 border-t border-neutral-content/50 py-10 md:flex-row md:space-y-0">
                 <nav className="flex gap-x-6">
-                    {Config.Socials.map((item, index) => (
-                        <Link href={item.href} target="_blank" className="hover:underline" key={index}>
+                    {nav.map((item, index) => (
+                        <Link href={item.href} className="text-sm hover:underline" key={index}>
                             {item.name}
                         </Link>
                     ))}
                 </nav>
-                <p>
-                    Copyright &copy; wiizz {new Date().getFullYear()} - {t("allRightReserved")}
+                <p className="text-sm">
+                    Copyright &copy; {new Date().getFullYear()} wiizz - {t("allRightReserved")}
                 </p>
             </footer>
         </MaxWidthWrapper>

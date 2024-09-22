@@ -1,27 +1,30 @@
 "use client";
 
+import { useScopedI18n } from "@/locales/client";
 import { BriefcaseBusiness } from "lucide-react";
 import Image from "next/image";
 
 const Experience = () => {
+    const t = useScopedI18n("pages.hero.experience");
+
     const experience = [
         {
-            name: "Développeur Web",
+            name: t("webDev"),
             details: "Freelance",
             startDate: "04/2023",
-            endDate: "Présent",
+            endDate: t("now"),
             image: "https://i.imgur.com/Lr0FsHR.jpeg",
         },
         {
             name: "Campus La Chataîgneraie",
-            details: "BTS SIO (Option SLAM)",
+            details: t("bts"),
             startDate: "09/2024",
-            endDate: "Présent",
+            endDate: t("now"),
             image: "https://i.imgur.com/8AAoBGY.png",
         },
         {
-            name: "Lycée Galilée, Franqueville-St-Pierre",
-            details: "BAC Général (Maths - SI)",
+            name: "Lycée Galilée, Franqueville",
+            details: t("bac"),
             startDate: "09/2021",
             endDate: "07/2024",
             image: "https://i.imgur.com/287GhRx.png",
@@ -29,15 +32,15 @@ const Experience = () => {
     ];
 
     return (
-        <div className="w-[350px] space-y-6 rounded-2xl border border-neutral p-4">
-            <div className="ml-1.5 flex items-center gap-x-3.5">
+        <div className="w-[350px] space-y-6 rounded-2xl border-2 border-base-200 p-5">
+            <div className="ml-0.5 flex items-center gap-x-3.5">
                 <BriefcaseBusiness strokeWidth={1.5} />
-                <h2 className="text-lg font-semibold">Expérience</h2>
+                <h2 className="text-lg font-semibold">{t("title")}</h2>
             </div>
             <div className="space-y-4">
                 {experience.map((item, index) => (
                     <div className="flex items-center gap-x-2" key={index}>
-                        <div className="avatar rounded-full bg-neutral p-1">
+                        <div className="avatar rounded-full bg-base-200 p-0.5">
                             <Image
                                 src={item.image}
                                 alt={`Experience : ${item.name}`}
@@ -58,8 +61,8 @@ const Experience = () => {
                     </div>
                 ))}
             </div>
-            <button onClick={() => alert("En cours de fabrication")} className="btn btn-sm w-full">
-                Download CV
+            <button onClick={() => alert("Work in progress")} className="btn btn-sm w-full">
+                {t("downloadCV")}
             </button>
         </div>
     );
