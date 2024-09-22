@@ -22,7 +22,8 @@ export default {
             hello: "Bonjour, je m'appelle Pierre",
             slug: "Je transforme des idées en réalité",
             description:
-                "Je suis un étudiant de 18 ans basé en France (Rouen), et je suis passionné par la création d'environnements virtuels. J'aime étudier et concevoir des solutions aux besoins techniques.",
+                "Je suis un étudiant de 18 ans basé en France (Rouen) et je suis passionné par la création d'environnements virtuels. J'aime étudier et concevoir des solutions aux besoins techniques.",
+
             experience: {
                 title: "Expérience & Éducation",
                 now: "Présent",
