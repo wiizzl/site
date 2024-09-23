@@ -13,10 +13,10 @@ export default async function Home() {
     const t = await getScopedI18n("pages.hero");
 
     return (
-        <section className="my-28 min-h-screen overflow-x-hidden">
+        <section className="my-16 min-h-screen overflow-x-hidden">
             <MaxWidthWrapper>
                 <div className="max-w-2xl space-y-5">
-                    <h1 className="text-5xl font-bold">
+                    <h1 className="text-4xl font-bold md:text-5xl">
                         {t("hello")},<br />
                         {t("slug")}
                     </h1>
