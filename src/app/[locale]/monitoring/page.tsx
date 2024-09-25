@@ -1,31 +1,27 @@
 import { MaxWidthWrapper } from "@/components/layout/MaxWidthWrapper";
-import { CatBadge } from "./_components/CatBadge";
 import { PostCard } from "./_components/PostCard";
+import { getPosts } from "./_utils/post-helpers";
 
-export default function MonitoringPage() {
+export default async function MonitoringPage() {
+    const posts = await getPosts();
+
     return (
         <section className="my-12 min-h-screen">
             <MaxWidthWrapper className="space-y-6">
-                <div className="space-y-4">
-                    <h2 className="text-3xl font-semibold">Catégories</h2>
-                    <div className="flex gap-x-3">
-                        <CatBadge />
+                <div className="space-y-10">
+                    <h2 className="text-3xl font-semibold">Veille informatique</h2>
+                    <div className="border-l-2 border-base-300">
+                        {posts.map((item, index) => (
+                            <PostCard
+                                date={item.date}
+                                title={item.title}
+                                slug={item.id}
+                                description={item.description}
+                                key={index}
+                            />
+                        ))}
                     </div>
                 </div>
-                <div className="space-y-4">
-                    <h2 className="text-3xl font-semibold">Postes</h2>
-                    <div className="flex flex-col space-y-2">
-                        <PostCard
-                            date="Sept 2024"
-                            title="La sanction donnée par la CNIL envers la ssociété CEGEDIM SANTE"
-                        />
-                        <PostCard
-                            date="Sept 2024"
-                            title="Des données bancaires de clients piratées suite à un piratage de SFR"
-                        />
-                    </div>
-                </div>
-                <div className="space-y-2"></div>
             </MaxWidthWrapper>
         </section>
     );
