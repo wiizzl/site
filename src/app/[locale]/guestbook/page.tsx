@@ -21,6 +21,7 @@ export default async function GuestbookPage() {
                 <div className="space-y-2">
                     {entries.map(async (item, index) => {
                         const user = await getUserById(item.userId);
+
                         if (!user) return;
 
                         return <EntryCard user={user} entry={item} key={index} />;

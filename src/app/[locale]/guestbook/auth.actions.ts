@@ -1,9 +1,13 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 
 const logIn = async () => {
     await signIn("github");
 };
 
-export { logIn };
+const logOut = async () => {
+    await signOut();
+};
+
+export { logIn, logOut };
