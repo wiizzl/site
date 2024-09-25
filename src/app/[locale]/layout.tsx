@@ -44,7 +44,7 @@ export default async function RootLayout(props: RootLayoutProps) {
     const session = await currentSession();
 
     return (
-        <html className="transition-colors duration-300">
+        <html>
             <body className="antialiased">
                 <Analytics />
                 <Providers locale={props.params.locale} session={session}>
