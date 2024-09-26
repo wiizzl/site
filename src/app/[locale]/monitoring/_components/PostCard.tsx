@@ -21,7 +21,7 @@ const PostCard = (props: PostCardProps) => {
                 className="w-full space-y-3 rounded-xl bg-base-200/0 py-8 transition-colors duration-300 md:px-8 md:hover:bg-base-200"
             >
                 <h3 className="truncate font-semibold md:text-lg">{props.title}</h3>
-                <p className="line-clamp-2 text-sm">{props.description}</p>
+                <p className="line-clamp-3 text-sm md:line-clamp-2">{props.description}</p>
                 <p className="flex items-center gap-x-1 text-sm text-primary">
                     Lire l'article <ChevronRight className="mt-0.5 size-3" />
                 </p>
