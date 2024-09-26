@@ -3,19 +3,19 @@ import matter from "gray-matter";
 import path from "path";
 import { z } from "zod";
 
-const postDirectory = path.join(process.cwd(), "/src/content");
-
 const postSchema = z.object({
     date: z.coerce.date(),
     title: z.string(),
     description: z.string(),
     categories: z.array(z.string()),
-    published: z.boolean().optional(),
+    available: z.boolean().optional(),
 });
 
 type Post = z.infer<typeof postSchema> & { id: string; content: string };
 
 const getPosts = async () => {
+    const postDirectory = path.join(process.cwd(), "/src/content");
+
     let fileNames = await fs.readdir(postDirectory);
     fileNames = fileNames.filter((fileName) => fileName.endsWith(".mdx"));
 
@@ -29,7 +29,7 @@ const getPosts = async () => {
 
         const data = postSchema.parse(frontMatter.data);
 
-        if (process.env.NODE_ENV === "production" && !data.published) continue;
+        if (process.env.NODE_ENV === "production" && !data.available) continue;
 
         posts.push({
             id: fileName.replace(".mdx", ""),
@@ -53,4 +53,4 @@ const getPost = async (id: string) => {
     return post;
 };
 
-export { getPost, getPosts, postSchema };
+export { getPost, getPosts };

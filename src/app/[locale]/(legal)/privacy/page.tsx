@@ -4,7 +4,7 @@ export default function PrivacyPage() {
     return (
         <section className="my-12 min-h-screen">
             <MaxWidthWrapper>
-                <article className="prose max-w-6xl">
+                <article className="prose max-w-full">
                     <h1>Politique de confidentialité</h1>
                     <p>
                         <strong>Dernière mise à jour :</strong> 25/09/2024

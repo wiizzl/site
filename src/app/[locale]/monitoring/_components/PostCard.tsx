@@ -12,16 +12,18 @@ type PostCardProps = {
 
 const PostCard = (props: PostCardProps) => {
     return (
-        <div className="flex gap-x-24">
-            <h4 className="mt-[34px] whitespace-nowrap pl-8">{props.date.toLocaleDateString()}</h4>
+        <div className="flex flex-col items-baseline gap-x-16 -space-y-4 md:flex-row">
+            <h4 className="whitespace-nowrap border-l-4 border-base-300 pl-3 text-sm md:border-none md:pl-8 md:text-base">
+                {props.date.toLocaleDateString()}
+            </h4>
             <Link
                 href={`/monitoring/${props.slug}`}
-                className="w-full space-y-3 rounded-xl bg-base-200/0 p-8 transition-colors duration-300 hover:bg-base-200"
+                className="w-full space-y-3 rounded-xl bg-base-200/0 py-8 transition-colors duration-300 md:px-8 md:hover:bg-base-200"
             >
-                <h3 className="truncate text-lg font-semibold">{props.title}</h3>
+                <h3 className="truncate font-semibold md:text-lg">{props.title}</h3>
                 <p className="text-sm">{props.description}</p>
                 <p className="flex items-center gap-x-1 text-sm text-primary">
-                    Lire l'article <ChevronRight className="mt-1 size-3" />
+                    Lire l'article <ChevronRight className="mt-0.5 size-3" />
                 </p>
             </Link>
         </div>
