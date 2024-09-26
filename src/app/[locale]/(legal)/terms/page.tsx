@@ -4,7 +4,7 @@ export default function TermsPage() {
     return (
         <section className="my-12 min-h-screen">
             <MaxWidthWrapper>
-                <article className="prose max-w-6xl">
+                <article className="prose max-w-full">
                     <h1>Termes et Conditions d'Utilisation</h1>
                     <p>
                         <strong>Dernière mise à jour :</strong> 25/09/24

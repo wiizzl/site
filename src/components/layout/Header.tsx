@@ -58,7 +58,7 @@ const Header = () => {
                                             <Link
                                                 href={item.href}
                                                 className={cn("text-lg", {
-                                                    "text-primary": pathname.endsWith(item.href),
+                                                    "text-primary": pathname.includes(item.href),
                                                 })}
                                             >
                                                 {item.name}
@@ -75,7 +75,7 @@ const Header = () => {
                         <Link
                             href={item.href}
                             className={cn("transition-colors duration-300 hover:text-primary", {
-                                "text-primary": pathname.endsWith(item.href),
+                                "text-primary": pathname.includes(item.href),
                             })}
                             key={index}
                         >
