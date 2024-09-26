@@ -11,7 +11,7 @@ export default async function MonitoringPage() {
             <MaxWidthWrapper>
                 <div className="space-y-8">
                     <h2 className="text-3xl font-semibold">Veille informatique</h2>
-                    <div className="border-base-300 md:border-l-2">
+                    <div className="space-y-8 border-base-300 md:border-l-2">
                         {posts.map((item, index) => (
                             <PostCard
                                 date={item.date}
