@@ -7,6 +7,8 @@ const postSchema = z.object({
     date: z.coerce.date(),
     title: z.string(),
     description: z.string(),
+    source: z.string(),
+    sourceUrl: z.string().url(),
     categories: z.array(z.string()),
     available: z.boolean().optional(),
 });
@@ -40,15 +42,12 @@ const getPosts = async () => {
 
     posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-    return posts.reverse();
+    return posts;
 };
 
 const getPost = async (id: string) => {
     const posts = await getPosts();
-
     const post = posts.find((post) => post.id === id);
-
-    if (!post) throw new Error("Post not found");
 
     return post;
 };
