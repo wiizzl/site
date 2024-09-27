@@ -6,17 +6,10 @@ import { MaxWidthWrapper } from "@/components/layout/MaxWidthWrapper";
 import { Loader } from "@/components/Loader";
 import { BackButton } from "../_components/BackButton";
 
-import { getPost, getPosts } from "@/data/monitoring";
+import { getPost } from "@/data/monitoring";
 
-export async function generateStaticParams() {
-    const posts = await getPosts();
-
-    return posts.map((item) => ({
-        slug: item.id,
-    }));
-}
-
-export const dynamic = "force-static";
+import { getLocaleDate } from "@/lib/date";
+import { getCurrentLocale } from "@/locales/server";
 
 type PostPageProps = {
     params: { slug: string };
@@ -24,6 +17,7 @@ type PostPageProps = {
 
 export default async function PostPage(props: PostPageProps) {
     const post = await getPost(props.params.slug);
+    const locale = await getCurrentLocale();
 
     return (
         <section className="my-12 min-h-screen">
@@ -35,15 +29,26 @@ export default async function PostPage(props: PostPageProps) {
                                 <div className="flex items-center gap-x-2">
                                     <BackButton />
                                     <span>
-                                        Publié le {post.date.toLocaleDateString()} - Source :{" "}
+                                        Publié le {getLocaleDate(post.date, `${locale}-${locale.toUpperCase()}`)} -
+                                        Source :{" "}
                                         <Link href={post.sourceUrl} target="_blank">
                                             {post.source}
                                         </Link>
                                     </span>
                                 </div>
                                 <h1>{post.title}</h1>
+                                <div className="flex items-baseline gap-x-1">
+                                    <p>Catégories :</p>
+                                    <div className="space-x-1">
+                                        {post.categories.map((item, index) => (
+                                            <span className="badge badge-outline" key={index}>
+                                                {item}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
-                            <hr />
+                            <hr className="-mt-0 mb-5" />
                             <MDXRemote
                                 source={post.content}
                                 options={{
