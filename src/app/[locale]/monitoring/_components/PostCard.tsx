@@ -3,6 +3,10 @@
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
+import { useCurrentLocale } from "@/locales/client";
+
+import { getLocaleDate } from "@/lib/date";
+
 type PostCardProps = {
     date: Date;
     title: string;
@@ -11,10 +15,12 @@ type PostCardProps = {
 };
 
 const PostCard = (props: PostCardProps) => {
+    const locale = useCurrentLocale();
+
     return (
         <div className="flex flex-col items-baseline gap-x-16 -space-y-4 md:flex-row">
             <h4 className="whitespace-nowrap border-l-4 border-base-300 pl-3 text-sm md:border-none md:pl-8 md:text-base">
-                {props.date.toLocaleDateString()}
+                {getLocaleDate(props.date, `${locale}-${locale.toUpperCase()}`)}
             </h4>
             <Link
                 href={`/monitoring/${props.slug}`}
