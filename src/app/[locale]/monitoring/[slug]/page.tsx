@@ -30,7 +30,7 @@ export default async function PostPage(props: PostPageProps) {
                             <div className="space-y-3">
                                 <div className="flex items-center gap-x-2">
                                     <BackButton />
-                                    <span>
+                                    <span className="truncate">
                                         {t("postedAt")} {getLocaleDate(post.date, `${locale}-${locale.toUpperCase()}`)}{" "}
                                         - {t("source")} :{" "}
                                         <Link href={post.sourceUrl} target="_blank">
