@@ -9,15 +9,17 @@ import { BackButton } from "../_components/BackButton";
 import { getPost } from "@/data/monitoring";
 
 import { getLocaleDate } from "@/lib/date";
-import { getCurrentLocale } from "@/locales/server";
+import { getCurrentLocale, getScopedI18n } from "@/locales/server";
 
 type PostPageProps = {
     params: { slug: string };
 };
 
 export default async function PostPage(props: PostPageProps) {
+    const locale = getCurrentLocale();
+    const t = await getScopedI18n("pages.monitoring.article");
+
     const post = await getPost(props.params.slug);
-    const locale = await getCurrentLocale();
 
     return (
         <section className="my-12 min-h-screen">
@@ -29,8 +31,8 @@ export default async function PostPage(props: PostPageProps) {
                                 <div className="flex items-center gap-x-2">
                                     <BackButton />
                                     <span>
-                                        Publié le {getLocaleDate(post.date, `${locale}-${locale.toUpperCase()}`)} -
-                                        Source :{" "}
+                                        {t("postedAt")} {getLocaleDate(post.date, `${locale}-${locale.toUpperCase()}`)}{" "}
+                                        - {t("source")} :{" "}
                                         <Link href={post.sourceUrl} target="_blank">
                                             {post.source}
                                         </Link>
@@ -38,7 +40,7 @@ export default async function PostPage(props: PostPageProps) {
                                 </div>
                                 <h1>{post.title}</h1>
                                 <div className="flex items-baseline gap-x-1">
-                                    <p>Catégories :</p>
+                                    <p>{t("categories")} :</p>
                                     <div className="space-x-1">
                                         {post.categories.map((item, index) => (
                                             <span className="badge badge-outline" key={index}>
@@ -56,11 +58,11 @@ export default async function PostPage(props: PostPageProps) {
                                         format: "mdx",
                                     },
                                 }}
-                                // components={components}
+                                // components={components} // TODO: add custom components
                             />
                         </article>
                     ) : (
-                        <h1 className="text-center text-2xl">Cet article n'existe pas...</h1>
+                        <h1 className="text-center text-2xl">{t("notFound")}</h1>
                     )}
                 </Suspense>
             </MaxWidthWrapper>

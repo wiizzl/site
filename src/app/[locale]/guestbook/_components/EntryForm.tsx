@@ -98,7 +98,7 @@ const EntryForm = () => {
                             )}
                             <div className="modal-action flex justify-end">
                                 <button type="submit" className="btn btn-outline flex">
-                                    Confirmer
+                                    {t("confirm")}
                                 </button>
                             </div>
                         </form>
