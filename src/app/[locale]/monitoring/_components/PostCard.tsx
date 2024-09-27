@@ -3,7 +3,7 @@
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-import { useCurrentLocale } from "@/locales/client";
+import { useCurrentLocale, useScopedI18n } from "@/locales/client";
 
 import { getLocaleDate } from "@/lib/date";
 
@@ -15,6 +15,7 @@ type PostCardProps = {
 };
 
 const PostCard = (props: PostCardProps) => {
+    const t = useScopedI18n("pages.monitoring.card");
     const locale = useCurrentLocale();
 
     return (
@@ -29,7 +30,7 @@ const PostCard = (props: PostCardProps) => {
                 <h3 className="truncate font-semibold md:text-lg">{props.title}</h3>
                 <p className="line-clamp-3 text-sm md:line-clamp-2">{props.description}</p>
                 <p className="flex items-center gap-x-1 text-sm text-primary">
-                    Lire l'article <ChevronRight className="mt-0.5 size-3" />
+                    {t("readArticle")} <ChevronRight className="mt-0.5 size-3" />
                 </p>
             </Link>
         </div>
