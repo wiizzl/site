@@ -40,6 +40,7 @@ export default {
                 categories: "Catégories",
                 source: "Source",
                 notFound: "Cet article n'existe pas...",
+                comeBack: "Retourner en lieu sur",
             },
             card: {
                 readArticle: "Lire l'article",
