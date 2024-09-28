@@ -8,7 +8,6 @@ import { logIn } from "../auth.actions";
 import { EntryForm } from "./EntryForm";
 
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-
 import { useScopedI18n } from "@/locales/client";
 
 const UserButton = () => {

@@ -3,14 +3,13 @@ import "@/styles.css";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 
+import { Providers } from "./providers";
+
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 
-import { currentSession } from "@/lib/auth";
-
 import { Config } from "@/config";
-
-import { Providers } from "./providers";
+import { currentSession } from "@/lib/auth";
 
 export const metadata: Metadata = {
     title: Config.Title,

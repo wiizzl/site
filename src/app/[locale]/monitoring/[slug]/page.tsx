@@ -7,10 +7,8 @@ import { Loader } from "@/components/Loader";
 import { BackButton } from "../_components/BackButton";
 
 import { getPost } from "@/data/monitoring";
-
-import { getCurrentLocale, getScopedI18n } from "@/locales/server";
-
 import { getLocaleDate } from "@/lib/date";
+import { getCurrentLocale, getScopedI18n } from "@/locales/server";
 
 type PostPageProps = {
     params: { slug: string };

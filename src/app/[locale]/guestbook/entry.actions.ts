@@ -3,11 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
+import { entrySchema } from "./entry.schema";
+
 import { currentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-
 import { getScopedI18n } from "@/locales/server";
-import { entrySchema } from "./entry.schema";
 
 const entry = async (values: z.infer<typeof entrySchema>) => {
     const t = await getScopedI18n("pages.guestbook.notif");

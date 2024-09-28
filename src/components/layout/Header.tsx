@@ -9,11 +9,9 @@ import { MaxWidthWrapper } from "@/components/layout/MaxWidthWrapper";
 import { LangSelect } from "@/components/select/LangSelect";
 import { ThemeSelect } from "@/components/select/ThemeSelect";
 
-import { cn } from "@/lib/utils";
-
-import { useScopedI18n } from "@/locales/client";
-
 import { Config } from "@/config";
+import { cn } from "@/lib/utils";
+import { useScopedI18n } from "@/locales/client";
 
 const Header = () => {
     const t = useScopedI18n("layout.header");
