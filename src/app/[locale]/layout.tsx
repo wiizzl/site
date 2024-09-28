@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     authors: [{ name: "Pierre", url: "https://github.com/wiizzl" }],
     creator: "Pierre HOULLIERE",
     icons: { icon: "/favicon.ico" },
-    metadataBase: new URL("http://localhost:3000"),
+    metadataBase: new URL("https://pierreh.vercel.app"),
 };
 
 type RootLayoutProps = Readonly<{
