@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
+.mdx-component > *:last-child {
+    margin-bottom: 0px;
+}
+.mdx-component > *:first-child {
+    margin-top: 0px;
 }

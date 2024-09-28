@@ -19,7 +19,7 @@ export default async function MonitoringPage() {
                             <PostCard
                                 date={item.date}
                                 title={item.title}
-                                slug={item.id}
+                                slug={item.slug}
                                 description={item.description}
                                 key={index}
                             />

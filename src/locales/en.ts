@@ -40,6 +40,7 @@ export default {
                 categories: "Categories",
                 source: "Source",
                 notFound: "This article does not exist...",
+                comeBack: "Come back in safe place",
             },
             card: {
                 readArticle: "Read article (only in french)",
