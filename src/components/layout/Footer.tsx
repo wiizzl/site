@@ -15,7 +15,7 @@ const Footer = () => {
 
     return (
         <MaxWidthWrapper>
-            <footer className="flex flex-col items-center justify-between space-y-5 border-t border-neutral-content/50 py-10 md:flex-row md:space-y-0">
+            <footer className="flex select-none flex-col items-center justify-between space-y-5 border-t border-neutral-content/50 py-10 md:flex-row md:space-y-0">
                 <nav className="flex gap-x-6">
                     {nav.map((item, index) => (
                         <Link href={item.href} className="text-sm hover:underline" key={index}>
