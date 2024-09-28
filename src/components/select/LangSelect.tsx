@@ -3,7 +3,6 @@
 import { Languages } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-
 import { useChangeLocale, useCurrentLocale, useScopedI18n } from "@/locales/client";
 
 const LangSelect = () => {

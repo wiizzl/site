@@ -4,9 +4,8 @@ import Link from "next/link";
 import { Experience } from "@/components/Experience";
 import { MaxWidthWrapper } from "@/components/layout/MaxWidthWrapper";
 
-import { cn } from "@/lib/utils";
-
 import { Config } from "@/config";
+import { cn } from "@/lib/utils";
 import { getScopedI18n } from "@/locales/server";
 
 export default async function Home() {

@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
+
 import { MaxWidthWrapper } from "@/components/layout/MaxWidthWrapper";
 
 import { useScopedI18n } from "@/locales/client";
-import Link from "next/link";
 
 const Footer = () => {
     const t = useScopedI18n("layout.footer");

@@ -4,7 +4,6 @@ import { Info } from "./_components/Info";
 
 import { getGuestbookEntries } from "@/data/guestbook";
 import { getUserById } from "@/data/user";
-
 import { getScopedI18n } from "@/locales/server";
 
 export default async function GuestbookPage() {

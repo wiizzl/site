@@ -3,9 +3,8 @@
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-import { useCurrentLocale, useScopedI18n } from "@/locales/client";
-
 import { getLocaleDate } from "@/lib/date";
+import { useCurrentLocale, useScopedI18n } from "@/locales/client";
 
 type PostCardProps = {
     date: Date;
