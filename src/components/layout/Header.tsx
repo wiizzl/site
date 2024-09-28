@@ -28,7 +28,7 @@ const Header = () => {
 
     return (
         <MaxWidthWrapper>
-            <header className="flex items-center justify-between py-4">
+            <header className="flex select-none items-center justify-between py-4">
                 <div className="flex gap-x-2">
                     <Link href="/" className="btn btn-circle">
                         <div className="avatar">
