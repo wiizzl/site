@@ -3,6 +3,8 @@ import matter from "gray-matter";
 import path from "path";
 import { z } from "zod";
 
+import { env } from "@/lib/env";
+
 const postSchema = z.object({
     title: z.string().min(45).max(65),
     date: z.coerce.date(),
@@ -39,7 +41,7 @@ const getPosts = async () => {
             continue;
         }
 
-        if (!safeData.data.available && process.env.NODE_ENV !== "development") continue;
+        if (!safeData.data.available && env.ENV !== "development") continue;
 
         posts.push({
             ...safeData.data,
