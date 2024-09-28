@@ -2,7 +2,6 @@ import { MaxWidthWrapper } from "@/components/layout/MaxWidthWrapper";
 import { PostCard } from "./_components/PostCard";
 
 import { getPosts } from "@/data/monitoring";
-
 import { getScopedI18n } from "@/locales/server";
 
 export default async function MonitoringPage() {

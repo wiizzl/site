@@ -1,8 +1,9 @@
 "use client";
 
-import { useScopedI18n } from "@/locales/client";
 import { BriefcaseBusiness } from "lucide-react";
 import Image from "next/image";
+
+import { useScopedI18n } from "@/locales/client";
 
 const Experience = () => {
     const t = useScopedI18n("pages.hero.experience");

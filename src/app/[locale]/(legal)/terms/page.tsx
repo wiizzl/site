@@ -1,4 +1,5 @@
 import { MaxWidthWrapper } from "@/components/layout/MaxWidthWrapper";
+
 import { getScopedI18n } from "@/locales/server";
 
 export default async function TermsPage() {

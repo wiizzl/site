@@ -1,7 +1,8 @@
 "use client";
 
-import { useScopedI18n } from "@/locales/client";
 import { Moon, Sun } from "lucide-react";
+
+import { useScopedI18n } from "@/locales/client";
 
 const ThemeSelect = () => {
     const t = useScopedI18n("layout.header");
