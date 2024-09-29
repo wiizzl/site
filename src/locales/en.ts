@@ -23,34 +23,41 @@ export default {
             description:
                 "I'm a 18-year-old student based in France (Rouen) and I'm passionate about creating digital experience. I enjoy studying and designing solutions to technical needs.",
 
-            bento: {
+            help: {
                 title: "How can I help you ?",
                 description: "I can create perfect experience for your users...",
 
-                firstTitle: "React",
-                firstDesc: "I am experimented with React libarary and I can create whatever you want with it.",
+                bento: {
+                    firstTitle: "React",
+                    firstDesc: "I am experimented with React and I can create whatever you want with it.",
 
-                secondTitle: "",
-                secondDesc: "",
+                    secondTitle: "",
+                    secondDesc: "",
 
-                thirdTitle: "TypeScript",
-                thirdDesc: "I speak more TypeScript than my mother tongue.",
+                    thirdTitle: "TypeScript",
+                    thirdDesc: "I speak more TypeScript than my mother tongue.",
 
-                fourthTitle: "Technologies",
-                fourthDesc:
-                    "I'm a specialist in Next.js framework and I'll be happy to bring you app to life with it. I also like to use PostreSQL as a database.",
+                    fourthTitle: "Technologies",
+                    fourthDesc:
+                        "I primarily use Next.js as my React framework and PostgreSQL as my database, and I am highly focused on protecting the data of users.",
 
-                fifthTitle: "Tailwind CSS",
-                fifthDesc: "I can create a beautiful & responsive design. I think it is the best for CSS in 2024.",
+                    fifthTitle: "Tailwind CSS",
+                    fifthDesc: "I can create a beautiful & responsive design. I think it is the best for CSS in 2024.",
+                },
             },
 
-            experience: {
-                title: "Experience & Education",
-                now: "Present",
-                webDev: "Web Developer",
-                bac: "HS Diploma in Siences",
-                bts: "HND in Computer Science",
-                downloadCV: "Download CV",
+            learn: {
+                title: "Learn more about me",
+                description: "...",
+
+                experience: {
+                    title: "Experience & Education",
+                    now: "Present",
+                    webDev: "Web Developer",
+                    bac: "HS Diploma in Siences",
+                    bts: "HND in Computer Science",
+                    downloadCV: "Download CV",
+                },
             },
 
             contact: {
