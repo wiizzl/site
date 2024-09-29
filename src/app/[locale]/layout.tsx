@@ -44,7 +44,7 @@ export default async function RootLayout(props: RootLayoutProps) {
 
     return (
         <html>
-            <body className="scroll-smooth antialiased">
+            <body className="antialiased">
                 <Analytics />
                 <Providers locale={props.params.locale} session={session}>
                     <Header />
