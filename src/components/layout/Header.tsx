@@ -18,8 +18,7 @@ const Header = () => {
     const pathname = usePathname();
 
     const nav = [
-        { name: t("about"), href: "/about" },
-        { name: t("projects"), href: "/projects" },
+        { name: t("projects"), href: "/work" },
         { name: t("monitoring"), href: "/monitoring" },
         { name: t("guestbook"), href: "/guestbook" },
     ];
@@ -68,7 +67,7 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-                <nav className="ml-10 hidden gap-x-6 md:flex">
+                <nav className="ml-16 hidden gap-x-6 md:flex">
                     {nav.map((item, index) => (
                         <Link
                             href={item.href}

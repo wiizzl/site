@@ -2,7 +2,8 @@ import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 
 const Config = {
     Title: "Pierre H. - wiizz",
-    Description: "...",
+    Description:
+        "French computer science student, freelance developer. I love to create beautiful and efficient websites.",
     Keywords: ["developer", "portfolio", "dev"],
 
     Socials: [
