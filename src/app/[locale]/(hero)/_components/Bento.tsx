@@ -20,7 +20,7 @@ const Bento = () => {
         <div className="grid grid-cols-1 grid-rows-2 gap-4 md:grid-cols-3">
             <div className={cn("col-span-1 row-span-1", containerClass)}>
                 <div className={iconContainerClass}>
-                    <Svg.react className="size-36 animate-react" />
+                    <Svg.react className="size-36 animate-react transition-colors duration-500 hover:text-[#58c4dc]" />
                 </div>
                 <div className={textContainerClass}>
                     <h3 className={titleClass}>{t("firstTitle")}</h3>
@@ -30,9 +30,9 @@ const Bento = () => {
             <div className={cn("col-span-1 row-span-1", containerClass)}></div>
             <div className={cn("col-span-1 row-span-1 group", containerClass)}>
                 <div className={iconContainerClass}>
-                    <label className="swap swap-flip group-hover:swap-active cursor-auto text-6xl">
+                    <label className="swap swap-flip cursor-auto text-6xl group-hover:swap-active">
                         <div className="swap-on">
-                            <Svg.javascript className="size-36 rounded-xl" />
+                            <Svg.typescript className="size-36 rounded-xl text-[#2f74c0]" />
                         </div>
                         <div className="swap-off">
                             <Svg.typescript className="size-36 rounded-xl" />
@@ -56,7 +56,7 @@ const Bento = () => {
             </div>
             <div className={cn("col-span-1 row-span-2 group", containerClass)}>
                 <div className={iconContainerClass}>
-                    <Svg.tailwind className="size-36 group-hover:rotate-180 transition-transform duration-1000" />
+                    <Svg.tailwind className="size-36 transition-all duration-1000 hover:text-[#38bdf8] group-hover:rotate-180" />
                 </div>
                 <div className={textContainerClass}>
                     <h3 className={titleClass}>{t("fifthTitle")}</h3>
