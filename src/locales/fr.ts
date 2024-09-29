@@ -1,7 +1,6 @@
 export default {
     layout: {
         header: {
-            about: "à propos",
             projects: "projets",
             monitoring: "veille",
             guestbook: "livre d'or",
@@ -24,6 +23,27 @@ export default {
             description:
                 "Je suis un étudiant de 18 ans vivant en France (Rouen) et je suis passionné par la création d'environnements virtuels. J'aime étudier et concevoir des solutions aux besoins techniques.",
 
+            bento: {
+                title: "Comment puis-je vous aider ?",
+                description: "Je peux créer des expériences parfaites pour vos utilisateurs...",
+
+                firstTitle: "React",
+                firstDesc: "",
+
+                secondTitle: "",
+                secondDesc: "",
+
+                thirdTitle: "TypeScript",
+                thirdDesc: "Je parle plus TypeScript que ma langue natale.",
+
+                fourthTitle: "Technologies",
+                fourthDesc: "",
+
+                fifthTitle: "Tailwind CSS",
+                fifthDesc:
+                    "Je peux créer des designs modernes et responsives. Je pense que c'est le meilleur outil pour le CSS en 2024.",
+            },
+
             experience: {
                 title: "Expérience & Éducation",
                 now: "Présent",
@@ -31,6 +51,12 @@ export default {
                 bac: "BAC Général (Maths - SI)",
                 bts: "BTS SIO (Option SLAM)",
                 downloadCV: "Télécharger mon CV",
+            },
+
+            contact: {
+                title: "Me contacter",
+                description:
+                    "Si mon profil vous intéresse n'hésitez pas à me contacter sur les réseaux sociaux ou par mail.",
             },
         },
         monitoring: {

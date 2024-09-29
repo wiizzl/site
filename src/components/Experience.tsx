@@ -1,6 +1,6 @@
 "use client";
 
-import { BriefcaseBusiness } from "lucide-react";
+import { BriefcaseBusiness, Download } from "lucide-react";
 import Image from "next/image";
 
 import { useScopedI18n } from "@/locales/client";
@@ -63,7 +63,7 @@ const Experience = () => {
                 ))}
             </div>
             <button onClick={() => alert("Work in progress")} className="btn btn-sm w-full">
-                {t("downloadCV")}
+                <Download className="size-4" /> {t("downloadCV")}
             </button>
         </div>
     );
