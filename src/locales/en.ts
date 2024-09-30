@@ -25,7 +25,8 @@ export default {
 
             help: {
                 title: "How can I help you ?",
-                description: "I can create perfect experience for your users...",
+                description:
+                    "Discover my favorite development technologies. I am ready to design modern interfaces for your projects.",
 
                 bento: {
                     firstTitle: "React",
@@ -42,13 +43,14 @@ export default {
                         "I primarily use Next.js as my React framework and PostgreSQL as my database, and I am highly focused on protecting the data of users.",
 
                     fifthTitle: "Tailwind CSS",
-                    fifthDesc: "I can create a beautiful & responsive design. I think it is the best for CSS in 2024.",
+                    fifthDesc:
+                        "I can create a beautiful & responsive design. I think it is the best tool for CSS in 2024.",
                 },
             },
 
             learn: {
                 title: "Learn more about me",
-                description: "...",
+                description: "Find out how my profile matches your needs and your project.",
 
                 experience: {
                     title: "Experience & Education",
