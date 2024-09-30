@@ -25,7 +25,8 @@ export default {
 
             help: {
                 title: "Comment puis-je vous aider ?",
-                description: "Je peux créer des expériences parfaites pour vos utilisateurs...",
+                description:
+                    "Découvrez mes technologies de développement favorites. Je suis prêt à concevoir des interfaces modernes pour vos projets.",
 
                 bento: {
                     firstTitle: "React",
@@ -49,7 +50,7 @@ export default {
 
             learn: {
                 title: "Apprenez en plus sur moi",
-                description: "...",
+                description: "Découvrez en quoi mon profil correspond à vos besoins ainsi que votre projet.",
 
                 experience: {
                     title: "Expérience & Éducation",
