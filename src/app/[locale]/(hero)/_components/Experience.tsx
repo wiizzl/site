@@ -11,7 +11,7 @@ const Experience = () => {
     const experience = [
         {
             name: t("webDev"),
-            details: "Freelance",
+            details: t("freelance"),
             startDate: "04/2023",
             endDate: t("now"),
             image: "https://i.imgur.com/Lr0FsHR.jpeg",
@@ -33,7 +33,7 @@ const Experience = () => {
     ];
 
     return (
-        <div className="w-[350px] space-y-6 rounded-2xl border-2 border-base-200 p-5">
+        <div className="min-w-[320px] space-y-6 rounded-xl border border-neutral-content/50 bg-base-200/70 p-5">
             <div className="ml-0.5 flex items-center gap-x-3.5">
                 <BriefcaseBusiness strokeWidth={1.5} />
                 <h2 className="text-lg font-semibold">{t("title")}</h2>
@@ -62,7 +62,7 @@ const Experience = () => {
                     </div>
                 ))}
             </div>
-            <button onClick={() => alert("Work in progress")} className="btn btn-sm w-full">
+            <button onClick={() => alert("Work in progress")} className="btn btn-sm w-full border-neutral-content/50">
                 <Download className="size-4" /> {t("downloadCV")}
             </button>
         </div>
