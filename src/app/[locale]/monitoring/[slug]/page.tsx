@@ -16,7 +16,6 @@ type PostPageProps = {
 
 export default async function PostPage(props: PostPageProps) {
     const post = await getPost(props.params.slug);
-
     const locale = getCurrentLocale();
     const t = await getScopedI18n("pages.monitoring.article");
 
