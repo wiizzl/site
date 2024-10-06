@@ -32,15 +32,15 @@ export default {
                     firstTitle: "React",
                     firstDesc: "I am experimented with React and I can create whatever you want with it.",
 
-                    secondTitle: "",
-                    secondDesc: "",
+                    secondTitle: "Next.js",
+                    secondDesc: "I got used to making applications with this React framework. It is very fast.",
 
                     thirdTitle: "TypeScript",
                     thirdDesc: "I speak more TypeScript than my mother tongue.",
 
                     fourthTitle: "Technologies",
                     fourthDesc:
-                        "I primarily use Next.js as my React framework and PostgreSQL as my database, and I am highly focused on protecting the data of users.",
+                        "I primarily use PostgreSQL and MongoDB as my database and I am highly focused on protecting the data of users.",
 
                     fifthTitle: "Tailwind CSS",
                     fifthDesc:
