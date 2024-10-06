@@ -57,6 +57,15 @@ model Session {
     @@map("sessions")
 }
 
+model Project {
+    id          String @id @default(cuid())
+    name        String
+    description String
+    href        String
+
+    @@map("projects")
+}
+
 model Guestbook {
     id      String @id @default(cuid())
     userId  String @unique

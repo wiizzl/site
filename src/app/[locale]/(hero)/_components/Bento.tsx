@@ -46,8 +46,8 @@ const Bento = () => {
             </div>
             <div className={cn("md:col-span-2 md:row-span-2", containerClass)}>
                 <div className={cn("gap-x-5", iconContainerClass)}>
-                    <Svg.nextjs className="size-28" />
-                    <Svg.postgresql className="size-28" />
+                    <Svg.nextjs className="size-32" />
+                    <Svg.postgresql className="size-[140px]" />
                 </div>
                 <div className={textContainerClass}>
                     <h3 className={titleClass}>{t("fourthTitle")}</h3>
