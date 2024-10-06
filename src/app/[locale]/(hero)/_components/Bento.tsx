@@ -27,7 +27,15 @@ const Bento = () => {
                     <p className={descriptionClass}>{t("firstDesc")}</p>
                 </div>
             </div>
-            <div className={cn("col-span-1 row-span-1", containerClass)}></div>
+            <div className={cn("col-span-1 row-span-1", containerClass)}>
+                <div className={iconContainerClass}>
+                    <Svg.nextjs className="size-36" />
+                </div>
+                <div className={textContainerClass}>
+                    <h3 className={titleClass}>{t("secondTitle")}</h3>
+                    <p className={descriptionClass}>{t("secondDesc")}</p>
+                </div>
+            </div>
             <div className={cn("col-span-1 row-span-1 group", containerClass)}>
                 <div className={iconContainerClass}>
                     <label className="swap swap-flip cursor-auto text-6xl group-hover:swap-active">
@@ -46,7 +54,7 @@ const Bento = () => {
             </div>
             <div className={cn("md:col-span-2 md:row-span-2 group", containerClass)}>
                 <div className={cn("gap-x-5", iconContainerClass)}>
-                    <Svg.nextjs className="size-32" />
+                    <Svg.mongodb className="size-32" />
                     <Svg.postgresql className="size-[143px]" />
                 </div>
                 <div className={textContainerClass}>
