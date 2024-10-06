@@ -74,6 +74,9 @@ export default {
                     "If my profile interests you, do not hesitate to contact me on social networks or by email.",
             },
         },
+        work: {
+            title: "Some of my work",
+        },
         monitoring: {
             title: "Informatic monitoring (articles are only in french)",
             article: {

@@ -8,7 +8,7 @@ const Learn = () => {
     const t = useScopedI18n("pages.hero.learn");
 
     return (
-        <div className="flex justify-between gap-x-5">
+        <div className="flex flex-col justify-between gap-5 lg:flex-row">
             <div className="space-y-5">
                 <div className="space-y-0.5">
                     <h2 className="text-3xl font-semibold">{t("title")}</h2>

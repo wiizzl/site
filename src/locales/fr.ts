@@ -74,6 +74,9 @@ export default {
                     "Si mon profil vous intéresse n'hésitez pas à me contacter sur les réseaux sociaux ou par mail.",
             },
         },
+        work: {
+            title: "Quelques projets",
+        },
         monitoring: {
             title: "Veille informatique",
             article: {
