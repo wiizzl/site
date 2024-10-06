@@ -18,8 +18,7 @@ export default async function Home() {
             <MaxWidthWrapper>
                 <div className="max-w-2xl space-y-5">
                     <h1 className="text-4xl font-bold md:text-5xl">
-                        {t("hello")},<br />
-                        {t("slug")}
+                        {t("hello")}, {t("slug")}
                     </h1>
                     <p>{t("description")}</p>
                     <Socials />

@@ -19,7 +19,7 @@ export default {
     pages: {
         hero: {
             hello: "Bonjour, je m'appelle Pierre",
-            slug: "Je transforme des idées en réalité",
+            slug: "je transforme des idées en réalité",
             description:
                 "Je suis un étudiant de 18 ans vivant en France (Rouen) et je suis passionné par la création d'environnements virtuels. J'aime étudier et concevoir des solutions aux besoins techniques.",
 
@@ -52,10 +52,16 @@ export default {
                 title: "Apprenez en plus sur moi",
                 description: "Découvrez en quoi mon profil correspond à vos besoins ainsi que votre projet.",
 
+                content1:
+                    "Je m'appelle Pierre, et je suis actuellement étudiant avec une passion pour le développement web. J'adore créer des projets concrets qui répondent aux besoins des utilisateurs. Je suis très motivé pour travailler sur de nouveaux projets et acquérir de l'expérience en collaborant avec d'autres développeurs. Le travail en équipe est pour moi une source d'inspiration : il me permet d'apprendre des autres, tout en atteignant des objectifs communs. Enthousiaste, curieux et dynamique, je suis prêt à relever des défis et à contribuer activement à des projets innovants.",
+                content2:
+                    "En dehors du développement, je fais beaucoup de sport. Le volley est l'une de mes activités favorites, car il combine esprit d'équipe, dynamisme, et coordination. Je pratique également la voile, en particulier la régate, où je retrouve l'adrénaline et un esprit de compétition. Ces passions nourrissent ma curiosité et mon désir de toujours apprendre et expérimenter de nouvelles choses.",
+
                 experience: {
                     title: "Expérience & Éducation",
                     now: "Présent",
                     webDev: "Développeur Web",
+                    freelance: "Freelance",
                     bac: "BAC Général (Maths - SI)",
                     bts: "BTS SIO (Option SLAM)",
                     downloadCV: "Télécharger mon CV",

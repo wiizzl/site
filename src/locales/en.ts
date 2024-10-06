@@ -52,10 +52,16 @@ export default {
                 title: "Learn more about me",
                 description: "Find out how my profile matches your needs and your project.",
 
+                content1:
+                    "My name is Pierre, and I am currently a student with a passion for web development. I love creating concrete projects that meet users' needs. I am highly motivated to work on new projects and gain experience by collaborating with other developers. Teamwork is a source of inspiration for me: it allows me to learn from others while achieving common goals. Enthusiastic, curious, and dynamic, I am ready to take on challenges and actively contribute to innovative projects.",
+                content2:
+                    "Outside of development, I do a lot of sports. Volleyball is one of my favorite activities, as it combines teamwork, dynamism, and coordination. I also practice sailing, particularly regattas, where I find adrenaline and a spirit of competition. These passions fuel my curiosity and my desire to always learn and experience new things.",
+
                 experience: {
                     title: "Experience & Education",
                     now: "Present",
                     webDev: "Web Developer",
+                    freelance: "Freelance",
                     bac: "HS Diploma in Siences",
                     bts: "HND in Computer Science",
                     downloadCV: "Download CV",
