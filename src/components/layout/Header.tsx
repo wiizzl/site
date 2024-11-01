@@ -1,99 +1,51 @@
 "use client";
 
-import { Code, Menu } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { cloneElement } from "react";
 
-import { MaxWidthWrapper } from "@/components/layout/MaxWidthWrapper";
-import { LangSelect } from "@/components/select/LangSelect";
-import { ThemeSelect } from "@/components/select/ThemeSelect";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { Config } from "@/config";
-import { cn } from "@/lib/utils";
-import { useScopedI18n } from "@/locales/client";
+import { ThemeToggle } from "@/features/theme/theme-toggle";
+
+import { config } from "@/config";
 
 const Header = () => {
-    const t = useScopedI18n("layout.header");
-    const pathname = usePathname();
-
-    const nav = [
-        { name: t("projects"), href: "/work" },
-        { name: t("monitoring"), href: "/monitoring" },
-        { name: t("guestbook"), href: "/guestbook" },
-    ];
-
     return (
-        <MaxWidthWrapper>
-            <header className="flex select-none items-center justify-between py-4">
-                <div className="flex gap-x-2">
-                    <Link href="/" className="btn btn-circle">
-                        <div className="avatar">
-                            <Image
-                                src="/images/me.jpg"
-                                alt="Photo de profil"
-                                width={40}
-                                height={40}
-                                className="rounded-full object-cover"
-                            />
-                        </div>
-                    </Link>
-                    <div className="drawer z-50 block md:hidden">
-                        <input id="nav-drawer" type="checkbox" className="drawer-toggle" />
-                        <div className="drawer-content">
-                            <label htmlFor="nav-drawer" className="btn btn-square btn-ghost drawer-button">
-                                <Menu />
-                            </label>
-                        </div>
-                        <div className="drawer-side">
-                            <label htmlFor="nav-drawer" aria-label="close sidebar" className="drawer-overlay" />
-                            <div className="min-h-full w-48 bg-base-200">
-                                <h2 className="bg-base-200 py-8 text-center text-xl font-semibold">{Config.Title}</h2>
-                                <ul className="menu p-4">
-                                    {nav.map((item, index) => (
-                                        <li key={index}>
-                                            <Link
-                                                href={item.href}
-                                                className={cn("text-lg", {
-                                                    "text-primary": pathname.includes(item.href),
-                                                })}
-                                            >
-                                                {item.name}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
+        <header className="z-50 items-center justify-between flex p-4 border rounded-lg mt-14 mb-6">
+            <div className="flex items-center gap-x-3">
+                <Link href="/">
+                    <Avatar className="size-11">
+                        <AvatarImage src="/images/me.jpg" />
+                        <AvatarFallback>PH</AvatarFallback>
+                    </Avatar>
+                </Link>
+                <div>
+                    <div className="flex gap-x-1 items-baseline">
+                        <h1 className="font-semibold leading-7">Pierre Houllière</h1>
+                        <ThemeToggle />
                     </div>
+                    <p className="text-xs font-light">Étudiant, développeur freelance</p>
                 </div>
-                <nav className="ml-16 hidden gap-x-6 md:flex">
-                    {nav.map((item, index) => (
+            </div>
+            <div className="flex gap-x-2">
+                {config.socials.map((item, index) => {
+                    const ariaLabel = `Social : ${item.name}`;
+
+                    return (
                         <Link
                             href={item.href}
-                            className={cn("transition-colors duration-300 hover:text-primary", {
-                                "text-primary": pathname.includes(item.href),
-                            })}
+                            target="_blank"
+                            className="hover:scale-105 transition-transform duration-300"
+                            aria-label={ariaLabel}
                             key={index}
                         >
-                            {item.name}
+                            {cloneElement(item.icon, { className: "size-5" })}
+                            <span className="sr-only">{ariaLabel}</span>
                         </Link>
-                    ))}
-                </nav>
-                <div className="flex space-x-2">
-                    <Link
-                        title={t("getSource")}
-                        href="https://github.com/wiizzl/portfolio"
-                        target="_blank"
-                        className="btn btn-square btn-ghost"
-                    >
-                        <Code />
-                    </Link>
-                    <ThemeSelect />
-                    <LangSelect />
-                </div>
-            </header>
-        </MaxWidthWrapper>
+                    );
+                })}
+            </div>
+        </header>
     );
 };
 
