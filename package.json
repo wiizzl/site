@@ -20,7 +20,6 @@
         "next": "15.0.2",
         "next-mdx-remote-client": "^1.0.3",
         "next-themes": "^0.3.0",
-        "open-graph-scraper": "^6.8.2",
         "react": "19.0.0-rc-02c0e824-20241028",
         "react-dom": "19.0.0-rc-02c0e824-20241028",
         "tailwind-merge": "^2.5.4",
