@@ -52,7 +52,7 @@ export default async function HomePage() {
                 </div>
             </section>
             <section>
-                <Title>Projets 🚧</Title>
+                <Title>Projets & Travail (freelance) 🚧</Title>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {projects.map((item, index) => (
                         <ProjectCard project={item} key={index} />
