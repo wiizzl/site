@@ -42,7 +42,7 @@ export default async function HomePage() {
     ];
 
     return (
-        <main className="space-y-4">
+        <main className="space-y-4 pb-5">
             <section>
                 <Title>Services 🛠️</Title>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
