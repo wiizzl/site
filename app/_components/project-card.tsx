@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
@@ -49,7 +49,11 @@ const ProjectCard = (props: ProjectCardProps) => {
                     }}
                 />
                 <div className="relative p-3 space-y-1">
-                    <img src={props.project.image} alt={`Projet : ${props.project.title}`} className="rounded-lg" />
+                    <img
+                        src={props.project.image}
+                        alt={`Projet : ${props.project.title}`}
+                        className="rounded-lg aspect-video w-full"
+                    />
                     <div>
                         <p className="text-sm">{props.project.title}</p>
                         <p className="text-xs text-muted-foreground line-clamp-2">{props.project.description}</p>
