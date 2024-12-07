@@ -33,7 +33,7 @@ export default async function HomePage() {
             href: "https://folding-art.vercel.app",
         },
         {
-            title: "Info-Galilée",
+            title: "Info Galilée",
             description: "Site regroupant des cours pour les élèves de la spécialité SI de mon lycée.",
             image: "https://i.imgur.com/gbhzBzm.png",
             href: "https://info-galilee.vercel.app",
