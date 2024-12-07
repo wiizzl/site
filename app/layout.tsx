@@ -1,12 +1,10 @@
-import "~/globals.css";
+import "@/globals.css";
 
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 
 import { Header } from "@/components/layout/header";
 import { MaxWidthWrapper } from "@/components/layout/max-width-wrapper";
-
-import { Providers } from "~/providers";
 
 import { config } from "@/config";
 
@@ -40,12 +38,10 @@ export default function RootLayout(props: RootLayoutProps) {
         <html lang="fr">
             <body className="antialiased">
                 <Analytics />
-                <Providers>
-                    <MaxWidthWrapper>
-                        <Header />
-                        {props.children}
-                    </MaxWidthWrapper>
-                </Providers>
+                <MaxWidthWrapper>
+                    <Header />
+                    {props.children}
+                </MaxWidthWrapper>
             </body>
         </html>
     );

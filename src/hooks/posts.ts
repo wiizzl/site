@@ -6,7 +6,7 @@ import { z } from "zod";
 import { env } from "@/lib/env";
 
 const postSchema = z.object({
-    title: z.string().min(45).max(65),
+    title: z.string().min(45).max(100),
     description: z.string(),
     categories: z.array(z.string()),
     author: z.string().min(3).max(30),
