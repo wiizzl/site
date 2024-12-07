@@ -5,8 +5,6 @@ import { cloneElement } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { ThemeToggle } from "@/features/theme/theme-toggle";
-
 import { config } from "@/config";
 
 const Header = () => {
@@ -19,13 +17,7 @@ const Header = () => {
                         <AvatarFallback>PH</AvatarFallback>
                     </Avatar>
                 </Link>
-                <div>
-                    <div className="flex gap-x-1 items-baseline">
-                        <h1 className="font-semibold leading-7">Pierre Houllière</h1>
-                        <ThemeToggle />
-                    </div>
-                    <p className="text-xs font-light">Étudiant, développeur freelance</p>
-                </div>
+                <p className="text-xs font-light">Étudiant, développeur freelance</p>
             </div>
             <div className="flex gap-x-2">
                 {config.socials.map((item, index) => {

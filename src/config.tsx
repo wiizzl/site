@@ -1,10 +1,9 @@
 import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 
 const config = {
-    title: "Pierre H. - wiizz",
-    description:
-        "French computer science student, freelance developer. I love to create beautiful and efficient websites.",
-    keywords: ["developer", "portfolio"],
+    title: "Pierre Houllière",
+    description: "Développeur freelance, étudiant en informatique.",
+    keywords: ["développeur", "portfolio", "freelance", "web", "développement"],
 
     socials: [
         { name: "LinkedIn", href: "https://linkedin.com/in/pierrehoulliere", icon: <Linkedin strokeWidth={1.7} /> },
