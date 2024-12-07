@@ -46,7 +46,7 @@ export default async function PostPage(props: PostPageProps) {
                         </div>
                     </div>
                     <Title className="text-xl font-semibold mt-5">{post.title}</Title>
-                    <article className="prose dark:prose-invert max-w-full">
+                    <article className="prose-invert max-w-full">
                         <MDXRemote
                             source={post.content}
                             options={{
