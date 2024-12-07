@@ -17,7 +17,10 @@ const Header = () => {
                         <AvatarFallback>PH</AvatarFallback>
                     </Avatar>
                 </Link>
-                <p className="text-xs font-light">Étudiant, développeur freelance</p>
+                <div>
+                    <h1 className="font-semibold leading-7">Pierre Houllière</h1>
+                    <p className="text-xs font-light">Étudiant, développeur freelance</p>
+                </div>
             </div>
             <div className="flex gap-x-2">
                 {config.socials.map((item, index) => {
