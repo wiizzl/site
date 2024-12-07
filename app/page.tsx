@@ -33,6 +33,18 @@ export default async function HomePage() {
             href: "https://folding-art.vercel.app",
         },
         {
+            title: "Info-Galilée",
+            description: "Site regroupant des cours pour les élèves de la spécialité SI de mon lycée.",
+            image: "https://i.imgur.com/gbhzBzm.png",
+            href: "https://info-galilee.vercel.app",
+        },
+        {
+            title: "the french tototte",
+            description: "Reproduction visuelle du design de la marque fictive créée par BastiUI.",
+            image: "https://i.imgur.com/UNjG7Xu.png",
+            href: "https://the-french-tototte-ten.vercel.app/",
+        },
+        {
             title: "B-Pump",
             description:
                 "Robot coach sportif utilisant l'intelligence artificielle pour guider les mouvements de l'utilisateur.",
@@ -42,7 +54,7 @@ export default async function HomePage() {
     ];
 
     return (
-        <main className="space-y-4 pb-5">
+        <main className="space-y-4 pb-5 mb-8">
             <section>
                 <Title>Services 🛠️</Title>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
