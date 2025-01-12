@@ -28,11 +28,6 @@ const nextConfig: NextConfig = {
                 destination: "https://github.com/wiizzl",
                 permanent: true,
             },
-            {
-                source: "/email",
-                destination: "mailto:hi@houlliere.com",
-                permanent: true,
-            },
         ];
     },
 };

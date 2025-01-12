@@ -1,4 +1,4 @@
-import { Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { Github, Instagram, Linkedin } from "lucide-react";
 
 const config = {
     title: "Pierre Houllière",
@@ -12,7 +12,6 @@ const config = {
         { name: "LinkedIn", icon: Linkedin },
         { name: "GitHub", icon: Github },
         { name: "Instagram", icon: Instagram },
-        { name: "Email", icon: Mail },
     ],
 };
 
