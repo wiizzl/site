@@ -2,6 +2,9 @@ import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+    images: {
+        remotePatterns: [{ hostname: "i.imgur.com", protocol: "https" }],
+    },
     pageExtensions: ["ts", "tsx", "mdx"],
     experimental: {
         mdxRs: true,
@@ -10,7 +13,7 @@ const nextConfig: NextConfig = {
         return [
             {
                 source: "/resume",
-                destination: "/",
+                destination: "/cv.pdf",
                 permanent: false,
             },
             {

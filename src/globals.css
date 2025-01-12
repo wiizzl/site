@@ -2,20 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    /* sugar-high colors */
-    --sh-class: #7aa2f7;
-    --sh-sign: #89ddff;
-    --sh-string: #9ece6a;
-    --sh-keyword: #bb9af7;
-    --sh-comment: #565f89;
-    --sh-jsxliterals: #7aa2f7;
-    --sh-property: #73daca;
-    --sh-entity: #e0af68;
-}
-
 @layer base {
     :root {
+        /* shadcn/ui */
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
         --card: 240 10% 3.9%;
@@ -41,6 +30,16 @@
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
         --radius: 0.5rem;
+
+        /* sugar-hight */
+        --sh-class: #7aa2f7;
+        --sh-sign: #89ddff;
+        --sh-string: #9ece6a;
+        --sh-keyword: #bb9af7;
+        --sh-comment: #565f89;
+        --sh-jsxliterals: #7aa2f7;
+        --sh-property: #73daca;
+        --sh-entity: #e0af68;
     }
 }
 
@@ -48,7 +47,22 @@
     * {
         @apply border-border;
     }
+
     body {
         @apply bg-background text-foreground;
+    }
+
+    pre code {
+        counter-reset: sh-line-number;
+
+        & .sh__line::before {
+            counter-increment: sh-line-number;
+            content: counter(sh-line-number);
+            display: inline-block;
+            width: 3ch;
+            margin-right: 18px;
+            text-align: right;
+            color: hsl(var(--muted-foreground));
+        }
     }
 }
