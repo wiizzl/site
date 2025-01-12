@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ComponentPropsWithoutRef } from "react";
+import React, { ComponentPropsWithoutRef } from "react";
 import { highlight } from "sugar-high";
 
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,12 @@ type AnchorProps = ComponentPropsWithoutRef<"a">;
 type BlockquoteProps = ComponentPropsWithoutRef<"blockquote">;
 
 const components = {
+    Title: ({ children }: { children: React.ReactNode }) => (
+        <div className="[&:not(:first-child)]:mt-8">
+            <h2 className="mb-2">{children}</h2>
+            <hr />
+        </div>
+    ),
     h1: (props: HeadingProps) => (
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl" {...props} />
     ),
@@ -19,27 +26,18 @@ const components = {
     ),
     h3: (props: HeadingProps) => <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight" {...props} />,
     h4: (props: HeadingProps) => <h4 className="scroll-m-20 text-xl font-semibold tracking-tight" {...props} />,
-    p: (props: ParagraphProps) => <p className="leading-7 [&:not(:first-child)]:mt-6" {...props} />,
+    p: (props: ParagraphProps) => <p className="text-sm leading-7 [&:not(:first-child)]:mt-2" {...props} />,
     ol: (props: ListProps) => <ol className="my-6 ml-6 list-decimal [&>li]:mt-2" {...props} />,
     ul: (props: ListProps) => <ul className="my-6 ml-6 list-disc [&>li]:mt-2" {...props} />,
-    strong: (props: ComponentPropsWithoutRef<"strong">) => <strong className="font-medium" {...props} />,
+    strong: (props: ComponentPropsWithoutRef<"strong">) => <strong className="font-semibold" {...props} />,
+    img: Image,
     a: ({ href, children, ...props }: AnchorProps) => {
-        if (href?.startsWith("/")) {
+        if (href?.startsWith("/") || href?.startsWith("#")) {
             return (
                 <Button variant="link" asChild>
                     <Link href={href} {...props}>
                         {children}
                     </Link>
-                </Button>
-            );
-        }
-
-        if (href?.startsWith("#")) {
-            return (
-                <Button variant="link" asChild>
-                    <a href={href} {...props}>
-                        {children}
-                    </a>
                 </Button>
             );
         }

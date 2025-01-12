@@ -2,7 +2,7 @@ import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 
 const config = {
     title: "Pierre Houllière",
-    description: "Freelance developer, computer science student",
+    description: "Développeur freelance, étudiant en informatique.",
     keywords: ["developer", "portfolio", "freelance", "web", "student"],
 
     email: "houllierep@gmail.com",
