@@ -9,8 +9,8 @@ const formatDate = (
 
     return new Date(date).toLocaleDateString(LOCALE, {
         year: "numeric",
-        month: "long",
-        day: "numeric",
+        month: "2-digit",
+        day: "2-digit",
         ...options,
     });
 };
