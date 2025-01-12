@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-    /* https://npmjs.com/package/sugar-high */
+    /* sugar-high colors */
     --sh-class: #7aa2f7;
     --sh-sign: #89ddff;
     --sh-string: #9ece6a;
@@ -16,11 +16,11 @@
 
 @layer base {
     :root {
-        --background: 218 65% 3%;
+        --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
-        --card: 218 65% 3%;
+        --card: 240 10% 3.9%;
         --card-foreground: 0 0% 98%;
-        --popover: 218 65% 3%;
+        --popover: 240 10% 3.9%;
         --popover-foreground: 0 0% 98%;
         --primary: 0 0% 98%;
         --primary-foreground: 240 5.9% 10%;

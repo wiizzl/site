@@ -1,79 +1,52 @@
 "use client";
 
-import { motion, SpringOptions, useSpring, useTransform } from "motion/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
+import Link from "next/link";
+import { useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
 type SpotlightProps = {
+    children: React.ReactNode;
+    href: string;
     className?: string;
-    size?: number;
-    springOptions?: SpringOptions;
 };
 
-const Spotlight = ({ className, size = 200, springOptions = { bounce: 0 } }: SpotlightProps) => {
-    const containerRef = useRef<HTMLDivElement>(null);
+const Spotlight = (props: SpotlightProps) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
-    const [parentElement, setParentElement] = useState<HTMLElement | null>(null);
 
-    const mouseX = useSpring(0, springOptions);
-    const mouseY = useSpring(0, springOptions);
+    function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+        const rect = ref.current?.getBoundingClientRect();
 
-    const spotlightLeft = useTransform(mouseX, (x) => `${x - size / 2}px`);
-    const spotlightTop = useTransform(mouseY, (y) => `${y - size / 2}px`);
-
-    useEffect(() => {
-        if (containerRef.current) {
-            const parent = containerRef.current.parentElement;
-
-            if (parent) {
-                parent.style.position = "relative";
-                parent.style.overflow = "hidden";
-                setParentElement(parent);
-            }
+        if (rect) {
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            setMousePosition({ x, y });
         }
-    }, []);
-
-    const handleMouseMove = useCallback(
-        (event: MouseEvent) => {
-            if (!parentElement) return;
-            const { left, top } = parentElement.getBoundingClientRect();
-            mouseX.set(event.clientX - left);
-            mouseY.set(event.clientY - top);
-        },
-        [mouseX, mouseY, parentElement]
-    );
-
-    useEffect(() => {
-        if (!parentElement) return;
-
-        parentElement.addEventListener("mousemove", handleMouseMove);
-        parentElement.addEventListener("mouseenter", () => setIsHovered(true));
-        parentElement.addEventListener("mouseleave", () => setIsHovered(false));
-
-        return () => {
-            parentElement.removeEventListener("mousemove", handleMouseMove);
-            parentElement.removeEventListener("mouseenter", () => setIsHovered(true));
-            parentElement.removeEventListener("mouseleave", () => setIsHovered(false));
-        };
-    }, [parentElement, handleMouseMove]);
+    }
 
     return (
-        <motion.div
-            ref={containerRef}
-            className={cn(
-                "pointer-events-none absolute rounded-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops),transparent_80%)] blur-xl transition-opacity duration-200",
-                "from-zinc-50 via-zinc-100 to-zinc-200",
-                isHovered ? "opacity-100" : "opacity-0",
-                className
-            )}
-            style={{
-                width: size,
-                height: size,
-                left: spotlightLeft,
-                top: spotlightTop,
-            }}
-        />
+        <Link href={props.href} target="_blank" rel="noopener noreferrer">
+            <motion.div
+                ref={ref}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                className="relative overflow-hidden rounded-md border"
+            >
+                <div
+                    className={cn("absolute inset-0 z-0 transition-opacity duration-300 ease-in-out", props.className)}
+                    style={{
+                        background: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.2), transparent 80%)`,
+                        opacity: isHovered ? 1 : 0,
+                        pointerEvents: "none",
+                    }}
+                />
+                <div className="relative space-y-1 p-3">{props.children}</div>
+            </motion.div>
+        </Link>
     );
 };
 

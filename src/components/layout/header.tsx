@@ -10,13 +10,13 @@ import { config } from "@/config";
 const Header = () => {
     return (
         <header className="z-50 my-8 flex items-center justify-between rounded-md border p-4">
-            <div className="flex gap-x-3">
+            <div className="flex items-center gap-x-3">
                 <TooltipProvider>
                     <Tooltip delayDuration={200}>
                         <TooltipTrigger asChild>
                             <Link href="/">
                                 <Avatar className="size-11 animate-heart">
-                                    <AvatarImage src="/images/me.jpg" alt={config.title} />
+                                    <AvatarImage src="/images/me.webp" alt={config.title} />
                                     <AvatarFallback>{getInitials(config.title)}</AvatarFallback>
                                 </Avatar>
                             </Link>
@@ -31,7 +31,7 @@ const Header = () => {
                     <p className="text-xs font-light">{config.description}</p>
                 </div>
             </div>
-            <div className="flex gap-x-2">
+            <div className="hidden gap-x-2 sm:flex">
                 {config.socials.map((item, index) => (
                     <Link href={item.href} target="_blank" key={index}>
                         <item.icon
