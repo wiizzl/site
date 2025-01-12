@@ -1,8 +1,8 @@
+import { Mail } from "lucide-react";
 import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Mail } from "lucide-react";
 
 import { getInitials } from "@/lib/utils";
 
