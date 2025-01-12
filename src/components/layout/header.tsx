@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Mail } from "lucide-react";
 
 import { getInitials } from "@/lib/utils";
 
@@ -41,6 +42,13 @@ const Header = () => {
                         <span className="sr-only">{item.name}</span>
                     </Link>
                 ))}
+                <Link href={`mailto:${config.email}`}>
+                    <Mail
+                        strokeWidth={1.8}
+                        className="size-5 opacity-85 transition-opacity duration-300 hover:opacity-100"
+                    />
+                    <span className="sr-only">Email</span>
+                </Link>
             </div>
         </header>
     );
