@@ -1,32 +1,25 @@
-import "@/globals.css";
+import "../src/globals.css";
 
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 
 import { Header } from "@/components/layout/header";
-import { MaxWidthWrapper } from "@/components/layout/max-width-wrapper";
+
+import { env } from "@/lib/env";
 
 import { config } from "@/config";
 
 export const metadata: Metadata = {
-    title: config.title,
+    title: {
+        default: config.title,
+        template: `%s - ${config.title}`,
+    },
+    alternates: { canonical: "/" },
     description: config.description,
     keywords: config.keywords,
-    openGraph: {
-        title: config.title,
-        description: config.description,
-        images: [{ url: "/images/thumbnail.png" }],
-    },
-    twitter: {
-        card: "summary_large_image",
-        title: config.title,
-        description: config.description,
-        images: ["/images/thumbnail.png"],
-    },
-    authors: [{ name: "Pierre", url: "https://github.com/wiizzl" }],
-    creator: "Pierre HOULLIERE",
-    icons: { icon: "/favicon.ico" },
-    metadataBase: new URL("https://pierreh.vercel.app"),
+    authors: [{ name: config.title, url: env.NEXT_PUBLIC_APP_URL }],
+    creator: config.title,
+    metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
 };
 
 type RootLayoutProps = Readonly<{
@@ -35,13 +28,13 @@ type RootLayoutProps = Readonly<{
 
 export default function RootLayout(props: RootLayoutProps) {
     return (
-        <html lang="fr">
-            <body className="antialiased">
-                <Analytics />
-                <MaxWidthWrapper>
+        <html lang="en">
+            <body className="mx-auto size-full max-w-[630px] px-2.5 antialiased selection:bg-primary/25 sm:px-0">
+                <main>
                     <Header />
                     {props.children}
-                </MaxWidthWrapper>
+                </main>
+                <Analytics />
             </body>
         </html>
     );
