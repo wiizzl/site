@@ -62,7 +62,7 @@ export default {
                         "box-shadow": '0 0 0 0 theme("colors.green.500")',
                     },
                     "50%": {
-                        "box-shadow": '0 0 0 7px theme("colors.green.500/0")',
+                        "box-shadow": '0 0 0 6px theme("colors.green.500/0")',
                     },
                     "100%": {
                         "box-shadow": '0 0 0 0 theme("colors.green.500/0")',

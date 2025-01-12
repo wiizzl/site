@@ -33,7 +33,7 @@ const Header = () => {
             </div>
             <div className="hidden gap-x-2 sm:flex">
                 {config.socials.map((item, index) => (
-                    <Link href={item.href} target="_blank" key={index}>
+                    <Link href={item.name.toLowerCase()} target="_blank" key={index}>
                         <item.icon
                             strokeWidth={1.8}
                             className="size-5 opacity-85 transition-opacity duration-300 hover:opacity-100"
