@@ -7,11 +7,12 @@ const config = {
 
     email: "hi@houlliere.com",
 
+    // see next.config.ts for redirects
     socials: [
-        { name: "LinkedIn", href: "https://linkedin.com/in/pierrehoulliere", icon: Linkedin },
-        { name: "GitHub", href: "https://github.com/wiizzl", icon: Github },
-        { name: "Instagram", href: "https://instagram.com/pierre.hlr_", icon: Instagram },
-        { name: "Email", href: "mailto:hi@houlliere.com", icon: Mail },
+        { name: "LinkedIn", icon: Linkedin },
+        { name: "GitHub", icon: Github },
+        { name: "Instagram", icon: Instagram },
+        { name: "Email", icon: Mail },
     ],
 };
 
