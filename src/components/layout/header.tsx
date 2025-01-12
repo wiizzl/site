@@ -1,44 +1,46 @@
-"use client";
-
 import Link from "next/link";
-import { cloneElement } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
+import { getInitials } from "@/lib/utils";
 
 import { config } from "@/config";
 
 const Header = () => {
     return (
-        <header className="z-50 items-center justify-between flex p-4 border rounded-lg mt-14 mb-6">
-            <div className="flex items-center gap-x-3">
-                <Link href="/">
-                    <Avatar className="size-11">
-                        <AvatarImage src="/images/me.jpg" />
-                        <AvatarFallback>PH</AvatarFallback>
-                    </Avatar>
-                </Link>
+        <header className="z-50 my-8 flex items-center justify-between rounded-md border p-4">
+            <div className="flex gap-x-3">
+                <TooltipProvider>
+                    <Tooltip delayDuration={200}>
+                        <TooltipTrigger asChild>
+                            <Link href="/">
+                                <Avatar className="size-11 animate-heart">
+                                    <AvatarImage src="/images/me.jpg" />
+                                    <AvatarFallback>{getInitials(config.title)}</AvatarFallback>
+                                </Avatar>
+                            </Link>
+                        </TooltipTrigger>
+                        <TooltipContent side="left">
+                            <p>Available for work!</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
                 <div>
-                    <h1 className="font-semibold leading-7">Pierre Houllière</h1>
-                    <p className="text-xs font-light">Étudiant, développeur freelance</p>
+                    <h1 className="font-semibold leading-7">{config.title}</h1>
+                    <p className="text-xs font-light">{config.description}</p>
                 </div>
             </div>
             <div className="flex gap-x-2">
-                {config.socials.map((item, index) => {
-                    const ariaLabel = `Social : ${item.name}`;
-
-                    return (
-                        <Link
-                            href={item.href}
-                            target="_blank"
-                            className="hover:scale-105 transition-transform duration-300"
-                            aria-label={ariaLabel}
-                            key={index}
-                        >
-                            {cloneElement(item.icon, { className: "size-5" })}
-                            <span className="sr-only">{ariaLabel}</span>
-                        </Link>
-                    );
-                })}
+                {config.socials.map((item, index) => (
+                    <Link href={item.href} target="_blank" key={index}>
+                        <item.icon
+                            strokeWidth={1.8}
+                            className="size-5 opacity-85 transition-opacity duration-300 hover:opacity-100"
+                        />
+                        <span className="sr-only">{item.name}</span>
+                    </Link>
+                ))}
             </div>
         </header>
     );

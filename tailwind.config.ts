@@ -1,10 +1,9 @@
 import type { Config } from "tailwindcss";
 
-import tailwindTypo from "@tailwindcss/typography";
 import tailwindAnimate from "tailwindcss-animate";
 
-const config: Config = {
-    content: ["./src/**/*.{ts,tsx,mdx}", "./app/**/*.{ts,tsx,mdx}"],
+export default {
+    content: ["./app/**/*.{ts,tsx,mdx}", "./src/**/*.{ts,tsx,mdx}"],
     theme: {
         extend: {
             colors: {
@@ -54,9 +53,23 @@ const config: Config = {
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
             },
+            animation: {
+                heart: "heart 2s infinite ease-in-out",
+            },
+            keyframes: {
+                heart: {
+                    "0%": {
+                        "box-shadow": '0 0 0 0 theme("colors.green.500")',
+                    },
+                    "50%": {
+                        "box-shadow": '0 0 0 7px theme("colors.green.500/0")',
+                    },
+                    "100%": {
+                        "box-shadow": '0 0 0 0 theme("colors.green.500/0")',
+                    },
+                },
+            },
         },
     },
-    plugins: [tailwindAnimate, tailwindTypo],
-};
-
-export default config;
+    plugins: [tailwindAnimate],
+} satisfies Config;

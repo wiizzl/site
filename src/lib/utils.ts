@@ -1,8 +1,21 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-function cn(...inputs: ClassValue[]) {
+const cn = (...inputs: ClassValue[]) => {
     return twMerge(clsx(inputs));
-}
+};
 
-export { cn };
+const getInitials = (fullName: string) => {
+    const nameParts = fullName.trim().split(" ");
+
+    if (nameParts.length >= 2) {
+        const firstInitial = nameParts[0][0];
+        const lastInitial = nameParts[nameParts.length - 1][0];
+
+        return `${firstInitial}${lastInitial}`.toUpperCase();
+    }
+
+    return fullName[0]?.toUpperCase() || "";
+};
+
+export { cn, getInitials };
