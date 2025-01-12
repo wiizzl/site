@@ -16,7 +16,7 @@ const Header = () => {
                         <TooltipTrigger asChild>
                             <Link href="/">
                                 <Avatar className="size-11 animate-heart">
-                                    <AvatarImage src="/images/me.jpg" />
+                                    <AvatarImage src="/images/me.jpg" alt={config.title} />
                                     <AvatarFallback>{getInitials(config.title)}</AvatarFallback>
                                 </Avatar>
                             </Link>
