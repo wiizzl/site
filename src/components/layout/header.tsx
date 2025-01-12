@@ -9,7 +9,7 @@ import { config } from "@/config";
 
 const Header = () => {
     return (
-        <header className="z-50 my-8 flex items-center justify-between rounded-lg border p-4">
+        <header className="z-50 flex items-center justify-between rounded-lg border p-4">
             <div className="flex items-center gap-x-3">
                 <TooltipProvider>
                     <Tooltip delayDuration={200}>
