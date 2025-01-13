@@ -50,7 +50,7 @@ const config = {
         {
             name: "B-Pump",
             source: "https://github.com/orgs/B-Pump/repositories",
-            href: null,
+            href: "https://play.google.com/store/apps/details?id=com.wiizz.bpumpapp",
             image: "https://i.imgur.com/k8bFJJK.png",
             description: "Robot sports coach using AI to help user improve their movement.",
             stack: ["React Native", "Expo", "three.js", "TailwindCSS", "Mediapipe", "Socket.io", "OpenCV", "FastAPI"],
