@@ -49,7 +49,7 @@ const config = {
         },
         {
             name: "B-Pump",
-            source: "https://github.com/B-Pump/repositories",
+            source: "https://github.com/orgs/B-Pump/repositories",
             href: null,
             image: "https://i.imgur.com/k8bFJJK.png",
             description: "Robot sports coach using AI to help user improve their movement.",
