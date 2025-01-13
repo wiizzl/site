@@ -31,7 +31,8 @@ const config = {
     projects: [
         {
             name: "Cosmic Pics",
-            href: "https://github.com/wiizzl/cosmic-pics",
+            source: "https://github.com/wiizzl/cosmic-pics",
+            href: null,
             image: "https://i.imgur.com/HEHDSEn.png",
             description: "Innovative app that utilizes NASA's API to display images in a smart and engaging way.",
             stack: ["React Native", "Expo", "TailwindCSS"],
@@ -39,6 +40,7 @@ const config = {
         },
         {
             name: "the french tototte",
+            source: "https://github.com/wiizzl/the-french-tototte",
             href: "https://the-french-tototte-ten.vercel.app/",
             image: "https://i.imgur.com/UNjG7Xu.png",
             description: "Frontend of an adult luxury pacifier website (BastiUI challenge).",
@@ -47,7 +49,8 @@ const config = {
         },
         {
             name: "B-Pump",
-            href: "https://github.com/B-Pump",
+            source: "https://github.com/B-Pump/repositories",
+            href: null,
             image: "https://i.imgur.com/k8bFJJK.png",
             description: "Robot sports coach using AI to help user improve their movement.",
             stack: ["React Native", "Expo", "three.js", "TailwindCSS", "Mediapipe", "Socket.io", "OpenCV", "FastAPI"],
@@ -55,6 +58,7 @@ const config = {
         },
         {
             name: "Info Galilée",
+            source: "https://github.com/wiizzl/info-galilee",
             href: "https://info-galilee.vercel.app",
             image: "https://i.imgur.com/gbhzBzm.png",
             description:
