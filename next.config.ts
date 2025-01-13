@@ -16,21 +16,6 @@ const nextConfig: NextConfig = {
                 destination: "/cv.pdf",
                 permanent: false,
             },
-            {
-                source: "/instagram",
-                destination: "https://instagram.com/pierre.hlr_",
-                permanent: true,
-            },
-            {
-                source: "/linkedin",
-                destination: "https://linkedin.com/in/pierrehoulliere",
-                permanent: true,
-            },
-            {
-                source: "/github",
-                destination: "https://github.com/wiizzl",
-                permanent: true,
-            },
         ];
     },
 };
