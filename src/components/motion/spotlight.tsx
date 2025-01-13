@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 type SpotlightProps = {
     children: React.ReactNode;
+    hoverEffect?: boolean;
     className?: string;
 };
 
@@ -31,7 +32,7 @@ const Spotlight = (props: SpotlightProps) => {
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: props.hoverEffect ? 1.05 : 1 }}
             className="relative overflow-hidden rounded-lg border"
         >
             <div
