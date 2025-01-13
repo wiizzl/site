@@ -9,9 +9,9 @@ const config = {
 
     // see next.config.ts for redirects
     socials: [
-        { name: "LinkedIn", href: "/linkedin", icon: Linkedin },
-        { name: "GitHub", href: "/github", icon: Github },
-        { name: "Instagram", href: "/instagram", icon: Instagram },
+        { name: "LinkedIn", href: "https://linkedin.com/in/pierrehoulliere", icon: Linkedin },
+        { name: "GitHub", href: "https://github.com/wiizzl", icon: Github },
+        { name: "Instagram", href: "https://instagram.com/pierre.hlr_", icon: Instagram },
         { name: "Email", href: "mailto:houllierep@gmail.com", icon: Mail },
     ],
 
