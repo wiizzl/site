@@ -14,7 +14,7 @@ const Header = () => {
                 <TooltipProvider>
                     <Tooltip delayDuration={200}>
                         <TooltipTrigger asChild>
-                            <Link href={`mailto:${config.email}`}>
+                            <Link href="/">
                                 <Avatar className="size-11 animate-heart">
                                     <AvatarImage src="/me.webp" alt={config.title} />
                                     <AvatarFallback>{getInitials(config.title)}</AvatarFallback>
@@ -26,10 +26,10 @@ const Header = () => {
                         </TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
-                <Link href="/">
+                <div>
                     <h1 className="font-semibold leading-7">{config.title}</h1>
                     <p className="line-clamp-1 text-xs font-light">{config.description}</p>
-                </Link>
+                </div>
             </div>
             <div className="hidden gap-x-2 sm:flex">
                 {config.socials.map((item, index) => (
