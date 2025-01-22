@@ -32,7 +32,7 @@ const Spotlight = (props: SpotlightProps) => {
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            whileHover={{ scale: props.hoverEffect ? 1.02 : 1 }}
+            whileHover={{ scale: props.hoverEffect ? 1.01 : 1 }}
             className="relative overflow-hidden rounded-lg border"
         >
             <div
