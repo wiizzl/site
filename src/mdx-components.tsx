@@ -15,7 +15,7 @@ type ImageProps = ComponentPropsWithoutRef<"img">;
 
 const components = {
     Title: (props: { children: React.ReactNode }) => (
-        <div className="mb-3 [&:not(:first-child)]:mt-8">
+        <div className="not-first:mt-8 mb-3">
             <h2 className="mb-2">{props.children}</h2>
             <hr />
         </div>
@@ -28,7 +28,7 @@ const components = {
     ),
     h3: (props: HeadingProps) => <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight" {...props} />,
     h4: (props: HeadingProps) => <h4 className="scroll-m-20 text-xl font-semibold tracking-tight" {...props} />,
-    p: (props: ParagraphProps) => <p className="text-sm [&:not(:first-child)]:mt-2" {...props} />,
+    p: (props: ParagraphProps) => <p className="not-first:mt-2 text-sm" {...props} />,
     ol: (props: ListProps) => <ol className="my-6 ml-6 list-decimal [&>li]:mt-2" {...props} />,
     ul: (props: ListProps) => <ul className="my-6 ml-6 list-disc [&>li]:mt-2" {...props} />,
     strong: (props: ComponentPropsWithoutRef<"strong">) => <strong className="font-semibold" {...props} />,
@@ -64,7 +64,7 @@ const components = {
         const code = props.children as string;
 
         return (
-            <div className="relative rounded-lg bg-secondary px-2 py-4">
+            <div className="bg-secondary relative rounded-lg px-2 py-4">
                 <code dangerouslySetInnerHTML={{ __html: highlight(code) }} {...props} />
                 <CopyButton content={code} className="absolute right-2 top-2" />
             </div>
