@@ -64,9 +64,9 @@ const components = {
         const code = props.children as string;
 
         return (
-            <div className="bg-secondary relative rounded-lg px-2 py-4">
-                <code dangerouslySetInnerHTML={{ __html: highlight(code) }} {...props} />
-                <CopyButton content={code} className="absolute right-2 top-2" />
+            <div className="bg-secondary relative rounded-lg px-2 py-4 mt-2">
+                <code dangerouslySetInnerHTML={{ __html: highlight(code) }} className={props.className} />
+                <CopyButton content={code} className="absolute right-2 top-2 cursor-pointer" />
             </div>
         );
     },
