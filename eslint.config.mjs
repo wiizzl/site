@@ -1,5 +1,4 @@
 import { FlatCompat } from "@eslint/eslintrc";
-import tailwindEslint from "eslint-plugin-tailwindcss";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -13,7 +12,6 @@ const compat = new FlatCompat({
 /** @type {import('eslint').Linter.Config[]} */
 const eslintConfig = [
     ...compat.extends("next/core-web-vitals", "next/typescript"),
-    ...tailwindEslint.configs["flat/recommended"],
     {
         rules: {
             "react/no-unescaped-entities": "off",
