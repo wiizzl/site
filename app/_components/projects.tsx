@@ -17,10 +17,6 @@ import { Button } from "@/components/ui/button";
 
 import { config } from "@/config";
 
-/**
- * @todo Add morphing dialog to show project details.
- * @see https://motion-primitives.com/docs/morphing-dialog
- */
 const Projects = () => {
     return (
         <div className="grid gap-3 sm:grid-cols-2">
