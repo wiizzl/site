@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-animate";
+
 @theme {
     --color-background: hsl(240 10% 3.9%);
     --color-foreground: hsl(0 0% 98%);
@@ -39,17 +41,17 @@
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
 
-    --animate-heart: heart 2s infinite ease-in-out;
+    --animate-heart: heart 2s ease-in-out infinite;
 
     @keyframes heart {
         0% {
-            box-shadow: 0 0 0 0 var(--color-green-500);
+            box-shadow: 0 0 0 0 green;
         }
         50% {
-            box-shadow: 0 0 0 6px theme("colors.green.500/0");
+            box-shadow: 0 0 0 6px transparent;
         }
         100% {
-            box-shadow: 0 0 0 0 theme("colors.green.500/0");
+            box-shadow: 0 0 0 0 transparent;
         }
     }
 }
