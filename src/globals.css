@@ -88,7 +88,7 @@
             width: 3ch;
             margin-right: 18px;
             text-align: right;
-            color: hsl(var(--muted-foreground));
+            color: hsl(240 5% 64.9%);
         }
     }
 }
