@@ -6,8 +6,6 @@ const config = {
     keywords: ["developer", "portfolio", "freelance", "web", "student"],
 
     email: "houllierep@gmail.com",
-
-    // see next.config.ts for redirects
     socials: [
         { name: "LinkedIn", href: "https://linkedin.com/in/pierrehoulliere", icon: Linkedin },
         { name: "GitHub", href: "https://github.com/wiizzl", icon: Github },
