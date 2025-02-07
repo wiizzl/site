@@ -1,4 +1,4 @@
-import "../src/globals.css";
+import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
