@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
         return [
             {
                 source: "/resume",
-                destination: "/cv.pdf",
+                destination: "/resume.pdf",
                 permanent: false,
             },
         ];
