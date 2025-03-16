@@ -1,0 +1,28 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+import Title from "@/components/mdx/Title.astro";
+import Posts from "@/components/Posts.astro";
+import Projects from "@/components/Projects.astro";
+import Work from "@/components/Work.astro";
+---
+
+<Layout>
+  <Title>bonjour 👋</Title>
+  <div class="space-y-2">
+    <p class="text-sm">I am currently an HND Computer Science student from France.</p>
+    <p class="text-sm">
+      This site is my digital garden, where I write about things I'm working on and share some
+      projects.
+    </p>
+  </div>
+
+  <Title>personal projects 🔨</Title>
+  <Projects />
+
+  <Title>work 🛠️</Title>
+  <Work />
+
+  <Title>posts 📝</Title>
+  <Posts />
+</Layout>
