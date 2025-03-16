@@ -1,0 +1,46 @@
+---
+import "./src/styles/global.css";
+
+import Footer from "@/components/layout/Footer.astro";
+import Header from "@/components/layout/Header.astro";
+
+import ogImage from "@/assets/opengraph-image.png";
+
+import info from "@/config/info.json";
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+
+    <meta name="generator" content={Astro.generator} />
+    <meta name="keywords" content={info.keywords} />
+    <meta name="author" content={`${info.name}, ${info.mail}`} />
+    <meta name="copyright" content={info.name} />
+
+    <meta name="og:title" content={info.name} />
+    <meta name="og:description" content={info.description} />
+    <meta name="og:url" content={Astro.url.origin} />
+    <meta name="og:image" content={ogImage.src} />
+
+    <title>{title ? title + " | " + info.name : info.name}</title>
+  </head>
+  <body class="mx-auto size-full max-w-[630px] px-2.5 antialiased selection:bg-primary/25 sm:px-0">
+    <main class="my-8">
+      <Header />
+      <slot />
+      <Footer />
+    </main>
+  </body>
+</html>
