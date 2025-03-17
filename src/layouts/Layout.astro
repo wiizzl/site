@@ -33,6 +33,11 @@ const { title } = Astro.props;
     <meta name="og:description" content={info.description} />
     <meta name="og:url" content={Astro.url.origin} />
     <meta name="og:image" content={ogImage.src} />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content={info.name} />
+    <meta property="twitter:description" content={info.description} />
+    <meta property="twitter:image" content={ogImage.src} />
+    <meta property="twitter:url" content={Astro.url.origin} />
 
     <title>{title ? title + " | " + info.name : info.name}</title>
   </head>
