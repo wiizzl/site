@@ -1,28 +1,21 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-import Title from "@/components/mdx/Title.astro";
-import Posts from "@/components/Posts.astro";
-import Projects from "@/components/Projects.astro";
-import Work from "@/components/Work.astro";
+import info from "@/config/info.json";
 ---
 
 <Layout>
-  <Title>bonjour 👋</Title>
-  <div class="space-y-2">
-    <p class="text-sm">I am currently an HND Computer Science student from France.</p>
-    <p class="text-sm">
-      This site is my digital garden, where I write about things I'm working on and share some
-      projects.
+  <h1 class="font-semibold">{info.name.toLowerCase()}~</h1>
+
+  <div class="text-muted-foreground space-y-3 mt-5">
+    <p>Freelance developer and CS student based in Rouen, France.</p>
+    <p>I am currently working alone, building web and mobile experiences.</p>
+    <p>
+      Take a look at some recent <a
+        href="/work"
+        class="bg-primary font-semibold text-accent-foreground border-b-2">work</a
+      >, read a <a href="" class="border-b-2 text-accent-foreground">haiku</a> or feel free to
+      <button class="border-b-2 text-accent-foreground">get in touch</button>
     </p>
   </div>
-
-  <Title>personal projects 🔨</Title>
-  <Projects />
-
-  <Title>work 🛠️</Title>
-  <Work />
-
-  <Title>posts 📝</Title>
-  <Posts />
 </Layout>
