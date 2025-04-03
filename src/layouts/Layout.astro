@@ -1,9 +1,6 @@
 ---
 import "../styles/global.css";
 
-import Footer from "@/components/layout/Footer.astro";
-import Header from "@/components/layout/Header.astro";
-
 import ogImage from "@/assets/opengraph-image.png";
 
 import info from "@/config/info.json";
@@ -43,11 +40,9 @@ const { title } = Astro.props;
 
     <title>{title ? title + " | " + info.name : info.name}</title>
   </head>
-  <body class="mx-auto size-full max-w-[630px] px-2.5 antialiased selection:bg-primary/25 sm:px-0">
+  <body class="antialiased selection:bg-primary selection:text-accent-foreground">
     <main class="my-8">
-      <Header />
       <slot />
-      <Footer />
     </main>
   </body>
 </html>
