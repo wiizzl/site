@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { Github, Instagram, Linkedin, Mail, Rss } from "lucide-astro";
 
 import me from "@/assets/me.webp";
@@ -21,7 +22,7 @@ const socials = [
 <header class="z-50 flex items-center justify-between rounded-lg border p-4">
   <div class="flex items-center gap-x-3">
     <a href="/">
-      <img src={me.src} alt="PH" class="w-8 sm:w-10 rounded-full animate-heart" />
+      <Image src={me} alt="PH" class="w-8 sm:w-10 rounded-full animate-heart" />
     </a>
     <div>
       <h1 class="font-semibold leading-5 sm:leading-7">{info.name}</h1>
