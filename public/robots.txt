@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://houlliere.com/sitemap-index.xml
