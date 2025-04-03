@@ -6,10 +6,10 @@ export default {
       files: "*.astro",
       options: {
         parser: "astro",
+        singleQuote: false,
+        printWidth: 200,
+        tabWidth: 2,
       },
     },
   ],
-  singleQuote: false,
-  printWidth: 100,
-  tabWidth: 2,
 };

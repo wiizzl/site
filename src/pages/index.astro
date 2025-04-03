@@ -1,21 +1,22 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
+import Link from "@/components/mdx/Link.astro";
+import Title from "@/components/mdx/Title.astro";
+
 import info from "@/config/info.json";
 ---
 
 <Layout>
-  <h1 class="font-semibold">{info.name.toLowerCase()}~</h1>
+  <Title>{info.name.toLowerCase()}</Title>
 
-  <div class="text-muted-foreground space-y-3 mt-5">
+  <div class="text-muted-foreground space-y-4">
     <p>Freelance developer and CS student based in Rouen, France.</p>
-    <p>I am currently working alone, building web and mobile experiences.</p>
+    <p>I enjoy sharing my experiences and insights through <Link href="/writing">writing</Link>.</p>
     <p>
-      Take a look at some recent <a
-        href="/work"
-        class="bg-primary font-semibold text-accent-foreground border-b-2">work</a
-      >, read a <a href="" class="border-b-2 text-accent-foreground">haiku</a> or feel free to
-      <button class="border-b-2 text-accent-foreground">get in touch</button>
+      Take a look at some recent <Link href="/projects">projects</Link>, read my <Link
+        href="/resume">resume</Link
+      > or <Link href="#">get in touch</Link>.
     </p>
   </div>
 </Layout>

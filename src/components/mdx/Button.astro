@@ -1,0 +1,11 @@
+---
+interface Props {
+  onClick: () => void;
+}
+
+const { onClick } = Astro.props;
+---
+
+<button onclick="onClick" class="border-b-2 text-accent-foreground hover:text-muted-foreground">
+  <slot />
+</button>
