@@ -9,7 +9,7 @@
         "@astrojs/sitemap": "^3.3.0",
         "@astrojs/vercel": "^8.1.3",
         "astro": "5.6.0",
-        "lucide-astro": "^0.482.0",
+        "lucide-astro": "^0.487.0",
       },
       "devDependencies": {
         "@tailwindcss/vite": "^4.1.1",
@@ -548,7 +548,7 @@
 
     "lru-cache": ["lru-cache@10.4.3", "", {}, "sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ=="],
 
-    "lucide-astro": ["lucide-astro@0.482.0", "", { "peerDependencies": { "astro": ">=2.7.1" } }, "sha512-K2xV/CQBho6PxcAuVjsqQPNfp8SA5QvNckEawehe2K8n4SKioHuslI6oEweqN2DIfOtCJCaQvoT4eynuk/rMPA=="],
+    "lucide-astro": ["lucide-astro@0.487.0", "", { "peerDependencies": { "astro": ">=2.7.1" } }, "sha512-t+UEDa34DrPTgvNmXTMNNGr7jGtnHSzr6wAHoqEwnf/jR4zJOuJx80TR9MKAPHGlZ1R0ihetODJI1l8gE6MrJA=="],
 
     "magic-string": ["magic-string@0.30.17", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.0" } }, "sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA=="],
 
