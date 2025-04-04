@@ -1,5 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
 interface Props {
   title: string;
@@ -8,6 +8,6 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<Layout title={title}>
+<BaseLayout title={title}>
   <slot />
-</Layout>
+</BaseLayout>
