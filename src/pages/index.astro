@@ -5,6 +5,12 @@ import Link from "@/components/mdx/Link.astro";
 import Title from "@/components/mdx/Title.astro";
 
 import info from "@/config/info.json";
+import { Github, Instagram } from "lucide-astro";
+
+const socials = [
+  { label: "GitHub", icon: Github, link: "https://github.com/wiizzl" },
+  { label: "Instagram", icon: Instagram, link: "https://instagram.com/pierre.hlr_" },
+];
 ---
 
 <BaseLayout>
@@ -14,7 +20,11 @@ import info from "@/config/info.json";
     <p>Freelance developer and CS student based in Rouen, France.</p>
     <p>I enjoy sharing my experiences and insights through <Link href="/writing">writing</Link>.</p>
     <p>
-      Take a look at some recent <Link href="/work">work</Link>, read my <Link href="/resume">resume</Link> or <Link href="/contact">get in touch</Link>.
+      Take a look at some recent <Link href="/work">work</Link>, read my <Link href="/resume">resume</Link> or <Link href={`mailto:${info.mail}`}>get in touch</Link>.
     </p>
+    <div>
+      <p>Here are my links</p>
+      <div></div>
+    </div>
   </div>
 </BaseLayout>
