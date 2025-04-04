@@ -1,5 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
 import Link from "@/components/mdx/Link.astro";
 import Title from "@/components/mdx/Title.astro";
@@ -7,16 +7,14 @@ import Title from "@/components/mdx/Title.astro";
 import info from "@/config/info.json";
 ---
 
-<Layout>
+<BaseLayout>
   <Title>{info.name.toLowerCase()}</Title>
 
   <div class="text-muted-foreground space-y-4">
     <p>Freelance developer and CS student based in Rouen, France.</p>
     <p>I enjoy sharing my experiences and insights through <Link href="/writing">writing</Link>.</p>
     <p>
-      Take a look at some recent <Link href="/projects">projects</Link>, read my <Link
-        href="/resume">resume</Link
-      > or <Link href="#">get in touch</Link>.
+      Take a look at some recent <Link href="/projects">projects</Link>, read my <Link href="/resume">resume</Link> or <Link href="#">get in touch</Link>.
     </p>
   </div>
-</Layout>
+</BaseLayout>
