@@ -2,7 +2,7 @@
 import type { GetStaticPaths, InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 import { getCollection } from "astro:content";
 
-import Layout from "@/layouts/Layout.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("posts");
@@ -21,6 +21,6 @@ const { id } = Astro.params as Params;
 const { title } = Astro.props;
 ---
 
-<Layout>
+<BaseLayout>
   <!-- TODO: blog content -->
-</Layout>
+</BaseLayout>
