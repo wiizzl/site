@@ -5,7 +5,7 @@ const collections = {
   writing: defineCollection({
     loader: glob({
       pattern: "**/*.mdx",
-      base: "./src/data/writing",
+      base: "./src/content/writing",
     }),
     schema: z.object({
       title: z.string(),
@@ -17,7 +17,7 @@ const collections = {
   work: defineCollection({
     loader: glob({
       pattern: "**/*.mdx",
-      base: "./src/data/work",
+      base: "./src/content/work",
     }),
     schema: z.object({
       name: z.string(),
