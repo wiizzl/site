@@ -1,13 +1,15 @@
 ---
+import { Github, Instagram, Linkedin } from "lucide-astro";
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 import Link from "@/components/mdx/Link.astro";
 import Title from "@/components/mdx/Title.astro";
 
 import info from "@/config/info.json";
-import { Github, Instagram } from "lucide-astro";
 
 const socials = [
+  { label: "LinkedIn", icon: Linkedin, link: "https://linkedin.com/in/pierrehoulliere" },
   { label: "GitHub", icon: Github, link: "https://github.com/wiizzl" },
   { label: "Instagram", icon: Instagram, link: "https://instagram.com/pierre.hlr_" },
 ];
@@ -22,9 +24,15 @@ const socials = [
     <p>
       Take a look at some recent <Link href="/work">work</Link>, read my <Link href="/resume">resume</Link> or <Link href={`mailto:${info.mail}`}>get in touch</Link>.
     </p>
-    <div>
-      <p>Here are my links</p>
-      <div></div>
+    <div class="flex items-center gap-x-2.5">
+      {
+        socials.map((social) => (
+          <a href={social.link} class="text-muted-foreground" target="_blank">
+            <social.icon class="size-5 stroke-[1.8]" />
+            <span class="sr-only">{social.label}</span>
+          </a>
+        ))
+      }
     </div>
   </div>
 </BaseLayout>
