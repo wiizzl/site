@@ -1,5 +1,5 @@
 ---
-import { Github, Instagram, Linkedin } from "lucide-astro";
+import { Github, Instagram, Linkedin, Mail } from "lucide-astro";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
@@ -12,6 +12,7 @@ const socials = [
   { label: "LinkedIn", icon: Linkedin, link: "https://linkedin.com/in/pierrehoulliere" },
   { label: "GitHub", icon: Github, link: "https://github.com/wiizzl" },
   { label: "Instagram", icon: Instagram, link: "https://instagram.com/pierre.hlr_" },
+  { label: "Mail", icon: Mail, link: `mailto:${info.mail}` },
 ];
 ---
 
