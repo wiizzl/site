@@ -25,13 +25,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="keywords" content={info.keywords} />
     <meta name="author" content={`${info.name}, ${info.mail}`} />
     <meta name="copyright" content={info.name} />
-    <meta property="description" content={info.description} />
+    <meta name="description" content={info.description} />
     <link rel="canonical" href={canonicalURL} />
 
-    <meta name="og:title" content={info.name} />
-    <meta name="og:description" content={info.description} />
-    <meta name="og:url" content={canonicalURL} />
-    <meta name="og:image" content={`${Astro.url.origin}/opengraph-image.png`} />
+    <meta property="og:title" content={info.name} />
+    <meta property="og:description" content={info.description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={`${Astro.url.origin}/opengraph-image.png`} />
     <meta property="og:site_name" content={info.name} />
     <meta name="twitter:card" content="summary_large_image" />
 
