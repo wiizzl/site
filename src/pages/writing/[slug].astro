@@ -1,11 +1,12 @@
 ---
-import type { GetStaticPaths, InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 export const getStaticPaths = (async () => {
-  const posts = await getCollection("posts");
+  const posts = await getCollection("writing");
+
   return posts.map((post) => {
     return {
       params: { id: post.id, slug: post.id },
@@ -14,13 +15,10 @@ export const getStaticPaths = (async () => {
   });
 }) satisfies GetStaticPaths;
 
-type Params = InferGetStaticParamsType<typeof getStaticPaths>;
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-
-const { id } = Astro.params as Params;
+const { id } = Astro.params;
 const { title } = Astro.props;
 ---
 
 <BaseLayout>
-  <!-- TODO: blog content -->
+  <!-- TODO: content -->
 </BaseLayout>
