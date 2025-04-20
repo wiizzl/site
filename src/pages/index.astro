@@ -1,10 +1,10 @@
 ---
-import { Github, Instagram, Linkedin, Mail } from "lucide-astro";
+import { Github, Instagram, Linkedin, Rss } from "lucide-astro";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-import Link from "@/components/mdx/Link.astro";
-import Title from "@/components/mdx/Title.astro";
+import Link from "@/components/Link.astro";
+import Title from "@/components/Title.astro";
 
 import info from "@/config/info.json";
 
@@ -12,7 +12,7 @@ const socials = [
   { label: "LinkedIn", icon: Linkedin, link: "https://linkedin.com/in/pierrehoulliere" },
   { label: "GitHub", icon: Github, link: "https://github.com/wiizzl" },
   { label: "Instagram", icon: Instagram, link: "https://instagram.com/pierre.hlr_" },
-  { label: "Mail", icon: Mail, link: `mailto:${info.mail}` },
+  { label: "RSS Feed", icon: Rss, link: "/writing/feed.xml" },
 ];
 ---
 
@@ -23,14 +23,14 @@ const socials = [
     <p>Freelance developer and CS student based in Rouen, France.</p>
     <p>I enjoy sharing my experiences and insights through <Link href="/writing">writing</Link>.</p>
     <p>
-      Take a look at some recent <Link href="/work">work</Link>, read my <Link href="/resume">resume</Link> or <Link href={`mailto:${info.mail}`}>get in touch</Link>.
+      Take a look at some recent <Link href="/work">work</Link>, read my <Link href="/resume" blank>resume</Link> or <Link href={`mailto:${info.mail}`}>send me an email</Link>.
     </p>
     <div class="flex items-center gap-x-2.5">
       {
-        socials.map((social) => (
-          <a href={social.link} class="text-muted-foreground" target="_blank">
-            <social.icon class="size-5 stroke-[1.8]" />
-            <span class="sr-only">{social.label}</span>
+        socials.map((item) => (
+          <a href={item.link} class="text-muted-foreground" target="_blank">
+            <item.icon class="size-5 stroke-[1.8]" />
+            <span class="sr-only">{item.label}</span>
           </a>
         ))
       }
