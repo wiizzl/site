@@ -22,6 +22,7 @@ const collections = {
     schema: z.object({
       name: z.string(),
       source: z.string().url(),
+      date: z.date(),
       href: z.string().url(),
       image: z.string().url(),
       description: z.string(),
