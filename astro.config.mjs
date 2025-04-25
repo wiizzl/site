@@ -10,7 +10,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://houlliere.com",
   redirects: {
-    "/resume": "/resume.pdf",
+    "/resume": "https://resume.houlliere.com",
   },
   adapter: vercel({
     webAnalytics: {
