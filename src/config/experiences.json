@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Overspeed",
+    "href": "https://overspeed.fr",
+    "date": "05/2025 - 06/2025",
+    "description": "Made a micro-CMS with Next.js to facilitate the management of content for digital reception devices.",
+    "color": "#214083"
+  },
+  {
+    "name": "FOLDING-ART",
+    "href": "https://folding-art.fr",
+    "date": "2024 - 2025",
+    "description": "Paper art e-commerce site.",
+    "color": "#f4403f"
+  },
+  {
+    "name": "laine&maille",
+    "href": "https://laine-maille.fr",
+    "date": "2025",
+    "description": "Handmade plush e-commerce site.",
+    "color": "#a082d4"
+  }
+]

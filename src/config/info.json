@@ -2,5 +2,22 @@
   "name": "Pierre Houllière",
   "description": "Freelance developer, CS student.",
   "mail": "contact@houlliere.com",
-  "keywords": "Déveloper, Freelance, Computer Science, Web, Mobile"
+  "keywords": "Déveloper, Freelance, Computer Science, Web, Mobile",
+  "socials": [
+    {
+      "name": "LinkedIn",
+      "href": "https://linkedin.com/in/pierrehoulliere",
+      "color": "#086ac9"
+    },
+    {
+      "name": "GitHub",
+      "href": "https://github.com/wiizzl",
+      "color": "#080808"
+    },
+    {
+      "name": "Instagram",
+      "href": "https://instagram.com/pierre.hlr_",
+      "color": "#fb7808"
+    }
+  ]
 }
