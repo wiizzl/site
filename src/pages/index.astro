@@ -12,7 +12,7 @@ import info from "@/config/info.json";
 
 <BaseLayout>
   <div class="border-b pb-8 md:pb-14">
-    <Title number={1}>{info.name}</Title>
+    <Title>{info.name}</Title>
     <div class="max-w-2xl space-y-4">
       <p>Freelance developer and CS student based in Rouen, France. I enjoy sharing my experiences and insights through <Link href="/writing">writing</Link>.</p>
       <p>
@@ -22,7 +22,7 @@ import info from "@/config/info.json";
   </div>
   <div class="grid grid-cols-1 space-y-6 pt-8 md:grid-cols-2 md:pt-14">
     <div class="md:border-r md:pr-14">
-      <Title number={2}>Contact</Title>
+      <Title>Contact</Title>
       <div class="flex flex-col">
         {
           info.socials.map((element) => (
@@ -38,7 +38,7 @@ import info from "@/config/info.json";
       </div>
     </div>
     <div class="md:pl-14">
-      <Title number={3}>Experience</Title>
+      <Title>Experience</Title>
       <div class="flex flex-col">
         {
           experiences.map((element) => (
