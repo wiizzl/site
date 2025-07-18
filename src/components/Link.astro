@@ -4,13 +4,9 @@ interface Props {
   blank?: boolean;
 }
 
-const { href, blank } = Astro.props;
+const props = Astro.props;
 ---
 
-<a
-  href={href}
-  class="border-b-2 text-accent-foreground hover:text-muted-foreground"
-  target={blank ? "_blank" : "_self"}
->
+<a href={props.href} class="text-accent-foreground hover:text-muted-foreground inline-block underline" target={props.blank ? "_blank" : "_self"}>
   <slot />
 </a>
