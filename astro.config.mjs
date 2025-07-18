@@ -6,11 +6,13 @@ import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 
+import info from "./src/config/info.json";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://houlliere.com",
   redirects: {
-    "/resume": "https://resume.houlliere.com",
+    "/resume": info.resume,
   },
   adapter: vercel({
     webAnalytics: {
