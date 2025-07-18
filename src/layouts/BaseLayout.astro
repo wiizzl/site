@@ -7,7 +7,7 @@ interface Props {
   title?: string;
 }
 
-const { title } = Astro.props;
+const props = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -35,10 +35,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:site_name" content={info.name} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <title>{title ? title + " | " + info.name : info.name}</title>
+    <title>{props.title ? props.title + " - " + info.name : info.name}</title>
   </head>
-  <body class="antialiased selection:bg-primary selection:text-accent-foreground">
-    <main class="h-full mx-auto w-full max-w-screen-2xl px-6 md:px-20 py-16 md:py-24">
+  <body class="selection:bg-primary selection:text-accent-foreground antialiased">
+    <main class="mx-auto h-full w-full max-w-screen-2xl px-4 py-10 md:px-10 md:py-40 lg:px-52 xl:px-96">
       <slot />
     </main>
   </body>

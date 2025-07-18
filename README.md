@@ -1,3 +1,3 @@
 # site
 
-![](./public/opengraph-image.png)
+![](./public/og-image.png)
