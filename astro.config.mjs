@@ -13,6 +13,9 @@ export default defineConfig({
   site: "https://houlliere.com",
   redirects: {
     "/resume": info.resume,
+    "/linkedin": info.socials[0].href,
+    "/github": info.socials[1].href,
+    "/instagram": info.socials[2].href,
   },
   adapter: vercel({
     webAnalytics: {

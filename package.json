@@ -9,11 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.1",
-    "@astrojs/sitemap": "^3.4.1",
-    "@astrojs/vercel": "^8.2.2",
-    "astro": "^5.12.0",
-    "lucide-astro": "^0.525.0"
+    "@astrojs/mdx": "^4.3.3",
+    "@astrojs/sitemap": "3.4.2",
+    "@astrojs/vercel": "^8.2.5",
+    "astro": "5.12.8",
+    "lucide-astro": "^0.536.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.11",
