@@ -6,6 +6,11 @@
   "resume": "https://github.com/wiizzl/resume/releases/latest/download/Pierre_Houlliere_CV.pdf",
   "socials": [
     {
+      "name": "Email",
+      "href": "mailto:contact@houlliere.com",
+      "color": "#a0a0a0"
+    },
+    {
       "name": "LinkedIn",
       "href": "https://linkedin.com/in/pierrehoulliere",
       "color": "#086ac9"

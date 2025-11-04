@@ -3,23 +3,23 @@
   "type": "module",
   "version": "1.8.0",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "dev": "bunx --bun astro dev",
+    "build": "bunx --bun astro build",
+    "preview": "bunx --bun astro preview",
+    "astro": "bunx --bun astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.5",
+    "@astrojs/mdx": "^4.3.9",
     "@astrojs/sitemap": "3.5.1",
-    "@astrojs/vercel": "^8.2.7",
-    "astro": "^5.13.7",
-    "lucide-astro": "^0.543.0"
+    "@astrojs/vercel": "^9.0.0",
+    "astro": "^5.15.3",
+    "lucide-astro": "^0.552.0"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.13",
+    "@tailwindcss/vite": "^4.1.16",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.14",
-    "tailwindcss": "^4.1.13"
+    "prettier-plugin-tailwindcss": "^0.7.1",
+    "tailwindcss": "^4.1.16"
   }
 }

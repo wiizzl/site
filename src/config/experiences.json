@@ -1,5 +1,12 @@
 [
   {
+    "name": "WorldSkills France",
+    "href": "https://worldskills-france.org/editions/competition-nationale-des-metiers-2025-48e-edition",
+    "date": "11/2024 - 10/2025",
+    "description": "Représentant de la région Normandie à la compétition nationale des métiers dans la catégorie 'Web Technologies'.",
+    "color": "#0089FF"
+  },
+  {
     "name": "Overspeed",
     "href": "https://overspeed.fr",
     "date": "05/2025 - 08/2025",
@@ -9,7 +16,7 @@
   {
     "name": "laine & maille",
     "href": "https://laine-maille.fr",
-    "date": "01/2025 - Present",
+    "date": "01/2025 - 09/2025",
     "description": "Handmade plush e-commerce site.",
     "color": "#a082d4"
   },
