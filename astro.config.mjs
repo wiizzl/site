@@ -8,7 +8,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 import info from "./src/config/info.json";
 
-// https://astro.build/config
 export default defineConfig({
   site: "https://houlliere.com",
   redirects: {
