@@ -1,7 +1,7 @@
 {
   "name": "site",
   "type": "module",
-  "version": "1.8.0",
+  "version": "2.0.0",
   "scripts": {
     "dev": "bunx --bun astro dev",
     "build": "bunx --bun astro build",
@@ -9,17 +9,17 @@
     "astro": "bunx --bun astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.9",
-    "@astrojs/sitemap": "3.5.1",
-    "@astrojs/vercel": "^9.0.0",
-    "astro": "^5.15.3",
-    "lucide-astro": "^0.552.0"
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/sitemap": "3.6.0",
+    "@astrojs/vercel": "^9.0.2",
+    "@lucide/astro": "^0.562.0",
+    "astro": "^5.16.6"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.16",
-    "prettier": "^3.6.2",
+    "@tailwindcss/vite": "^4.1.18",
+    "prettier": "^3.7.4",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.7.1",
-    "tailwindcss": "^4.1.16"
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "tailwindcss": "^4.1.18"
   }
 }
