@@ -2,9 +2,14 @@
 dist/
 # generated types
 .astro/
+# vercel output
+.vercel/
 
 # dependencies
 node_modules/
+
+# lockfiles (bun.lock is used)
+package-lock.json
 
 # logs
 npm-debug.log*
