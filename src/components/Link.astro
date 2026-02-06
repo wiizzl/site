@@ -7,6 +7,6 @@ interface Props {
 const props = Astro.props;
 ---
 
-<a href={props.href} class="text-accent-foreground hover:text-muted-foreground inline-block underline" target={props.blank ? "_blank" : "_self"}>
+<a href={props.href} class="text-accent-foreground hover:text-muted-foreground inline-block underline" target={props.blank ? "_blank" : "_self"} rel={props.blank ? "noopener noreferrer" : undefined}>
   <slot />
 </a>

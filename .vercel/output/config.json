@@ -1,0 +1,27 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/resume$",
+			"headers": {
+				"Location": "https://github.com/wiizzl/resume/releases/latest/download/Pierre_Houlliere_CV.pdf"
+			},
+			"status": 301
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"src": "^/.*$",
+			"dest": "/404.html",
+			"status": 404
+		}
+	]
+}

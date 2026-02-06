@@ -32,7 +32,7 @@ import info from "@/config/info.json";
       <div class="flex flex-col">
         {
           info.socials.map((element) => (
-            <a href={element.href} target="_blank" class="flex items-center justify-between">
+            <a href={element.href} target="_blank" rel="noopener noreferrer" class="flex items-center justify-between">
               <span class="flex items-center gap-x-1.5">
                 <div class="p-1" style={`background-color: ${element.color};`} />
                 {element.name}
@@ -48,7 +48,7 @@ import info from "@/config/info.json";
       <div class="flex flex-col">
         {
           experiences.map((element) => (
-            <a href={element.href} target="_blank" class="flex items-center justify-between">
+            <a href={element.href} target="_blank" rel="noopener noreferrer" class="flex items-center justify-between">
               <span class="flex items-center gap-x-1.5">
                 <div class="p-1" style={`background-color: ${element.color};`} />
                 {element.name}
