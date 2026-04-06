@@ -1,0 +1,71 @@
+---
+import Slide from "@/components/Slide.astro";
+
+import { CONSTS } from "@/consts";
+---
+
+<Slide title="Contact" className="relative flex flex-col justify-between p-8">
+  <div class="z-10 flex w-full flex-col items-center justify-between sm:flex-row">
+    {
+      CONSTS.links.slice(0, 2).map((link) => (
+        <a href={link.url} target={link.blank ? "_blank" : "_self"} class="font-medium md:text-xl lg:text-4xl">
+          {link.name}
+        </a>
+      ))
+    }
+  </div>
+
+  <div class="absolute inset-0 flex items-center justify-center">
+    <button id="copy-email" data-email={CONSTS.mail} class="relative h-[1.4em] cursor-copy overflow-hidden font-medium sm:h-[1.1em] md:text-xl lg:text-4xl">
+      <div id="text-wrapper" class="flex flex-col items-center [&>span]:block">
+        <span>Email</span>
+        <span>Copié</span>
+      </div>
+    </button>
+  </div>
+
+  <div class="z-10 flex w-full flex-col items-center justify-between sm:flex-row">
+    {
+      CONSTS.links.slice(2, 4).map((link) => (
+        <a href={link.url} target={link.blank ? "_blank" : "_self"} class="font-medium md:text-xl lg:text-4xl">
+          {link.name}
+        </a>
+      ))
+    }
+  </div>
+</Slide>
+
+<script>
+  import { animate } from "motion";
+
+  function initCopy() {
+    const btn = document.getElementById("copy-email");
+    const wrapper = document.getElementById("text-wrapper");
+
+    if (!btn || !wrapper) {
+      return;
+    }
+
+    const email = btn.getAttribute("data-email");
+    let isAnimating = false;
+
+    btn.addEventListener("click", () => {
+      if (isAnimating || !email) {
+        return;
+      }
+
+      isAnimating = true;
+      navigator.clipboard.writeText(email);
+
+      animate(wrapper, { y: ["0%", "-50%"] }, { duration: 0.6, ease: "circOut" });
+
+      setTimeout(() => {
+        animate(wrapper, { y: ["-50%", "0%"] }, { duration: 0.6, ease: "circOut" }).finished.then(() => {
+          isAnimating = false;
+        });
+      }, 1200);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initCopy);
+</script>
