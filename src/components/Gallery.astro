@@ -15,7 +15,7 @@ import Map from "@/components/Map.astro";
 
 <script>
   import { scroll, animate } from "motion";
-  import Lenis from "lenis";
+  // import Lenis from "lenis";
 
   if (history.scrollRestoration) {
     history.scrollRestoration = "manual";
@@ -24,13 +24,13 @@ import Map from "@/components/Map.astro";
   function init() {
     window.scrollTo(0, 0);
 
-    const lenis = new Lenis();
+    // const lenis = new Lenis();
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    // function raf(time: number) {
+    //   lenis.raf(time);
+    //   requestAnimationFrame(raf);
+    // }
+    // requestAnimationFrame(raf);
 
     const container = document.getElementById("gallery-container");
     const track = document.getElementById("gallery-track");
