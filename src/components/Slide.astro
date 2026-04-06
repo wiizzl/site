@@ -1,0 +1,13 @@
+---
+interface Props {
+  title?: string;
+  className?: string;
+}
+
+const { title, className } = Astro.props;
+---
+
+<div class={`project-card relative h-[42vh] w-[39vw] shrink-0 bg-primary-foreground select-none ${className}`}>
+  <slot />
+  {title && <p class="text-muted-foreground absolute -top-5 left-0 text-[11px] font-medium">{title}</p>}
+</div>
