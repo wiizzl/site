@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-
-import Link from "@/components/Link.astro";
-import Title from "@/components/Title.astro";
 ---
 
 <BaseLayout>
-  <Title>nothing here</Title>
-  <p>That's a shame. <Link href="/">Home?</Link></p>
+  <section class="flex min-h-screen flex-col items-center justify-center space-y-2">
+    <div class="flex flex-col items-center">
+      <h1 class="text-6xl">404</h1>
+      <p>Cette page n'existe pas/pas encore.</p>
+    </div>
+    <a href="/" class="text-sm hover:underline">Retour à l'accueil</a>
+  </section>
 </BaseLayout>
