@@ -4,40 +4,29 @@ import Slide from "@/components/Slide.astro";
 
 <Slide title="Projets">
   <a href="/projects" draggable="false" class="flex h-full cursor-pointer items-center overflow-hidden">
-    <span id="project-text" class="-mt-15 inline-block text-[400px] whitespace-nowrap">Projets</span>
+    <span id="project-text" class="inline-flex items-baseline text-[600px] whitespace-nowrap">
+      <span>Pr</span>
+      <span class="bg-primary/60 mx-2.5 inline-block h-[0.6em] w-[0.6em] shrink-0 rounded-full"></span>
+      <span>jets</span>
+    </span>
   </a>
 </Slide>
 
 <script>
-  import { animate, scroll } from "motion";
+  import { animate } from "motion";
+  import { createResponsiveScroll } from "@/utils/scroll";
 
   function init() {
     const text = document.getElementById("project-text");
-    const container = document.getElementById("gallery-container");
-
-    if (!text || !container) {
+    if (!text) {
       return;
     }
 
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    const xDistance = isMobile ? -200 : -650;
+    createResponsiveScroll("gallery-container", () => {
+      const xDistance = window.innerWidth < 768 ? -700 : -1400;
 
-    scroll(
-      animate(
-        text,
-        {
-          x: [0, xDistance],
-        },
-        {
-          ease: "linear",
-          delay: 0.1,
-        },
-      ),
-      {
-        target: container,
-        offset: ["start start", "end end"],
-      },
-    );
+      return animate(text, { x: [100, xDistance] }, { ease: "linear" });
+    });
   }
 
   document.addEventListener("DOMContentLoaded", init);
