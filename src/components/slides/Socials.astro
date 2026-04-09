@@ -5,10 +5,10 @@ import { CONSTS } from "@/consts";
 ---
 
 <Slide title="Contact" className="relative flex flex-col justify-between p-8">
-  <div class="z-10 flex w-full flex-col items-center justify-between sm:flex-row">
+  <div class="z-10 flex w-full items-center justify-between">
     {
       CONSTS.links.slice(0, 2).map((link) => (
-        <a href={link.url} target={link.blank ? "_blank" : "_self"} class="font-medium md:text-xl lg:text-4xl">
+        <a href={link.url} target={link.blank ? "_blank" : "_self"} class="text-4xl font-medium">
           {link.name}
         </a>
       ))
@@ -16,7 +16,7 @@ import { CONSTS } from "@/consts";
   </div>
 
   <div class="absolute inset-0 flex items-center justify-center">
-    <button id="copy-email" data-email={CONSTS.mail} class="relative h-[1.4em] cursor-copy overflow-hidden font-medium sm:h-[1.1em] md:text-xl lg:text-4xl">
+    <button id="copy-email" data-email={CONSTS.mail} class="relative h-[1.1em] cursor-copy overflow-hidden text-4xl font-medium">
       <div id="text-wrapper" class="flex flex-col items-center [&>span]:block">
         <span>Email</span>
         <span>Copié</span>
@@ -24,10 +24,10 @@ import { CONSTS } from "@/consts";
     </button>
   </div>
 
-  <div class="z-10 flex w-full flex-col items-center justify-between sm:flex-row">
+  <div class="z-10 flex w-full items-center justify-between">
     {
       CONSTS.links.slice(2, 4).map((link) => (
-        <a href={link.url} target={link.blank ? "_blank" : "_self"} class="font-medium md:text-xl lg:text-4xl">
+        <a href={link.url} target={link.blank ? "_blank" : "_self"} class="text-4xl font-medium">
           {link.name}
         </a>
       ))
