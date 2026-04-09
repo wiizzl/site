@@ -6,6 +6,7 @@ import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+  prefetch: true,
   site: "https://houlliere.com",
   redirects: {
     "/resume":
@@ -17,10 +18,5 @@ export default defineConfig({
     imageService: true,
   }),
   integrations: [mdx(), sitemap()],
-  vite: {
-    plugins: [tailwindcss()],
-    server: {
-      allowedHosts: ["fedora-desktop.tail994e59.ts.net"],
-    },
-  },
+  vite: { plugins: [tailwindcss()] },
 });
