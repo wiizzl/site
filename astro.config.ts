@@ -17,5 +17,10 @@ export default defineConfig({
     imageService: true,
   }),
   integrations: [mdx(), sitemap()],
-  vite: { plugins: [tailwindcss()] },
+  vite: {
+    plugins: [tailwindcss()],
+    server: {
+      allowedHosts: ["fedora-desktop.tail994e59.ts.net"],
+    },
+  },
 });
