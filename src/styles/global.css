@@ -88,12 +88,12 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-    @apply selection:bg-primary/60 selection:text-accent-foreground antialiased;
-  }
   html,
   body {
-    @apply overscroll-y-none scroll-smooth;
+    @apply overscroll-none scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    @apply selection:bg-primary/60 selection:text-accent-foreground;
   }
 }
