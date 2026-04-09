@@ -16,6 +16,6 @@ export const CONSTS = {
       url: "https://instagram.com/pierre.hlr_",
       blank: true,
     },
-    { name: "CV", url: "/resume", blank: false },
+    { name: "CV ↓", url: "/resume", blank: false },
   ],
 };
