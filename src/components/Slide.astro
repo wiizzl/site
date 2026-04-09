@@ -4,10 +4,16 @@ interface Props {
   className?: string;
 }
 
-const { title, className } = Astro.props;
+const { title, className = "" } = Astro.props;
 ---
 
-<div class={`project-card relative h-[42vh] w-[39vw] shrink-0 bg-primary-foreground select-none ${className}`}>
+<div class={`project-card opacity-0 relative h-180 w-300 shrink-0 bg-primary-foreground select-none ${className}`}>
   <slot />
-  {title && <p class="text-muted-foreground absolute -top-5 left-0 text-[11px] font-medium">{title}</p>}
+  {title && <p class="text-muted-foreground absolute -top-16 left-0 text-4xl font-medium sm:-top-12 sm:text-2xl lg:-top-8 lg:text-base">{title}</p>}
 </div>
+
+<script>
+  import { animate } from "motion";
+
+  animate(".project-card", { opacity: [0, 1] });
+</script>

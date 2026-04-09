@@ -1,4 +1,4 @@
-<div class="relative h-4.5 w-fit">
+<div class="relative h-5 w-fit">
   <div id="track" class="flex h-full items-center gap-x-2.5">
     {Array.from({ length: 18 }).map(() => <div class="bg-muted-foreground/40 h-full w-px shrink-0" />)}
   </div>
@@ -6,43 +6,22 @@
 </div>
 
 <script>
-  import { scroll, animate } from "motion";
+  import { animate } from "motion";
+  import { createResponsiveScroll } from "@/utils/scroll";
 
   function init() {
     const indicator = document.getElementById("indicator");
     const track = document.getElementById("track");
-    const scrollTarget = document.getElementById("gallery-container");
 
-    if (!indicator || !track || !scrollTarget) {
+    if (!indicator || !track) {
       return;
     }
 
-    let scrollStop: (() => void) | undefined;
+    createResponsiveScroll("gallery-container", () => {
+      const travelDistance = Math.max(0, track.offsetWidth - indicator.offsetWidth);
 
-    const setupAnimation = () => {
-      if (scrollStop) {
-        scrollStop();
-      }
-
-      const travelDistance = track.offsetWidth - indicator.offsetWidth;
-
-      scrollStop = scroll(
-        animate(
-          indicator,
-          {
-            x: [0, travelDistance],
-          },
-          { ease: "linear" },
-        ),
-        {
-          target: scrollTarget,
-          offset: ["start start", "end end"],
-        },
-      );
-    };
-
-    setupAnimation();
-    window.addEventListener("resize", setupAnimation);
+      return animate(indicator, { x: [0, travelDistance] }, { ease: "linear" });
+    });
   }
 
   document.addEventListener("DOMContentLoaded", init);

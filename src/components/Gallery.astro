@@ -2,72 +2,81 @@
 import Map from "@/components/Map.astro";
 ---
 
-<section id="gallery-container" class="relative w-full">
-  <div class="sticky top-0 h-svh overflow-hidden">
-    <div class="absolute top-16 left-0 flex w-full items-center justify-center">
-      <Map />
-    </div>
-    <div id="gallery-track" class="flex h-full items-center gap-x-3 px-[30.5vw] md:gap-x-6">
-      <slot />
+<section id="gallery-container" class="relative h-svh w-full overflow-x-auto overflow-y-hidden md:overflow-x-hidden md:overflow-y-auto">
+  <div id="scroll-space" class="h-full w-full">
+    <div class="sticky top-0 left-0 flex h-svh w-screen items-center overflow-hidden">
+      <div class="pointer-events-none absolute top-16 left-0 z-10 flex w-full items-center justify-center md:pointer-events-auto">
+        <Map />
+      </div>
+      <div id="gallery-track" class="flex w-max origin-left items-center gap-x-10">
+        <slot />
+      </div>
     </div>
   </div>
-</section>
 
-<script>
-  import { scroll, animate } from "motion";
+  <script>
+    import { animate } from "motion";
+    import { createResponsiveScroll } from "@/utils/scroll";
 
-  if (history.scrollRestoration) {
-    history.scrollRestoration = "manual";
-  }
+    function init() {
+      const scrollSpace = document.getElementById("scroll-space");
+      const track = document.getElementById("gallery-track");
+      const cards = document.querySelectorAll(".project-card");
 
-  function init() {
-    window.scrollTo(0, 0);
+      if (!scrollSpace || !track || cards.length < 2) {
+        return;
+      }
 
-    const container = document.getElementById("gallery-container");
-    const track = document.getElementById("gallery-track");
-    const cards = document.querySelectorAll(".project-card");
+      const container = document.getElementById("gallery-container");
+      if (container) {
+        container.scrollLeft = 0;
+      }
 
-    if (!container || !track || cards.length < 2) {
-      return;
+      const FRAME_WIDTH = 1200;
+      const FRAME_HEIGHT = 720;
+
+      const runIntro = () => {
+        animate(cards[0], { scale: [0, 1] }, { duration: 0.9, ease: "circOut" });
+        animate(cards[1], { opacity: [0, 1] }, { duration: 0.6, delay: 0.8, ease: "easeOut" });
+      };
+
+      createResponsiveScroll("gallery-container", () => {
+        const scaleX = window.innerWidth / FRAME_WIDTH;
+        const scaleY = window.innerHeight / FRAME_HEIGHT;
+
+        const scaleMultiplier = window.innerWidth < 768 ? 0.95 : 0.7;
+        const initialScale = Math.min(scaleX, scaleY) * scaleMultiplier;
+
+        const hasZoomEffect = initialScale > 0.6;
+        const finalScale = hasZoomEffect ? 0.6 : initialScale;
+        const scaleValues = hasZoomEffect ? [initialScale, initialScale * 0.9, 0.75, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6] : [initialScale, initialScale];
+
+        const viewportWidthInUnscaledPixels = window.innerWidth / initialScale;
+        const paddingX = Math.max(0, (viewportWidthInUnscaledPixels - FRAME_WIDTH) / 2);
+        track.style.paddingLeft = `${paddingX}px`;
+        track.style.paddingRight = `${paddingX}px`;
+
+        const gap = 40;
+        const cardsWidth = cards.length * FRAME_WIDTH + (cards.length - 1) * gap;
+
+        const lastCardCenterUnscaled = paddingX + cardsWidth - FRAME_WIDTH / 2;
+        const lastCardCenterScaled = lastCardCenterUnscaled * finalScale;
+        const scrollAmount = Math.max(0, lastCardCenterScaled - window.innerWidth / 2);
+
+        if (window.innerWidth < 768) {
+          scrollSpace.style.width = `${Math.ceil(scrollAmount + window.innerWidth)}px`;
+          scrollSpace.style.height = "100%";
+        } else {
+          scrollSpace.style.height = `${Math.ceil(scrollAmount + window.innerHeight)}px`;
+          scrollSpace.style.width = "100%";
+        }
+
+        return animate(track, { x: [0, -scrollAmount], scale: scaleValues }, { ease: "linear" });
+      });
+
+      runIntro();
     }
 
-    const runIntro = () => {
-      animate(cards[0], { scale: [0, 1] }, { duration: 0.9, ease: "circOut" });
-      animate(cards[1], { opacity: [0, 1] }, { duration: 0.6, delay: 0.8, ease: "easeOut" });
-    };
-
-    let scrollStop: (() => void) | undefined;
-
-    const updateGallery = () => {
-      if (scrollStop) scrollStop();
-
-      const scrollAmount = track.scrollWidth - window.innerWidth;
-      container.style.height = `${Math.ceil(scrollAmount + window.innerHeight)}px`;
-
-      scrollStop = scroll(
-        animate(
-          track,
-          {
-            x: [0, -scrollAmount * 0.3, -scrollAmount],
-            scale: [1.65, 1.55, 1.45, 1.15, 1, 1, 1, 1, 1, 1, 1],
-          },
-          { ease: "linear" },
-        ),
-        { target: container, offset: ["start start", "end end"] },
-      );
-    };
-
-    let resizeTimeout: number;
-    const resizeObserver = new ResizeObserver(() => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = window.setTimeout(updateGallery, 100);
-    });
-
-    resizeObserver.observe(container);
-
-    updateGallery();
-    runIntro();
-  }
-
-  document.addEventListener("DOMContentLoaded", init);
-</script>
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</section>

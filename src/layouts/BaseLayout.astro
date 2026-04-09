@@ -15,7 +15,7 @@ const rssURL = new URL("rss.xml", Astro.site);
 ---
 
 <!doctype html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -47,7 +47,7 @@ const rssURL = new URL("rss.xml", Astro.site);
       {title ? title + " - " + CONSTS.title : CONSTS.title}
     </title>
   </head>
-  <body class="selection:bg-primary/60 selection:text-accent-foreground antialiased">
+  <body>
     <main>
       <slot />
     </main>
