@@ -26,10 +26,19 @@
 
       const travelDistance = track.offsetWidth - indicator.offsetWidth;
 
-      scrollStop = scroll(animate(indicator, { x: [0, travelDistance] }, { ease: "linear" }), {
-        target: scrollTarget,
-        offset: ["start start", "end end"],
-      });
+      scrollStop = scroll(
+        animate(
+          indicator,
+          {
+            x: [0, travelDistance],
+          },
+          { ease: "linear" },
+        ),
+        {
+          target: scrollTarget,
+          offset: ["start start", "end end"],
+        },
+      );
     };
 
     setupAnimation();
