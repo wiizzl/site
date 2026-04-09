@@ -6,6 +6,7 @@ import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+  devToolbar: { enabled: false },
   prefetch: true,
   site: "https://houlliere.com",
   redirects: {
