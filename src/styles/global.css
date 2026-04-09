@@ -21,6 +21,10 @@
     --border: oklch(0.8083 0.0174 271.1982);
     --input: oklch(0.8575 0.0145 268.4756);
     --ring: oklch(0.5547 0.2503 297.0156);
+    --variant-1: oklch(0.682 0.1448 235.3822);
+    --variant-2: oklch(0.625 0.1772 140.4448);
+    --variant-3: oklch(0.692 0.2041 42.4293);
+    --variant-4: oklch(0.7141 0.1045 33.0967);
   }
 }
 
@@ -45,6 +49,10 @@
     --border: oklch(0.324 0.0319 281.9784);
     --input: oklch(0.324 0.0319 281.9784);
     --ring: oklch(0.7871 0.1187 304.7693);
+    --variant-1: oklch(0.8467 0.0833 210.2545);
+    --variant-2: oklch(0.8577 0.1092 142.7153);
+    --variant-3: oklch(0.8237 0.1015 52.6294);
+    --variant-4: oklch(0.9226 0.0238 30.4919);
   }
 }
 
@@ -70,6 +78,10 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-variant-1: var(--variant-1);
+  --color-variant-2: var(--variant-2);
+  --color-variant-3: var(--variant-3);
+  --color-variant-4: var(--variant-4);
 }
 
 @layer base {
