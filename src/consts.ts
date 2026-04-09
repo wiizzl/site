@@ -1,6 +1,6 @@
 export const CONSTS = {
   title: "Pierre Houllière",
-  description: "Développeur freelance, étudiant en informatique.",
+  description: "Portfolio de Pierre Houllière",
   mail: "hi@houlliere.com",
   keywords: ["Développeur", "Freelance", "Informatique"],
   place: "Rouen, France",
