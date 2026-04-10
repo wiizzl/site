@@ -21,6 +21,8 @@ const sitemapURL = new URL("sitemap-index.xml", Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <script src="@/scripts/force-motion"></script>
+
     <link rel="sitemap" href={sitemapURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
