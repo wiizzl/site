@@ -44,9 +44,7 @@ const rssURL = new URL("rss.xml", Astro.site);
     <meta property="twitter:description" content={CONSTS.description} />
     <meta property="twitter:image" content={socialImageURL} />
 
-    <title>
-      {title ? title + " - " + CONSTS.title : CONSTS.title}
-    </title>
+    <title>{title ? title + " - " + CONSTS.title : CONSTS.title}</title>
   </head>
   <body>
     <main>
