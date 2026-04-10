@@ -10,8 +10,9 @@ interface Props {
 const { title } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL("og-image.png", Astro.url.origin);
+const socialImageURL = new URL("og-image.png", Astro.site);
 const rssURL = new URL("rss.xml", Astro.site);
+const sitemapURL = new URL("sitemap-index.xml", Astro.site);
 ---
 
 <!doctype html>
@@ -20,7 +21,7 @@ const rssURL = new URL("rss.xml", Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href={sitemapURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" type="application/rss+xml" title={CONSTS.title} href={rssURL} />
