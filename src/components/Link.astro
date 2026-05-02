@@ -1,0 +1,35 @@
+---
+interface Props {
+  href: string;
+  blank?: boolean;
+  anonymize?: boolean;
+}
+
+const { href, blank, anonymize } = Astro.props;
+
+const target = blank ? "_blank" : "_self";
+const rel = blank ? "noreferrer noopener" : undefined;
+
+const encodedHref = anonymize ? Buffer.from(href).toString("base64") : href;
+---
+
+{
+  anonymize ? (
+    <a
+      role="link"
+      tabindex="0"
+      class="hover:text-muted-foreground inline-block underline"
+      data-encoded={encodedHref}
+      target={target}
+      rel={rel}
+      onpointerenter="this.href = atob(this.dataset.encoded)"
+      onfocus="this.href = atob(this.dataset.encoded)"
+    >
+      <slot />
+    </a>
+  ) : (
+    <a href={href} class="hover:text-muted-foreground inline-block underline" target={target} rel={rel}>
+      <slot />
+    </a>
+  )
+}

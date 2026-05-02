@@ -1,0 +1,49 @@
+---
+import "@/styles/global.css";
+
+import { CONSTS } from "@/consts";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = CONSTS.description, image = "og-image.png" } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(image, Astro.site);
+const rssURL = new URL("rss.xml", Astro.site);
+const sitemapURL = new URL("sitemap-index.xml", Astro.site);
+
+const finalTitle = title ? `${title} - ${CONSTS.title}` : CONSTS.title;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="sitemap" href={sitemapURL} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href={canonicalURL} />
+<link rel="alternate" type="application/rss+xml" title={CONSTS.title} href={rssURL} />
+
+<title>{finalTitle}</title>
+<meta name="title" content={finalTitle} />
+<meta name="description" content={description} />
+<meta name="generator" content={Astro.generator} />
+<meta name="keywords" content={CONSTS.keywords.join(", ")} />
+<meta name="author" content={CONSTS.title} />
+<meta name="copyright" content={CONSTS.title} />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={finalTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={socialImageURL} />
+<meta property="og:site_name" content={CONSTS.title} />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={finalTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={socialImageURL} />

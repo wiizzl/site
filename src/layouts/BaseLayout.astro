@@ -1,56 +1,22 @@
 ---
-import "@/styles/global.css";
-
-import { CONSTS } from "@/consts";
+import BaseHead from "@/layouts/BaseHead.astro";
 
 interface Props {
   title?: string;
+  description?: string;
+  image?: string;
 }
 
-const { title } = Astro.props;
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL("og-image.png", Astro.site);
-const rssURL = new URL("rss.xml", Astro.site);
-const sitemapURL = new URL("sitemap-index.xml", Astro.site);
+const { title, description, image } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <script src="@/scripts/force-motion"></script>
-
-    <link rel="sitemap" href={sitemapURL} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" type="application/rss+xml" title={CONSTS.title} href={rssURL} />
-
-    <meta name="generator" content={Astro.generator} />
-    <meta name="keywords" content={CONSTS.keywords.join(", ")} />
-    <meta name="author" content={`${CONSTS.title}, ${CONSTS.mail}`} />
-    <meta name="copyright" content={CONSTS.title} />
-    <meta name="description" content={CONSTS.description} />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title || CONSTS.title} />
-    <meta property="og:description" content={CONSTS.description} />
-    <meta property="og:image" content={socialImageURL} />
-    <meta property="og:site_name" content={title || CONSTS.title} />
-
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title || CONSTS.title} />
-    <meta property="twitter:description" content={CONSTS.description} />
-    <meta property="twitter:image" content={socialImageURL} />
-
-    <title>{title ? title + " - " + CONSTS.title : CONSTS.title}</title>
+    <BaseHead title={title} description={description} image={image} />
   </head>
   <body>
-    <main>
+    <main class="mx-auto h-full w-full max-w-screen-2xl px-4 py-10 md:px-10 md:py-40 lg:px-52 xl:px-80">
       <slot />
     </main>
   </body>
