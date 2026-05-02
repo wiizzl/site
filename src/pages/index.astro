@@ -1,20 +1,62 @@
 ---
+import { ArrowUpRight } from "@lucide/astro";
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-import Gallery from "@/components/Gallery.astro";
-import Circle from "@/components/slides/Circle.astro";
-import Socials from "@/components/slides/Socials.astro";
-import Projects from "@/components/slides/Projects.astro";
-import Blog from "@/components/slides/Blog.astro";
-import Work from "@/components/slides/Work.astro";
+import Link from "@/components/Link.astro";
+import Title from "@/components/Title.astro";
+
+import { CONSTS } from "@/consts";
 ---
 
 <BaseLayout>
-  <Gallery>
-    <Circle />
-    <Projects />
-    <Work />
-    <Blog />
-    <Socials />
-  </Gallery>
+  <div class="border-b pb-8 md:pb-14">
+    <Title>{CONSTS.title}</Title>
+    <div class="max-w-2xl space-y-4">
+      <p>Freelance developer and CS student based in {CONSTS.place}. I enjoy sharing my experiences and insights through <Link href="/blog">writing</Link>.</p>
+      <p>
+        I won <Link href="https://worldskills-france.org/actualites/les-resultats-de-la-competition-nationale-des-metiers-2025" blank>second place</Link> in the Web Development competition at <Link
+          href="https://worldskills-france.org/editions/competition-nationale-des-metiers-2025-48e-edition"
+          blank>WorldSkills France 2025</Link
+        >.
+      </p>
+      <p>
+        Take a look at some recent <Link href="/projects">work</Link>, download my <Link href="/resume" blank>resume</Link> or <Link href={`mailto:${CONSTS.mail}`} anonymize>send me an email</Link>.
+      </p>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 space-y-6 pt-8 md:grid-cols-2 md:pt-14">
+    <div class="md:border-r md:pr-14">
+      <Title>Contact</Title>
+      <div class="flex flex-col">
+        {
+          CONSTS.links.map((link) => (
+            <a href={link.url} target="_blank" class="flex items-center justify-between">
+              <span class="flex items-center gap-x-1.5">
+                <div class="p-1" style={`background-color: ${link.color};`} />
+                {link.name}
+              </span>
+              <ArrowUpRight class="stroke-[1.1]" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+    <div class="md:pl-14">
+      <Title>Experience</Title>
+      <div class="flex flex-col">
+        {
+          CONSTS.experiences.map((experience) => (
+            <a href={experience.url} target="_blank" class="flex items-center justify-between">
+              <span title={experience.description} class="flex items-center gap-x-1.5">
+                <div class="p-1" style={`background-color: ${experience.color};`} />
+                {experience.name}
+              </span>
+              <span class="text-sm">{experience.date}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
 </BaseLayout>

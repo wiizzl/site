@@ -11,7 +11,7 @@ export const GET: APIRoute = async ({ site }) => {
   return rss({
     title: CONSTS.title,
     description: CONSTS.description,
-    site: site,
+    site,
     items: [],
   });
 };
