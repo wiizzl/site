@@ -1,6 +1,6 @@
 export const CONSTS = {
   title: "Pierre Houllière",
-  description: "Pierre's personal website.",
+  description: "Site personnel de Pierre.",
   mail: "hi@houlliere.com",
   keywords: ["Développeur", "Freelance", "Informatique"],
   place: "Rouen, France",
@@ -22,15 +22,14 @@ export const CONSTS = {
       name: "Freelance",
       url: "https://houlliere.com",
       date: "11/2024 - Present",
-      description:
-        "Web & mobile development for small businesses and individuals.",
+      description: "Développement logiciel pour des TPE/PME et particuliers.",
       color: "#a082d4",
     },
     {
       name: "Matmut",
       url: "https://matmut.fr/groupe-matmut/qui-sommes-nous.html",
       date: "01/2026 - 02/2026",
-      description: "Second-year Computer Science HND.",
+      description: "Stage de deuxième année de BTS SIO.",
       color: "#e9b51f",
     },
     {
@@ -38,7 +37,7 @@ export const CONSTS = {
       url: "https://overspeed.fr",
       date: "05/2025 - 08/2025",
       description:
-        "First-year Computer Science HND internship, followed by a role as an external contractor.",
+        "Stage de première année de BTS SIO puis repris en tant que prestataire.",
       color: "#214083",
     },
   ],
