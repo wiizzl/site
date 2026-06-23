@@ -1,5 +1,5 @@
 ---
-import BaseHead from "@/layouts/BaseHead.astro";
+import BaseHead from "#/layouts/BaseHead.astro";
 
 interface Props {
   title?: string;
@@ -11,7 +11,7 @@ const { title, description, image } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <BaseHead title={title} description={description} image={image} />
   </head>
