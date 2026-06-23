@@ -1,0 +1,8 @@
+{
+  "languages": {
+    "CSS": { "formatter": { "language_server": { "name": "biome" } } },
+    "Astro": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSON": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSONC": { "formatter": { "language_server": { "name": "biome" } } }
+  }
+}

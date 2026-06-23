@@ -1,3 +1,13 @@
-<h1 class="mb-4 text-lg font-semibold lowercase">
-  <slot />~
+---
+import { ArrowLeft } from "@lucide/astro";
+
+interface Props {
+  back?: boolean;
+}
+
+const { back } = Astro.props;
+---
+
+<h1 class="mb-4 text-lg font-semibold lowercase flex items-center gap-x-1">
+  {back && <a href="/"> <ArrowLeft class="size-4" /></a>} <slot />~
 </h1>

@@ -1,27 +1,27 @@
 ---
 import { ArrowUpRight } from "@lucide/astro";
 
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import BaseLayout from "#/layouts/BaseLayout.astro";
 
-import Link from "@/components/Link.astro";
-import Title from "@/components/Title.astro";
+import Link from "#/components/Link.astro";
+import Title from "#/components/Title.astro";
 
-import { CONSTS } from "@/consts";
+import { CONSTS } from "#/consts";
 ---
 
 <BaseLayout>
   <div class="border-b pb-8 md:pb-14">
     <Title>{CONSTS.title}</Title>
-    <div class="max-w-2xl space-y-4">
-      <p>Freelance developer and CS student based in {CONSTS.place}. I enjoy sharing my experiences and insights through <Link href="/blog">writing</Link>.</p>
+    <div class="max-w-3xl space-y-4">
+      <p>Développeur freelance et étudiant en informatique basé sur {CONSTS.place}. J'aime partager mes expériences à travers <Link href="/blog">mon blog</Link>.</p>
       <p>
-        I won <Link href="https://worldskills-france.org/actualites/les-resultats-de-la-competition-nationale-des-metiers-2025" blank>second place</Link> in the Web Development competition at <Link
+        J'ai remporté <Link href="https://worldskills-france.org/actualites/les-resultats-de-la-competition-nationale-des-metiers-2025" blank>la deuxième place</Link> en Développement Web lors des <Link
           href="https://worldskills-france.org/editions/competition-nationale-des-metiers-2025-48e-edition"
           blank>WorldSkills France 2025</Link
         >.
       </p>
       <p>
-        Take a look at some recent <Link href="/projects">work</Link>, download my <Link href="/resume" blank>resume</Link> or <Link href={`mailto:${CONSTS.mail}`} anonymize>send me an email</Link>.
+        Jetez un coup d'oeil à <Link href="/projects">mes projets</Link>, téléchargez mon <Link href="/resume" blank>CV</Link> ou <Link href={`mailto:${CONSTS.mail}`} anonymize>envoyez moi un email</Link>.
       </p>
     </div>
   </div>
@@ -43,7 +43,7 @@ import { CONSTS } from "@/consts";
       </div>
     </div>
     <div class="md:pl-14">
-      <Title>Experience</Title>
+      <Title>Expériences</Title>
       <div class="flex flex-col">
         {
           CONSTS.experiences.map((experience) => (
