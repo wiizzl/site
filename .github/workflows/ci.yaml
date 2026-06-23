@@ -27,7 +27,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Run Biome
-        run: bun --bun astro ci .
+        run: bun --bun biome ci .
 
       - name: Run Typecheck
         run: bun run typecheck
