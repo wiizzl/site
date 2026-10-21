@@ -1,9 +1,17 @@
 ---
 import BaseLayout from "#/layouts/BaseLayout.astro";
 
+import ArticleMeta from "#/components/ArticleMeta.astro";
+import Rows from "#/components/Rows.astro";
 import Title from "#/components/Title.astro";
+
+import { formatMonth, getPosts } from "#/lib/content";
+
+const posts = await getPosts();
 ---
 
-<BaseLayout>
-  <Title back>Blog</Title>
+<BaseLayout title="Blog" description="Posts by Pierre Houllière about software development and his experiences.">
+  <Title>Blog</Title>
+  <ArticleMeta>Back home</ArticleMeta>
+  <Rows rows={posts.map((post) => ({ name: post.data.title, url: `/blog/${post.id}`, meta: formatMonth(post.data.date), datetime: post.data.date.toISOString() }))} />
 </BaseLayout>

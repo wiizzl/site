@@ -1,44 +1,28 @@
+const name = "Pierre Houllière";
+const role = "Apprentice software engineer";
+const company = {
+  name: "Docaposte Agility",
+  url: "https://docaposte-agility.fr",
+};
+const location = { city: "Rouen", country: "France", countryCode: "FR" };
+const mail = "hi@houlliere.com";
+
 export const CONSTS = {
-  title: "Pierre Houllière",
-  description: "Site personnel de Pierre.",
-  mail: "hi@houlliere.com",
-  keywords: ["Développeur", "Freelance", "Informatique"],
-  place: "Rouen, France",
+  title: name,
+  role,
+  description: `${role} at ${company.name} and a freelancer based in ${location.city}, ${location.country}.`,
+  company,
+  school: { name: "CESI", url: "https://cesi.fr" },
+  location,
+  mail,
   links: [
-    {
-      name: "LinkedIn",
-      url: "https://linkedin.com/in/pierrehoulliere",
-      color: "#086ac9",
-    },
-    { name: "GitHub", url: "https://github.com/wiizzl", color: "#080808" },
-    {
-      name: "Instagram",
-      url: "https://instagram.com/pierre.hlr_",
-      color: "#fb7808",
-    },
+    { name: "GitHub", url: "https://github.com/wiizzl" },
+    { name: "LinkedIn", url: "https://linkedin.com/in/pierrehoulliere" },
+    { name: "Email", url: `mailto:${mail}` },
+    { name: "CV", url: "/cv" },
   ],
-  experiences: [
-    {
-      name: "Freelance",
-      url: "https://houlliere.com",
-      date: "11/2024 - Present",
-      description: "Développement logiciel pour des TPE/PME et particuliers.",
-      color: "#a082d4",
-    },
-    {
-      name: "Matmut",
-      url: "https://matmut.fr/groupe-matmut/qui-sommes-nous.html",
-      date: "01/2026 - 02/2026",
-      description: "Stage de deuxième année de BTS SIO.",
-      color: "#e9b51f",
-    },
-    {
-      name: "Overspeed",
-      url: "https://overspeed.fr",
-      date: "05/2025 - 08/2025",
-      description:
-        "Stage de première année de BTS SIO puis repris en tant que prestataire.",
-      color: "#214083",
-    },
-  ],
+  award: {
+    name: "French Vice-Champion in Web Technologies at WorldSkills France 2025",
+    url: "https://worldskills-france.org/editions/competition-nationale-des-metiers-2025-48e-edition",
+  },
 };

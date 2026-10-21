@@ -1,53 +1,66 @@
 ---
 import "#/global.css";
 
+import { getImage } from "astro:assets";
+
 import { CONSTS } from "#/consts";
 
 export interface Props {
   title?: string;
   description?: string;
-  image?: string;
+  type?: "website" | "article";
+  publishedTime?: Date;
+  noindex?: boolean;
+  image?: ImageMetadata;
 }
 
 const {
   title,
   description = CONSTS.description,
-  image = "og-image.png",
+  type = "website",
+  publishedTime,
+  noindex = false,
+  image,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL(image, Astro.site);
-const rssURL = new URL("rss.xml", Astro.site);
-const sitemapURL = new URL("sitemap-index.xml", Astro.site);
-
 const finalTitle = title ? `${title} - ${CONSTS.title}` : CONSTS.title;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage =
+  image &&
+  (await getImage({
+    src: image,
+    width: 1200,
+    height: 630,
+    fit: "cover",
+    format: "jpeg",
+  }));
+const imageURL = new URL(ogImage ? ogImage.src : "og-image.png", Astro.site);
 ---
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="sitemap" href={sitemapURL} />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="canonical" href={canonicalURL} />
-<link rel="alternate" type="application/rss+xml" title={CONSTS.title} href={rssURL} />
-
 <title>{finalTitle}</title>
-<meta name="title" content={finalTitle} />
 <meta name="description" content={description} />
-<meta name="generator" content={Astro.generator} />
-<meta name="keywords" content={CONSTS.keywords.join(", ")} />
 <meta name="author" content={CONSTS.title} />
-<meta name="copyright" content={CONSTS.title} />
+<meta name="generator" content={Astro.generator} />
+{noindex && <meta name="robots" content="noindex" />}
 
-<meta property="og:type" content="website" />
+<link rel="canonical" href={canonicalURL} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate" type="application/rss+xml" title={CONSTS.title} href={new URL("blog/rss.xml", Astro.site)} />
+
+<meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={finalTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={socialImageURL} />
 <meta property="og:site_name" content={CONSTS.title} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={CONSTS.title} />
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
 
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
-<meta property="twitter:title" content={finalTitle} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={socialImageURL} />
+<meta name="twitter:card" content="summary_large_image" />

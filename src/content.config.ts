@@ -8,20 +8,30 @@ export const collections = {
       pattern: "**/*.{md,mdx}",
       base: "./src/content/blog",
     }),
-    schema: z.object({
-      title: z.string(),
-      description: z.string(),
-      tags: z.array(z.string()),
-      date: z.coerce.date(),
-    }),
+    schema: ({ image }) =>
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        tags: z.array(z.string()),
+        date: z.coerce.date(),
+        draft: z.boolean().default(false),
+        image: z.object({ src: image(), alt: z.string() }).optional(),
+      }),
   }),
   projects: defineCollection({
     loader: glob({
       pattern: "**/*.{md,mdx}",
       base: "./src/content/projects",
     }),
-    schema: z.object({
-      title: z.string(),
-    }),
+    schema: ({ image }) =>
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        url: z.url().optional(),
+        repo: z.url().optional(),
+        stack: z.array(z.string()),
+        order: z.number(),
+        image: z.object({ src: image(), alt: z.string() }).optional(),
+      }),
   }),
 };

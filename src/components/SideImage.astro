@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+
+import grosHorloge from "#/assets/side/gros-horloge.jpg";
+
+export interface Props {
+  src?: ImageMetadata;
+  alt?: string;
+}
+
+const {
+  src = grosHorloge,
+  alt = "The Gros-Horloge, the astronomical clock in the old town of Rouen, France.",
+} = Astro.props;
+---
+
+<Image
+  src={src}
+  alt={alt}
+  width={1280}
+  widths={[480, 960, 1280]}
+  sizes="40vw"
+  loading="lazy"
+  draggable="false"
+  class="border-line view-transition-side-image size-full rounded-xl border object-cover dark:brightness-90"
+/>

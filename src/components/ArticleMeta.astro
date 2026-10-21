@@ -1,0 +1,11 @@
+---
+import { CONSTS } from "#/consts";
+---
+
+<div class="mb-5 font-sans text-nav flex flex-wrap items-center gap-2 text-xs">
+  <a class="no-underline hover:text-secondary" href="/">
+    <span class="view-transition-author">{CONSTS.title}</span>
+  </a>
+  <span aria-hidden="true">&centerdot;</span>
+  <slot />
+</div>

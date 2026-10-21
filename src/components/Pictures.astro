@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+
+import competing from "#/assets/activities/competing.jpeg";
+import speaking from "#/assets/activities/speaking.jpeg";
+import working from "#/assets/activities/working.jpeg";
+
+const activities = [
+  { src: working, caption: "Me working" },
+  { src: speaking, caption: "Me speaking" },
+  { src: competing, caption: "Me competing" },
+];
+---
+
+<div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+  {
+    activities.map((activity) => (
+      <figure class="group border-line relative overflow-hidden rounded-md border">
+        <Image src={activity.src} alt={activity.caption} width={480} height={640} class="aspect-3/4 w-full object-cover" />
+        <figcaption class="font-sans text-heading group-hover:bg-bg/50 absolute inset-0 flex items-end p-3 text-xs transition-colors duration-300">
+          <span class="opacity-0 transition-opacity duration-300 group-hover:opacity-100">{activity.caption}</span>
+        </figcaption>
+      </figure>
+    ))
+  }
+</div>

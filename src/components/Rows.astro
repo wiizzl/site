@@ -1,0 +1,30 @@
+---
+export interface Row {
+  name: string;
+  url: string;
+  meta?: string;
+  datetime?: string;
+}
+
+interface Props {
+  rows: Row[];
+}
+
+const { rows } = Astro.props;
+
+const metaClass = "font-sans text-nav text-xs whitespace-nowrap tabular-nums";
+---
+
+<div class="group/rows border-line border-t">
+  {
+    rows.map((row) => (
+      <a
+        class="border-line text-copy hover:text-copy flex flex-col gap-1 border-b py-3 no-underline transition-opacity sm:flex-row sm:items-baseline sm:justify-between sm:gap-5 pointer-fine:group-hover/rows:not-hover:opacity-80"
+        href={row.url}
+      >
+        <span>{row.name}</span>
+        {row.datetime ? <time class={metaClass} datetime={row.datetime}>{row.meta}</time> : row.meta && <span class={metaClass}>{row.meta}</span>}
+      </a>
+    ))
+  }
+</div>

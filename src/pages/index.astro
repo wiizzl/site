@@ -1,62 +1,52 @@
 ---
-import { ArrowUpRight } from "@lucide/astro";
-
 import BaseLayout from "#/layouts/BaseLayout.astro";
 
-import Link from "#/components/Link.astro";
-import Title from "#/components/Title.astro";
+import PersonSchema from "#/components/PersonSchema.astro";
+import Pictures from "#/components/Pictures.astro";
+import Rows from "#/components/Rows.astro";
+import Section from "#/components/Section.astro";
 
 import { CONSTS } from "#/consts";
+import { formatMonth, getPosts, getProjects } from "#/lib/content";
+
+const projects = await getProjects();
+const posts = (await getPosts()).slice(0, 3);
 ---
 
 <BaseLayout>
-  <div class="border-b pb-8 md:pb-14">
-    <Title>{CONSTS.title}</Title>
-    <div class="max-w-3xl space-y-4">
-      <p>Développeur freelance et étudiant en informatique basé sur {CONSTS.place}. J'aime partager mes expériences à travers <Link href="/blog">mon blog</Link>.</p>
-      <p>
-        J'ai remporté <Link href="https://worldskills-france.org/actualites/les-resultats-de-la-competition-nationale-des-metiers-2025" blank>la deuxième place</Link> en Développement Web lors des <Link
-          href="https://worldskills-france.org/editions/competition-nationale-des-metiers-2025-48e-edition"
-          blank>WorldSkills France 2025</Link
-        >.
-      </p>
-      <p>
-        Jetez un coup d'oeil à <Link href="/projects">mes projets</Link>, téléchargez mon <Link href="/resume" blank>CV</Link> ou <Link href={`mailto:${CONSTS.mail}`} anonymize>envoyez moi un email</Link>.
-      </p>
-    </div>
+  <PersonSchema slot="head" />
+  <h1 class="text-heading view-transition-author mb-6 text-3xl font-semibold tracking-tight text-balance">{CONSTS.title}</h1>
+  <div class="space-y-6">
+    <p>
+      I'm an {CONSTS.role.toLowerCase()} working at <a href={CONSTS.company.url}>{CONSTS.company.name}</a> and a freelancer based in {CONSTS.location.city}, {CONSTS.location.country}.
+    </p>
+    <p>
+      In 2025, I became French Vice-Champion in Web Technologies at <a href={CONSTS.award.url}>WorldSkills France</a>.
+    </p>
+    <p>
+      {CONSTS.links.map((link, i) => (<Fragment>{i > 0 && <span aria-hidden="true">&centerdot;</span>}<a href={link.url} rel="me">{link.name}</a></Fragment>))}
+    </p>
   </div>
-  <div class="grid grid-cols-1 space-y-6 pt-8 md:grid-cols-2 md:pt-14">
-    <div class="md:border-r md:pr-14">
-      <Title>Contact</Title>
-      <div class="flex flex-col">
-        {
-          CONSTS.links.map((link) => (
-            <a href={link.url} target="_blank" class="flex items-center justify-between">
-              <span class="flex items-center gap-x-1.5">
-                <div class="p-1" style={`background-color: ${link.color};`} />
-                {link.name}
-              </span>
-              <ArrowUpRight class="stroke-[1.1]" />
-            </a>
-          ))
-        }
-      </div>
-    </div>
-    <div class="md:pl-14">
-      <Title>Expériences</Title>
-      <div class="flex flex-col">
-        {
-          CONSTS.experiences.map((experience) => (
-            <a href={experience.url} target="_blank" class="flex items-center justify-between">
-              <span title={experience.description} class="flex items-center gap-x-1.5">
-                <div class="p-1" style={`background-color: ${experience.color};`} />
-                {experience.name}
-              </span>
-              <span class="text-sm">{experience.date}</span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </div>
+
+  <Section title="Some projects">
+    <Rows rows={projects.map((project) => ({ name: project.data.title, url: `/projects/${project.id}`, meta: project.data.description }))} />
+    <p class="mt-4"><a href="https://github.com/wiizzl?tab=repositories">More on GitHub</a></p>
+  </Section>
+
+  {
+    posts.length > 0 && (
+      <Section title="Some articles">
+        <Rows rows={posts.map((post) => ({ name: post.data.title, url: `/blog/${post.id}`, meta: formatMonth(post.data.date), datetime: post.data.date.toISOString() }))} />
+        <p class="mt-4"><a href="/blog">All articles</a></p>
+      </Section>
+    )
+  }
+
+  <Section title="Some pictures">
+    <Pictures />
+  </Section>
+
+  <Section title="Get in touch">
+    <p><a href={`mailto:${CONSTS.mail}`}>{CONSTS.mail}</a></p>
+  </Section>
 </BaseLayout>

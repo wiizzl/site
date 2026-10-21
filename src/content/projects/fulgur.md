@@ -1,0 +1,84 @@
+---
+title: Fulgur
+description: Vite-native fullstack integration layer powered by Bun and Elysia.
+url: https://wiizzl.github.io/fulgur
+repo: https://github.com/wiizzl/fulgur
+stack: [TypeScript, Bun, Vite, Elysia]
+order: 1
+---
+
+## Where it comes from
+
+Fulgur started as a framework to build [WorldSkills](https://worldskills.org) test projects quickly. In [Web Technologies](https://worldskills.org/skills/id/127), every module is timed: you get a subject, a few hours, and you have to ship a working app. I wanted a fullstack setup ready in seconds, with a typed API between the frontend and the backend, so I wouldn't lose time on plumbing.
+
+While training, I realized that I was solving the wrong problem. For WorldSkills, [Laravel](https://laravel.com) is simply a better fit: it already covers everything a module asks for, from routing and the ORM to authentication, validation, migrations and seeding. With Fulgur, I would have had to pick and wire a library for each of those, under the clock.
+
+Fulgur didn't go to waste, though. The part that worked really well, the typed link between a React app and its API, is exactly what I want for small TypeScript projects. So it became what it is today.
+
+## The problem it solves
+
+I love [Eden Treaty](https://elysiajs.com/eden/treaty/overview): you write your API with [Elysia](https://elysiajs.com), and the client knows every route, parameter and response type, with zero codegen, zero schemas and zero drift.
+
+But getting that on a small project meant setting up a monorepo first: two `package.json`, two `tsconfig`, a shared types package, a build step, two dev servers to run side by side, a proxy... before writing a single route. For a weekend project, that's the part that kills the motivation.
+
+Fulgur removes that friction: one project, one config, one command.
+
+## How it works
+
+Fulgur is not a framework, it's a glue layer. It doesn't replace Vite, Elysia or Eden, it just connects them.
+
+```ts
+// vite.config.ts
+export default defineConfig({
+  plugins: [fulgur(), react()],
+});
+```
+
+```ts
+// src/route.server.ts
+const app = new Elysia().use(helloRoutes);
+
+export default app;
+export type App = typeof app;
+```
+
+```ts
+// src/lib/api.ts
+import type { App } from "../route.server";
+
+export const api = createClient<App>();
+```
+
+The server entry exports the Elysia app, and its type. The client only imports the type, which gives Eden full type safety without shipping a single line of server code to the browser.
+
+### In development
+
+The Vite plugin does all the work:
+
+- It starts the backend. When Vite starts, the plugin spawns a Bun process that loads the server entry, then waits for a health check endpoint to answer before saying the backend is ready.
+- It proxies the API. Every request to `/api` is forwarded to the backend, WebSockets included, so the frontend and the API share the same origin. No CORS to configure.
+- It restarts on change. When a `*.server.ts` file changes, the backend restarts. Restarts are debounced, so saving several files at once doesn't restart it five times.
+
+### Keeping the server out of the browser
+
+The main risk with one project for both sides is importing server code into the client by accident, and shipping secrets or database code to the browser. Fulgur prevents it at two levels:
+
+- The plugin **refuses to load** any `*.server.ts` file in client code and fails the build with a clear error. Type-only imports are erased by TypeScript before that, so `import type { App }` still works.
+- The examples use two TypeScript configs: the client one excludes `*.server.ts` files and gets DOM types, the server one only includes them and gets Bun types. You can't use `window` on the server or `Bun` in the browser by mistake.
+
+### In production
+
+At build time, Vite builds the frontend, and the plugin generates two small entry files in `.fulgur/`:
+
+- **`start.ts`**, for a classic server. A single Bun process serves the static files, mounts the API under `/api`, and falls back to `index.html` for any other route, so client-side routing works.
+- **`vercel.ts`**, which exports the Elysia app for Vercel's serverless functions.
+
+## The dark corners
+
+- **Zombie processes.** Killing the backend wasn't enough: Bun can spawn its own children, and a leftover process keeps the port busy, so the next start fails. The backend is now started in its own process group, and Fulgur kills the whole group at once, falling back to `SIGKILL` if needed.
+- **Race at startup.** Vite is ready almost instantly, but the backend isn't. The first requests from the page would fail. The plugin now polls a health endpoint, for up to 10 seconds, before letting Vite continue.
+- **`vite preview` makes no sense here.** It only serves the frontend, without the API, which gives a broken app that looks like a bug. So Fulgur disables it and tells you to run the real production server instead.
+
+## Status
+
+Fulgur is open source under the MIT license and [published on npm](https://npmjs.com/package/fulgur). The repository includes examples, and the full guide lives on [its documentation site](https://wiizzl.github.io/fulgur), built with VitePress.

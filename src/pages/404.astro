@@ -1,11 +1,10 @@
 ---
 import BaseLayout from "#/layouts/BaseLayout.astro";
 
-import Link from "#/components/Link.astro";
 import Title from "#/components/Title.astro";
 ---
 
-<BaseLayout>
-  <Title>nothing here</Title>
-  <p>That's a shame. <Link href="/">Home?</Link></p>
+<BaseLayout title="Page not found" noindex>
+  <Title>Nothing here</Title>
+  <p>That's a shame. <a href="/">Back home?</a></p>
 </BaseLayout>

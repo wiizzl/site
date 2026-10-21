@@ -1,13 +1,9 @@
 ---
-import { ArrowLeft } from "@lucide/astro";
-
 interface Props {
-  back?: boolean;
+  as?: "h1" | "h2";
 }
 
-const { back } = Astro.props;
+const { as: Tag = "h1" } = Astro.props;
 ---
 
-<h1 class="mb-4 text-lg font-semibold lowercase flex items-center gap-x-1">
-  {back && <a href="/"> <ArrowLeft class="size-4" /></a>} <slot />~
-</h1>
+<Tag class="text-heading mb-3 text-2xl font-semibold tracking-tight text-balance"><slot /></Tag>

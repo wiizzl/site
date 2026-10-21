@@ -1,0 +1,39 @@
+---
+import { getImage } from "astro:assets";
+
+import { CONSTS } from "#/consts";
+
+import photo from "#/assets/activities/working.jpeg";
+
+const image = await getImage({
+  src: photo,
+  width: 512,
+  height: 512,
+  fit: "cover",
+  position: "top",
+  format: "jpeg",
+});
+
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: CONSTS.title,
+  url: Astro.site,
+  image: new URL(image.src, Astro.site),
+  description: CONSTS.description,
+  jobTitle: CONSTS.role,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: CONSTS.location.city,
+    addressCountry: CONSTS.location.countryCode,
+  },
+  worksFor: { "@type": "Organization", ...CONSTS.company },
+  alumniOf: { "@type": "CollegeOrUniversity", ...CONSTS.school },
+  email: CONSTS.mail,
+  award: CONSTS.award.name,
+  // Only the external profiles, not the CV or the email
+  sameAs: CONSTS.links.map((link) => link.url).filter((url) => url.startsWith("https://")),
+};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(person)} />

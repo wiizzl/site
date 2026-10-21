@@ -1,0 +1,42 @@
+---
+import { render } from "astro:content";
+
+import BaseLayout from "#/layouts/BaseLayout.astro";
+
+import ArticleMeta from "#/components/ArticleMeta.astro";
+import Title from "#/components/Title.astro";
+
+import { getProjects } from "#/lib/content";
+
+export const getStaticPaths = async () => {
+  const projects = await getProjects();
+
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+};
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const links = [
+  { name: "Project link", url: project.data.url },
+  { name: "Source code", url: project.data.repo },
+].filter((link) => link.url);
+---
+
+<BaseLayout title={project.data.title} description={project.data.description} type="article" image={project.data.image}>
+  <article>
+    <Title>{project.data.title}</Title>
+    <ArticleMeta>
+      <span>{project.data.description}</span>
+    </ArticleMeta>
+    <p class="text-nav mb-6">
+      {links.map((link, i) => <Fragment>{i > 0 && <span aria-hidden="true">&centerdot;</span>}<a href={link.url}>{link.name}</a></Fragment>)}
+    </p>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

@@ -6,10 +6,13 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://houlliere.com",
-  redirects: {
-    "/resume": "/cv",
-    "/cv":
-      "https://github.com/wiizzl/resume/releases/latest/download/Pierre_Houlliere_CV.pdf",
+  // Pages are downloaded when a link is hovered, so navigation feels instant
+  prefetch: { prefetchAll: true, defaultStrategy: "hover" },
+  markdown: {
+    shikiConfig: {
+      themes: { light: "github-light", dark: "vesper" },
+      defaultColor: false,
+    },
   },
   integrations: [mdx(), sitemap()],
   vite: { plugins: [tailwindcss()] },

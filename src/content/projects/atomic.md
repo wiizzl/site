@@ -1,0 +1,82 @@
+---
+title: Atomic
+description: My Fedora Atomic setup, from the system image to the dotfiles.
+repo: https://github.com/wiizzl/atomic
+stack: [bootc, Fedora Atomic, chezmoi, GitHub Actions]
+order: 3
+---
+
+## The problem
+
+I want every machine I use to be the same: same packages, same desktop, same shortcuts, same tools. And I want to reinstall a computer without spending a weekend on it. That sounds simple, but it took me four setups to get there.
+
+## How I got here
+
+### NixOS: right idea, too much for me
+
+I started with [NixOS](https://nixos.org). The promise is exactly what I wanted: the whole system is described in code, and you can rebuild it anywhere.
+
+In practice, it was too much for me. Nix doesn't just want your system, it wants your projects too. Since you can't just install a tool globally and use it, every project needed its own development environment: a `flake.nix`, a `.envrc` for direnv, a lockfile... My [resume](/projects/resume) repository still had one for a long time, just to get `uv`. Multiply that by every school project, freelance client and side project, and I was spending more time writing Nix than writing code.
+
+### Arch, then Fedora, then Ansible
+
+Next, I moved to Arch Linux with my dotfiles managed by [chezmoi](https://chezmoi.io), then to Fedora (COSMIC spin at first), then I tried to describe the system setup with Ansible roles tested in CI.
+
+Each step was simpler than Nix, but they all had the same flaw: the system was the result of a script run once on a machine. Install a package by hand, forget about it, and two machines slowly drift apart. And if an update breaks something, there's no clean way back.
+
+### Fedora Atomic and bootc
+
+The answer was [Fedora Atomic](https://fedoraproject.org/atomic-desktops) with [bootc](https://bootc-dev.github.io/bootc): the operating system is a **container image**. I write a `Containerfile`, CI builds it, and my machines pull it like any other image. Updates are atomic: the new system is applied on reboot, and if it breaks, I boot the previous one.
+
+It gives me what I liked about NixOS (a system described in code), with tools I already know: containers, shell scripts and GitHub Actions. And for development tools, [mise](https://mise.jdx.dev) installs Node, Bun, Go and `uv` globally, so no more environment file per project.
+
+## The images
+
+There are three images, rebuilt every week and published to `ghcr.io/wiizzl/atomic`:
+
+- **`pier`**, my Hyprland workstation, based on [Universal Blue](https://universal-blue.org) `base-main`.
+- **`pier-nvidia`**, the same workstation built on `base-nvidia`, for machines with an NVIDIA card.
+- **`family`**, a ready-to-use KDE desktop for my family, based on [Aurora](https://getaurora.dev). It adds LibreOffice and KDE desktop sharing, so I can help remotely, and removes the developer tools they'll never use.
+
+### How an image is built
+
+A single `Containerfile` builds every variant. Each variant is a folder with:
+
+- a `base` file holding the base image, **pinned by digest**. [Renovate](https://docs.renovatebot.com) bumps these digests every Monday and merges them automatically when it's just a new build of the same tag.
+- a `rootfs` folder copied as-is on top of the system (config files, systemd units, polkit rules...).
+- numbered scripts (`20-packages.sh`, `30-remove-packages.sh`, `40-services.sh`...) run in order.
+
+A shared layer, common to every variant, is applied the same way. The build script merges both layers and runs all the scripts sorted by number, so a shared step and a variant step can be interleaved just by their name. At the end, `bootc container lint` checks the image is a valid bootable system.
+
+### The CI
+
+- **Only what changed gets rebuilt.** A workflow lists the variants from the `base*` files and compares the push with the previous commit: if I only touched `image/family`, only `family` is built. If a shared file changed, everything is.
+- **Images are rechunked** into at most 96 layers, using the previous build as a reference. Without this, a small change could reshuffle the layers and force machines to download gigabytes again.
+- **Images are signed** with cosign, and the image itself ships a container policy that only accepts signed images from my registry. A fresh install enforces it from the start.
+- **Old images are cleaned up** every week: dated tags older than 90 days are deleted from the registry.
+
+## Installation ISOs
+
+Each image has its own installer ISO, served from `atomic.houlliere.com`. I don't build a full ISO with the whole system inside: CI takes the official Fedora **netinstall** ISO, checks its checksum, and injects a kickstart file with `mkksiso`. The installer then pulls my image straight from the registry, so the ISO never goes stale even if it's only rebuilt once a month.
+
+## The dark corners
+
+Immutable systems have a few traps that took me a while to understand:
+
+- **`/home` isn't really `/home`.** On Fedora Atomic, home directories live in `/var/home`, and `/home` is a symlink. Some tools resolve the symlink, some don't, and you end up with mismatched paths. The kickstart now fixes every user's home directory to `/var/home/...` right after install.
+- **`/var` isn't part of the image.** The image only provides `/usr` and `/etc`; `/var` belongs to the machine. So any directory a service expects in `/var` (libvirt's cache and logs, for example) doesn't exist on a fresh system, and virtualization just fails. They have to be created at boot with `systemd-tmpfiles`.
+- **Secure Boot and NVIDIA.** The NVIDIA kernel module is signed with the Universal Blue key, which has to be enrolled once in the firmware before the driver loads with Secure Boot on.
+- **Flatpak sandboxes.** Some apps, like Claude Desktop, are only available as Flatpaks, but they need my host tools (`git`, `podman`, `mise` and everything it installs). I wrote a small wrapper that forwards commands to the host with `flatpak-spawn --host`, along with the useful environment variables, and generates one shim per tool in a folder added to the app's `PATH`.
+- **Docker, without Docker.** The image uses Podman with `podman-docker`, so every `docker` command and Docker Compose file keeps working.
+
+## Dotfiles
+
+My user settings live in the same repository, managed with [chezmoi](https://chezmoi.io): Hyprland (configured in Lua), the Noctalia shell, fish, kitty, Zed, git... On first run, chezmoi asks a few questions (Git name and email, whether to use the Bitwarden SSH agent, the key used to sign commits) and templates the files accordingly.
+
+Scripts run automatically when something changes: when the mise config changes, `mise install` runs again; when the Flatpak list changes, the apps are installed or updated. The dotfiles are made for the `pier` image, but they work on any Linux.
+
+Reinstalling a machine is now an ISO, a reboot, and one command:
+
+```sh
+chezmoi init wiizzl/atomic --apply
+```
