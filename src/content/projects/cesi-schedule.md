@@ -1,10 +1,10 @@
 ---
 title: CESI Schedule
-description: Serves your CESI timetable as an iCalendar feed.
+description: My school timetable as a calendar feed, with encrypted stateless tokens.
 url: https://cesi-schedule.vercel.app
 repo: https://github.com/wiizzl/cesi-schedule
 stack: [Go, Redis, Vercel]
-order: 2
+order: 1
 ---
 
 ## The problem
@@ -16,7 +16,6 @@ CESI Schedule turns the timetable into a standard iCalendar (`.ics`) feed. You e
 ## Logging in like a browser
 
 There is no public API, so the server logs in exactly like a browser would. The CESI login is a SAML flow that goes through several services:
-
 1. The **WAYF** page ("Where Are You From") receives the email and answers with a form containing a `SAMLRequest`.
 2. That form is posted to CESI's **ADFS** server, which returns the actual login form.
 3. The server fills `UserName` and `Password` and submits it. If the credentials are good, ADFS answers with a `SAMLResponse`.

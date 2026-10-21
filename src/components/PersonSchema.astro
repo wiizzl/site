@@ -3,7 +3,7 @@ import { getImage } from "astro:assets";
 
 import { CONSTS } from "#/consts";
 
-import photo from "#/assets/activities/working.jpeg";
+import photo from "#/assets/activities/working.webp";
 
 const image = await getImage({
   src: photo,
@@ -30,9 +30,9 @@ const person = {
   worksFor: { "@type": "Organization", ...CONSTS.company },
   alumniOf: { "@type": "CollegeOrUniversity", ...CONSTS.school },
   email: CONSTS.mail,
-  award: CONSTS.award.name,
-  // Only the external profiles, not the CV or the email
-  sameAs: CONSTS.links.map((link) => link.url).filter((url) => url.startsWith("https://")),
+  sameAs: CONSTS.links
+    .map((link) => link.url)
+    .filter((url) => url.startsWith("https://")),
 };
 ---
 

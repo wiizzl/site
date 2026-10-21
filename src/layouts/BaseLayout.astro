@@ -1,13 +1,13 @@
 ---
 import BaseHead, {
   type Props as BaseHeadProps,
-} from "#/layouts/BaseHead.astro";
+} from "#/components/BaseHead.astro";
 
 import SideImage, {
   type Props as SideImageProps,
 } from "#/components/SideImage.astro";
 
-type Props = BaseHeadProps & {
+type Props = Omit<BaseHeadProps, "image"> & {
   image?: SideImageProps;
 };
 
@@ -20,14 +20,59 @@ const { image, ...head } = Astro.props;
     <BaseHead {...head} image={image?.src} />
     <slot name="head" />
   </head>
-  <body class="antialiased">
-    <main class="max-w-8xl mx-auto px-5 py-10 sm:p-12 lg:grid lg:grid-cols-5 lg:items-start lg:gap-12 lg:pb-0">
-      <div class="mx-auto max-w-xl lg:col-span-3 lg:mx-0 lg:pb-12">
+  <body>
+    <main>
+      <div class="content">
         <slot />
       </div>
-      <aside class="hidden lg:sticky lg:top-0 lg:col-span-2 lg:-mt-12 lg:block lg:h-svh lg:py-12">
+      <aside>
         <SideImage {...image} />
       </aside>
     </main>
   </body>
 </html>
+
+<style>
+  main {
+    max-width: 96rem;
+    margin-inline: auto;
+    padding: 2.5rem 1.25rem;
+
+    @media (width >= 40rem) {
+      padding: 3rem;
+    }
+
+    @media (width >= 64rem) {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: flex-start;
+      gap: 3rem;
+      padding-bottom: 0;
+    }
+  }
+
+  .content {
+    max-width: 36rem;
+    margin-inline: auto;
+
+    @media (width >= 64rem) {
+      grid-column: span 3;
+      margin-inline: 0;
+      padding-bottom: 3rem;
+    }
+  }
+
+  aside {
+    display: none;
+
+    @media (width >= 64rem) {
+      position: sticky;
+      top: 0;
+      display: block;
+      grid-column: span 2;
+      height: 100svh;
+      margin-top: -3rem;
+      padding-block: 3rem;
+    }
+  }
+</style>

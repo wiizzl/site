@@ -11,20 +11,57 @@ interface Props {
 }
 
 const { rows } = Astro.props;
-
-const metaClass = "font-sans text-nav text-xs whitespace-nowrap tabular-nums";
 ---
 
-<div class="group/rows border-line border-t">
-  {
-    rows.map((row) => (
-      <a
-        class="border-line text-copy hover:text-copy flex flex-col gap-1 border-b py-3 no-underline transition-opacity sm:flex-row sm:items-baseline sm:justify-between sm:gap-5 pointer-fine:group-hover/rows:not-hover:opacity-80"
-        href={row.url}
-      >
-        <span>{row.name}</span>
-        {row.datetime ? <time class={metaClass} datetime={row.datetime}>{row.meta}</time> : row.meta && <span class={metaClass}>{row.meta}</span>}
-      </a>
-    ))
-  }
+<div class="rows">
+  {rows.map((row) => (
+    <a href={row.url}>
+      <span>{row.name}</span>
+      {row.datetime ? <time class="meta" datetime={row.datetime}>{row.meta}</time> : row.meta && <span class="meta">{row.meta}</span>}
+    </a>
+  ))}
 </div>
+
+<style>
+  .rows {
+    margin-bottom: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--copy);
+    text-decoration: none;
+    transition: opacity 0.3s var(--ease);
+
+    @media (width >= 40rem) {
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+
+    &:hover {
+      color: var(--copy);
+    }
+  }
+
+  @media (pointer: fine) and (hover: hover) {
+    .rows:hover a:not(:hover) {
+      opacity: 0.8;
+    }
+  }
+
+  .meta {
+    color: var(--nav);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+</style>

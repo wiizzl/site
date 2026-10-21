@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 
-import grosHorloge from "#/assets/side/gros-horloge.jpg";
+import grosHorloge from "#/assets/side/gros-horloge.webp";
 
 export interface Props {
   src?: ImageMetadata;
@@ -20,7 +20,23 @@ const {
   width={1280}
   widths={[480, 960, 1280]}
   sizes="40vw"
-  loading="lazy"
+  loading="eager"
+  fetchpriority="high"
   draggable="false"
-  class="border-line view-transition-side-image size-full rounded-xl border object-cover dark:brightness-90"
+  class="side-image"
 />
+
+<style>
+  :global(.side-image) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
+    view-transition-name: side-image;
+
+    @media (prefers-color-scheme: dark) {
+      filter: brightness(90%);
+    }
+  }
+</style>

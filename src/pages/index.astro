@@ -4,49 +4,72 @@ import BaseLayout from "#/layouts/BaseLayout.astro";
 import PersonSchema from "#/components/PersonSchema.astro";
 import Pictures from "#/components/Pictures.astro";
 import Rows from "#/components/Rows.astro";
-import Section from "#/components/Section.astro";
 
 import { CONSTS } from "#/consts";
 import { formatMonth, getPosts, getProjects } from "#/lib/content";
 
 const projects = await getProjects();
-const posts = (await getPosts()).slice(0, 3);
+const posts = await getPosts();
 ---
 
 <BaseLayout>
   <PersonSchema slot="head" />
-  <h1 class="text-heading view-transition-author mb-6 text-3xl font-semibold tracking-tight text-balance">{CONSTS.title}</h1>
-  <div class="space-y-6">
+  <h1>{CONSTS.title}</h1>
+  <div class="prose">
     <p>
       I'm an {CONSTS.role.toLowerCase()} working at <a href={CONSTS.company.url}>{CONSTS.company.name}</a> and a freelancer based in {CONSTS.location.city}, {CONSTS.location.country}.
     </p>
     <p>
-      In 2025, I became French Vice-Champion in Web Technologies at <a href={CONSTS.award.url}>WorldSkills France</a>.
+      In 2025, I became French Vice-Champion in Web Development at <a href="https://worldskills-france.org/editions/competition-nationale-des-metiers-2025-48e-edition" target="_blank">WorldSkills France</a>.
     </p>
-    <p>
-      {CONSTS.links.map((link, i) => (<Fragment>{i > 0 && <span aria-hidden="true">&centerdot;</span>}<a href={link.url} rel="me">{link.name}</a></Fragment>))}
+    <p class="dotted">
+      {CONSTS.links.map((link, i) => (
+        <Fragment>
+          {i > 0 && <span aria-hidden="true">&centerdot;</span>}
+          <a href={link.url} target="_blank">{link.name}</a>
+        </Fragment>
+      ))}
     </p>
-  </div>
 
-  <Section title="Some projects">
+    <div class="heading">
+      <h2>Projects</h2>
+      <a href="https://github.com/wiizzl?tab=repositories" target="_blank">See more</a>
+    </div>
     <Rows rows={projects.map((project) => ({ name: project.data.title, url: `/projects/${project.id}`, meta: project.data.description }))} />
-    <p class="mt-4"><a href="https://github.com/wiizzl?tab=repositories">More on GitHub</a></p>
-  </Section>
 
-  {
-    posts.length > 0 && (
-      <Section title="Some articles">
+    {posts.length > 0 && (
+      <Fragment>
+        <div class="heading">
+          <h2>Writing</h2>
+          <a href="/blog/rss.xml" target="_blank">RSS</a>
+        </div>
         <Rows rows={posts.map((post) => ({ name: post.data.title, url: `/blog/${post.id}`, meta: formatMonth(post.data.date), datetime: post.data.date.toISOString() }))} />
-        <p class="mt-4"><a href="/blog">All articles</a></p>
-      </Section>
-    )
+      </Fragment>
+    )}
+
+    <h2>Photos</h2>
+    <Pictures />
+  </div>
+</BaseLayout>
+
+<style>
+  h1 {
+    margin-bottom: 1.5rem;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    view-transition-name: name;
   }
 
-  <Section title="Some pictures">
-    <Pictures />
-  </Section>
+  .heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
 
-  <Section title="Get in touch">
-    <p><a href={`mailto:${CONSTS.mail}`}>{CONSTS.mail}</a></p>
-  </Section>
-</BaseLayout>
+    & a {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      line-height: 1rem;
+    }
+  }
+</style>

@@ -1,10 +1,12 @@
 ---
 title: Atomic
-description: My Fedora Atomic setup, from the system image to the dotfiles.
+description: My Linux machines as signed container images, built and shipped by CI.
 repo: https://github.com/wiizzl/atomic
 stack: [bootc, Fedora Atomic, chezmoi, GitHub Actions]
 order: 3
 ---
+
+![My Hyprland desktop on the pier image: a vertical bar on the left, and a kitty terminal running fastfetch, which shows Fedora Linux 44, Hyprland and a read-only root filesystem.](../../assets/content/desktop.webp)
 
 ## The problem
 
@@ -16,7 +18,7 @@ I want every machine I use to be the same: same packages, same desktop, same sho
 
 I started with [NixOS](https://nixos.org). The promise is exactly what I wanted: the whole system is described in code, and you can rebuild it anywhere.
 
-In practice, it was too much for me. Nix doesn't just want your system, it wants your projects too. Since you can't just install a tool globally and use it, every project needed its own development environment: a `flake.nix`, a `.envrc` for direnv, a lockfile... My [resume](/projects/resume) repository still had one for a long time, just to get `uv`. Multiply that by every school project, freelance client and side project, and I was spending more time writing Nix than writing code.
+In practice, it was too much for me. Nix doesn't just want your system, it wants your projects too. Since you can't just install a tool globally and use it, every project needed its own development environment: a `flake.nix`, a `.envrc` for direnv, a lockfile... My [resume](https://github.com/wiizzl/resume) repository still had one for a long time, just to get `uv`. Multiply that by every school project, freelance client and side project, and I was spending more time writing Nix than writing code.
 
 ### Arch, then Fedora, then Ansible
 

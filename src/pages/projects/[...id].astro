@@ -1,10 +1,7 @@
 ---
 import { render } from "astro:content";
 
-import BaseLayout from "#/layouts/BaseLayout.astro";
-
-import ArticleMeta from "#/components/ArticleMeta.astro";
-import Title from "#/components/Title.astro";
+import ArticleLayout from "#/layouts/ArticleLayout.astro";
 
 import { getProjects } from "#/lib/content";
 
@@ -26,17 +23,22 @@ const links = [
 ].filter((link) => link.url);
 ---
 
-<BaseLayout title={project.data.title} description={project.data.description} type="article" image={project.data.image}>
-  <article>
-    <Title>{project.data.title}</Title>
-    <ArticleMeta>
-      <span>{project.data.description}</span>
-    </ArticleMeta>
-    <p class="text-nav mb-6">
-      {links.map((link, i) => <Fragment>{i > 0 && <span aria-hidden="true">&centerdot;</span>}<a href={link.url}>{link.name}</a></Fragment>)}
-    </p>
-    <div class="prose">
-      <Content />
-    </div>
-  </article>
-</BaseLayout>
+<ArticleLayout title={project.data.title} description={project.data.description} image={project.data.image}>
+  <span slot="meta">{project.data.description}</span>
+  <p slot="intro" class="dotted links">
+    {links.map((link, i) => (
+      <Fragment>
+        {i > 0 && <span aria-hidden="true">&centerdot;</span>}
+        <a href={link.url} target="_blank">{link.name}</a>
+      </Fragment>
+    ))}
+  </p>
+  <Content />
+</ArticleLayout>
+
+<style>
+  .links {
+    margin-bottom: 1.5rem;
+    color: var(--nav);
+  }
+</style>

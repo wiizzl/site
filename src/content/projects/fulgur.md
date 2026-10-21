@@ -1,10 +1,10 @@
 ---
 title: Fulgur
-description: Vite-native fullstack integration layer powered by Bun and Elysia.
+description: One project for a React app and its fully typed API, without a monorepo.
 url: https://wiizzl.github.io/fulgur
 repo: https://github.com/wiizzl/fulgur
 stack: [TypeScript, Bun, Vite, Elysia]
-order: 1
+order: 2
 ---
 
 ## Where it comes from
