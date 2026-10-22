@@ -25,16 +25,14 @@ const activities = [
 ---
 
 <div class="pictures">
-  {
-    activities.map((activity) => (
-      <figure>
-        <Image src={activity.src} alt={activity.alt} width={480} height={640} />
-        <figcaption>
-          <span>{activity.caption}</span>
-        </figcaption>
-      </figure>
-    ))
-  }
+  {activities.map((activity) => (
+    <figure>
+      <Image src={activity.src} alt={activity.alt} width={480} height={640} />
+      <figcaption>
+        <span>{activity.caption}</span>
+      </figcaption>
+    </figure>
+  ))}
 </div>
 
 <style>
