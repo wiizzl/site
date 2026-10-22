@@ -254,11 +254,22 @@ h3 {
   animation: none;
 }
 
-/* The name changes size between the home title and the byline, so it scales instead of stretching */
+/* The name changes size between the home title and the link of the other pages, so it scales instead of stretching */
 ::view-transition-old(name),
 ::view-transition-new(name) {
   width: auto;
   height: 100%;
+}
+
+/* When zooming an image, the backdrop of the dialog fades instead of appearing at once */
+:root:active-view-transition-type(zoom)::view-transition-old(root),
+:root:active-view-transition-type(zoom)::view-transition-new(root) {
+  animation: revert;
+}
+
+/* They would be drawn above the backdrop of the dialog until the end of the zoom */
+:root:active-view-transition-type(zoom) :is(.side-image, header .name) {
+  view-transition-name: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

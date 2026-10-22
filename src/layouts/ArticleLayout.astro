@@ -1,8 +1,6 @@
 ---
 import BaseLayout from "#/layouts/BaseLayout.astro";
 
-import { CONSTS } from "#/consts";
-
 interface Props {
   title: string;
   description: string;
@@ -18,8 +16,6 @@ const { title, ...props } = Astro.props;
   <article>
     <h1>{title}</h1>
     <div class="dotted meta">
-      <a href="/"><span>{CONSTS.title}</span></a>
-      <span aria-hidden="true">&centerdot;</span>
       <slot name="meta" />
     </div>
     <slot name="intro" />
@@ -29,23 +25,55 @@ const { title, ...props } = Astro.props;
   </article>
   <dialog class="zoom" aria-label="Zoomed image">
     <img alt="" />
+    <p aria-hidden="true"></p>
   </dialog>
 </BaseLayout>
 
 <script>
   const dialog = document.querySelector<HTMLDialogElement>("dialog.zoom");
   const zoomed = dialog?.querySelector("img");
+  const caption = dialog?.querySelector("p");
 
-  if (dialog && zoomed) {
+  // The image grows from its place in the article into the dialog, and shrinks back when it closes
+  const transition = (update: () => void | Promise<void>) =>
+    document.startViewTransition ? document.startViewTransition({ update, types: ["zoom"] }) : void update();
+
+  if (dialog && zoomed && caption) {
+    // Only one element can hold the name at a time, so it moves between the image in the article and the zoomed one
+    let current: HTMLImageElement | undefined;
+
     for (const image of document.querySelectorAll<HTMLImageElement>(".prose img")) {
       image.addEventListener("click", () => {
-        zoomed.src = image.currentSrc;
-        zoomed.alt = image.alt;
-        dialog.showModal();
+        current = image;
+        image.style.viewTransitionName = "zoom";
+        transition(async () => {
+          image.style.viewTransitionName = "";
+          zoomed.src = image.currentSrc;
+          zoomed.alt = image.alt;
+          caption.textContent = image.closest("figure")?.querySelector("figcaption")?.textContent ?? "";
+          // The snapshot of the dialog would be empty if the image was not ready yet
+          await zoomed.decode().catch(() => {});
+          dialog.showModal();
+        });
       });
     }
 
-    dialog.addEventListener("click", () => dialog.close());
+    const close = () => {
+      const image = current;
+      transition(() => {
+        dialog.close();
+        if (image) image.style.viewTransitionName = "zoom";
+      })?.finished.finally(() => {
+        if (image) image.style.viewTransitionName = "";
+      });
+    };
+
+    dialog.addEventListener("click", close);
+    // Escape closes the dialog on its own, without the transition
+    dialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      close();
+    });
   }
 </script>
 
@@ -60,15 +88,6 @@ const { title, ...props } = Astro.props;
     font-family: var(--font-sans);
     font-size: 0.75rem;
     line-height: 1rem;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  /* Morphs from and into the title of the home page */
-  a span {
-    view-transition-name: name;
   }
 
   /* The images come from the Markdown content, out of this component's scope */
@@ -92,10 +111,28 @@ const { title, ...props } = Astro.props;
     }
 
     & img {
+      view-transition-name: zoom;
       max-width: 95vw;
-      max-height: 95svh;
+      max-height: 85svh;
       object-fit: contain;
       border-radius: 0.375rem;
+    }
+
+    /* Wraps at the width of the image instead of widening the dialog */
+    & p {
+      width: 0;
+      min-width: 100%;
+      margin-top: 0.75rem;
+      color: var(--nav);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      text-align: center;
+      text-wrap: pretty;
+
+      &:empty {
+        display: none;
+      }
     }
   }
 </style>

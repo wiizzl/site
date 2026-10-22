@@ -5,7 +5,7 @@ import { defineCollection } from "astro:content";
 export const collections = {
   blog: defineCollection({
     loader: glob({
-      pattern: "**/*.{md,mdx}",
+      pattern: "*/index.mdx",
       base: "./src/content/blog",
     }),
     schema: ({ image }) =>
@@ -20,7 +20,7 @@ export const collections = {
   }),
   projects: defineCollection({
     loader: glob({
-      pattern: "**/*.{md,mdx}",
+      pattern: "*/index.mdx",
       base: "./src/content/projects",
     }),
     schema: ({ image }) =>

@@ -7,11 +7,15 @@ import SideImage, {
   type Props as SideImageProps,
 } from "#/components/SideImage.astro";
 
+import { CONSTS } from "#/consts";
+
 type Props = Omit<BaseHeadProps, "image"> & {
   image?: SideImageProps;
 };
 
 const { image, ...head } = Astro.props;
+
+const isHome = Astro.url.pathname === "/";
 ---
 
 <!doctype html>
@@ -19,10 +23,43 @@ const { image, ...head } = Astro.props;
   <head>
     <BaseHead {...head} image={image?.src} />
     <slot name="head" />
+    <!-- Inline and in the head so the pagereveal listener is registered before the first render -->
+    <script is:inline>
+      const key = (url) => `name-hidden:${new URL(url).pathname}`;
+
+      // Leaving a page: the name only morphs if it is on screen, the result is kept for when we come back to this page
+      addEventListener("pageswap", (event) => {
+        const name = document.querySelector("header .name");
+        if (!event.viewTransition || !name) return;
+
+        const { top, bottom } = name.getBoundingClientRect();
+        const hidden = bottom <= 0 || top >= innerHeight;
+        document.documentElement.toggleAttribute("data-name-hidden", hidden);
+        try {
+          sessionStorage.setItem(key(location.href), hidden ? "1" : "");
+        } catch {}
+      });
+
+      // Coming back with history: the scroll position is not restored yet, so rely on what was measured when leaving
+      addEventListener("pagereveal", (event) => {
+        if (!event.viewTransition) return;
+
+        let hidden = false;
+        if (window.navigation?.activation?.navigationType === "traverse") {
+          try {
+            hidden = sessionStorage.getItem(key(location.href)) === "1";
+          } catch {}
+        }
+        document.documentElement.toggleAttribute("data-name-hidden", hidden);
+      });
+    </script>
   </head>
   <body>
     <main>
       <div class="content">
+        <header>
+          {isHome ? <h1 class="name">{CONSTS.title}</h1> : <a href="/" class="name">{CONSTS.title}</a>}
+        </header>
         <slot />
       </div>
       <aside>
@@ -60,6 +97,35 @@ const { image, ...head } = Astro.props;
       margin-inline: 0;
       padding-bottom: 3rem;
     }
+  }
+
+  header {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Morphs between the title of the home page and the link of the other pages, unless it was scrolled out of view */
+  .name {
+    view-transition-name: name;
+  }
+
+  :global(:root[data-name-hidden]) .name {
+    view-transition-name: none;
+  }
+
+  /* The title of the home page */
+  h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  /* Elsewhere, a discreet way back home that leaves the page title in charge */
+  a {
+    display: block;
+    width: fit-content;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-decoration: none;
   }
 
   aside {

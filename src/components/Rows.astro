@@ -17,7 +17,11 @@ const { rows } = Astro.props;
   {rows.map((row) => (
     <a href={row.url}>
       <span>{row.name}</span>
-      {row.datetime ? <time class="meta" datetime={row.datetime}>{row.meta}</time> : row.meta && <span class="meta">{row.meta}</span>}
+      {row.datetime ? (
+        <time class="meta" datetime={row.datetime}>{row.meta}</time>
+      ) : row.meta && (
+        <span class="meta">{row.meta}</span>
+      )}
     </a>
   ))}
 </div>

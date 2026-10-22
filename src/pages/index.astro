@@ -14,7 +14,6 @@ const posts = await getPosts();
 
 <BaseLayout>
   <PersonSchema slot="head" />
-  <h1>{CONSTS.title}</h1>
   <div class="prose">
     <p>
       I'm an {CONSTS.role.toLowerCase()} working at <a href={CONSTS.company.url}>{CONSTS.company.name}</a> and a freelancer based in {CONSTS.location.city}, {CONSTS.location.country}.
@@ -53,13 +52,6 @@ const posts = await getPosts();
 </BaseLayout>
 
 <style>
-  h1 {
-    margin-bottom: 1.5rem;
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-    view-transition-name: name;
-  }
-
   .heading {
     display: flex;
     align-items: baseline;
