@@ -1,35 +1,193 @@
 ---
 title: "How I built this site: minimal, fast and readable by AI"
-description: "The choices behind my personal site, built with Astro: static HTML, a single source of truth for content, and SEO for both search engines and AI assistants."
-tags: [astro, seo, web]
-date: 2026-10-20
+description: "A technical tour of my personal site: static HTML with Astro, MDX content collections, plain CSS, cross-document view transitions, and SEO for both search engines and AI assistants."
+tags: [astro, css, seo, web]
+date: 2026-10-14
 draft: true
 ---
 
-This site is deliberately small: one page that tells you who I am, a few projects, and this blog. Here are the choices behind it.
+You've already seen the result: a small site, a home page, a few projects and this blog. What you can't see is how it's built, and how search engines and AI assistants read it. That's what this post is about.
 
-## Static HTML with Astro
+{/* Image: a diagram of the build, from the content folders and their schema, through Astro, to static HTML, one CSS file and optimized images deployed on Vercel. */}
 
-The site is built with [Astro](https://astro.build) and shipped as plain static HTML, hosted on Vercel. There's no JavaScript framework running in the browser: pages load instantly and every crawler can read them.
+## Static HTML, almost no JavaScript
 
-Styling is done with Tailwind CSS, and the font is loaded with Astro's Fonts API, which self-hosts the files, preloads only what's needed and generates a fallback font with matching metrics, so the text doesn't jump when the font loads.
+The site is built with [Astro](https://astro.build) and shipped as plain static HTML, hosted on Vercel. At build time, Astro renders every page to an HTML file. There's no framework running in the browser. The only JavaScript is Astro's prefetch script, which loads a page in the background as soon as you hover its link, and a few lines on article pages, for zooming images and copying code.
 
-## One source of truth
+This matters for two reasons. Pages show up as soon as the HTML arrives, with nothing to hydrate. And every crawler gets the full content in the first response. Most AI crawlers don't execute JavaScript, so a page that renders on the client is often an empty page to them.
 
-All the information about me (role, school, company, achievements, stack, links) lives in a single TypeScript file. The home page, the structured data and the `llms.txt` file are all generated from it, so they never disagree. Projects and blog posts are Markdown files in Astro content collections.
+{/* Image: the Network tab of the browser devtools on the home page, showing the HTML, one CSS file and the images, with their sizes. */}
 
-## SEO basics, done properly
+## Content as folders
 
-- A unique title, description and canonical URL on every page.
-- A sitemap, an RSS feed and a `robots.txt` that lets every crawler in.
-- Open Graph tags so links look good when shared.
-- Images optimized at build time: resized, converted to WebP and lazy-loaded.
+Projects and blog posts are [content collections](https://docs.astro.build/en/guides/content-collections/). Each entry is a folder with an `index.mdx` file, and everything it needs sits next to it: images, and later components for interactive demos.
+
+```
+src/content/projects/atomic/
+  index.mdx
+  desktop.webp
+```
+
+The frontmatter is validated by a schema at build time, so a typo in a date or a missing description fails the build instead of shipping a broken page:
+
+```ts
+blog: defineCollection({
+  loader: glob({ pattern: "*/index.mdx", base: "./src/content/blog" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      tags: z.array(z.string()),
+      date: z.coerce.date(),
+      draft: z.boolean().default(false),
+      image: z.object({ src: image(), alt: z.string() }).optional(),
+    }),
+}),
+```
+
+The `image()` helper checks that the file exists and hands it to Astro's image pipeline. Drafts are visible in development and left out of the production build.
+
+## MDX, for components inside articles
+
+Posts are written in MDX: Markdown, plus components when plain Markdown isn't enough. An image with a caption, for example, uses a small `Figure` component, which keeps a long alt text for screen readers and a short caption for the eyes:
+
+```mdx
+import Figure from "#/components/Figure.astro";
+import desktop from "./desktop.webp";
+
+<Figure src={desktop} alt="A long, precise description…" caption="My desktop." />
+```
+
+MDX also lets me replace the HTML elements generated from Markdown. Every link in an article goes through a `Link` component, which opens other sites in a new tab and keeps the pages of this site in the same one:
+
+```astro
+---
+const { href, ...props } = Astro.props;
+const external = /^https?:\/\//.test(String(href ?? ""));
+---
+
+<a href={href} target={external ? "_blank" : undefined} {...props}><slot /></a>
+```
+
+## Plain CSS, with design tokens
+
+The first version used Tailwind CSS. I replaced it with plain CSS: for a site this size, a single stylesheet with modern CSS is easier to read than utility classes, and it needs no build step.
+
+Colors are custom properties, redefined for dark mode. The whole site follows the system theme without a single line of JavaScript:
+
+```css
+:root {
+  --bg: #fff;
+  --copy: #282828;
+  --nav: #676767;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1a19;
+    --copy: #e8e5df;
+    --nav: #aaa59e;
+  }
+}
+```
+
+Native CSS nesting and `color-mix()` cover what I used to need a preprocessor for. Borders, for example, are the text color at 10% opacity, so they adapt to both themes on their own:
+
+```css
+--line: color-mix(in srgb, var(--copy) 10%, transparent);
+```
+
+The fonts are system fonts: `ui-serif` for the text, the system sans-serif for small labels. Nothing to download, so the text is visible immediately and never jumps when a web font loads.
+
+## Page transitions without a router
+
+When you go from the home page to a project, the image on the right and my name animate between the two pages. This uses cross-document [view transitions](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API): the browser takes a snapshot of the old page and the new one, and animates the elements that share a `view-transition-name`. It's one CSS rule to enable it:
+
+```css
+@view-transition {
+  navigation: auto;
+}
+```
+
+By default, the browser crossfades the whole page. I only want the side image and my name to move, so the rest of the page changes at once:
+
+```css
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+```
+
+My name is a large title on the home page and a small link on the other pages. The browser animates from one size to the other, but by default it stretches the snapshot to fit the new box. Keeping its aspect ratio makes it scale smoothly instead:
+
+```css
+::view-transition-old(name),
+::view-transition-new(name) {
+  width: auto;
+  height: 100%;
+}
+```
+
+{/* Image: the Animations panel of Chrome DevTools, slowed down to 10%, during the transition, with the ::view-transition pseudo-elements visible in the Elements panel. It shows what the browser actually animates. */}
+
+Browsers that don't support view transitions just navigate normally, and people who ask their system for reduced motion get no animation at all.
+
+## Images, optimized at build time
+
+Images go through Astro's image pipeline: resized, converted to WebP, given explicit `width` and `height` so the layout doesn't shift while they load, and lazy-loaded below the fold. The side image is the exception: it's above the fold, so it's loaded eagerly with a high fetch priority, in three sizes for different screens.
+
+The same pipeline generates the social preview images. When an article has a cover image, it's cropped to 1200×630 in JPEG, the format and size social networks expect:
+
+```ts
+const ogImage = await getImage({
+  src: image,
+  width: 1200,
+  height: 630,
+  fit: "cover",
+  format: "jpeg",
+});
+```
+
+## SEO, done properly
+
+- **Metadata.** A unique title, description and canonical URL on every page, plus Open Graph tags and a large Twitter card so links look good when shared. Article pages also get `article:published_time`.
+- **Discovery.** A sitemap generated by `@astrojs/sitemap`, an RSS feed, and a `robots.txt` that lets every crawler in, AI crawlers included. It's an endpoint rather than a static file, so it always points to the right sitemap URL.
+- **Photos kept out of image search.** I want my pages indexed, not my photos showing up in Google Images. Vercel sends an `X-Robots-Tag: noindex` header on every optimized asset, so search engines can still load the images to render the page, but don't list them.
+
+```json
+"headers": [
+  {
+    "source": "/_astro/(.*)",
+    "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+  }
+]
+```
 
 ## Being readable by AI
 
-More and more people ask an AI assistant instead of searching. Two small additions help them understand the site:
+More and more people ask an AI assistant instead of searching. Assistants build their answers from what they can read and cross-check, so the site gives them facts in a form they can't misread.
 
-- **Structured data**: a JSON-LD `Person` block describing who I am, where I study and work, my award and my profiles.
-- **`/llms.txt`**: a Markdown summary of the site, generated at build time, that AI tools can read without parsing HTML.
+All the information about me (role, company, school, location, links) lives in a single TypeScript file. The home page and the structured data are both generated from it, so they never disagree.
+
+The structured data is a JSON-LD `Person` block on the home page: who I am, where I work and study, where I live, and my profiles on other sites. The `sameAs` links are what let an assistant understand that the GitHub account, the LinkedIn profile and this site describe the same person. Here's a shortened version:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Pierre Houllière",
+  "jobTitle": "Apprentice software engineer",
+  "worksFor": { "@type": "Organization", "name": "Docaposte Agility" },
+  "sameAs": ["https://github.com/wiizzl", "https://linkedin.com/in/pierrehoulliere"]
+}
+```
+
+The rest is writing: short factual sentences that make sense on their own, like "In 2025, I became French Vice-Champion in Web Development at WorldSkills France". An assistant can quote that sentence as is.
+
+{/* Image: the result of Google's Rich Results Test (search.google.com/test/rich-results) on the home page, showing the detected Person. */}
+
+## Checks on every push
+
+A GitHub Actions workflow runs on every pull request and every push to `main`: [Biome](https://biomejs.dev) lints and checks the formatting, and `astro check` type-checks the TypeScript and the components. Bun installs the dependencies from the lockfile and runs every script, locally and in CI.
 
 **TODO:** add anything you'd like to highlight (design inspiration, what you'd do differently, a link to the source code).

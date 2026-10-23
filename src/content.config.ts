@@ -29,7 +29,6 @@ export const collections = {
         description: z.string(),
         url: z.url().optional(),
         repo: z.url().optional(),
-        stack: z.array(z.string()),
         order: z.number(),
         image: z.object({ src: image(), alt: z.string() }).optional(),
       }),

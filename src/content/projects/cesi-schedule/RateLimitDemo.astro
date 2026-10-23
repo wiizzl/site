@@ -1,0 +1,137 @@
+<div class="rate-demo">
+  <div class="controls">
+    <button type="button" data-action="try">Generate a link</button>
+    <button type="button" data-action="retry" aria-pressed="false">Retry every 2 seconds</button>
+    <label><input type="checkbox" checked /> <code>PEXPIRE … NX</code></label>
+  </div>
+
+  <dl>
+    <div>
+      <dt>Attempts in the window</dt>
+      <dd data-value="count">0</dd>
+    </div>
+    <div>
+      <dt>Window resets in</dt>
+      <dd data-value="ttl">-</dd>
+    </div>
+    <div>
+      <dt>Last answer</dt>
+      <dd data-value="answer">-</dd>
+    </div>
+  </dl>
+</div>
+
+<script>
+  // The real limit is 5 attempts per 15 minutes: here, one second stands for one minute
+  const LIMIT = 5;
+  const WINDOW = 15_000;
+
+  for (const demo of document.querySelectorAll<HTMLElement>(".rate-demo")) {
+    const value = (name: string) => demo.querySelector<HTMLElement>(`[data-value="${name}"]`);
+    const nx = demo.querySelector<HTMLInputElement>("input");
+    const retry = demo.querySelector<HTMLButtonElement>('[data-action="retry"]');
+
+    // What Redis stores for one IP: a counter, and when it expires
+    let count = 0;
+    let expiresAt: number | null = null;
+    let retryTimer: number | undefined;
+
+    const expire = () => {
+      if (expiresAt !== null && Date.now() >= expiresAt) {
+        count = 0;
+        expiresAt = null;
+      }
+    };
+
+    const attempt = () => {
+      expire();
+      // INCR creates the key at 0 if it doesn't exist, then adds one
+      count++;
+      // With NX, the expiry is only set if the key has none yet, so when the window starts.
+      // Without it, every attempt pushes the expiry back by 15 minutes.
+      if (!nx?.checked || expiresAt === null) expiresAt = Date.now() + WINDOW;
+
+      const answer = value("answer");
+      if (answer) {
+        const blocked = count > LIMIT;
+        answer.textContent = blocked ? "429 Too many attempts" : "200 Link generated";
+        answer.classList.toggle("blocked", blocked);
+      }
+      render();
+    };
+
+    const render = () => {
+      expire();
+      const counter = value("count");
+      const ttl = value("ttl");
+      if (counter) counter.textContent = `${count} / ${LIMIT}`;
+      if (ttl) {
+        ttl.textContent = expiresAt === null ? "-" : `${Math.ceil((expiresAt - Date.now()) / 1000)} min`;
+      }
+    };
+
+    demo.querySelector('[data-action="try"]')?.addEventListener("click", attempt);
+
+    retry?.addEventListener("click", () => {
+      const on = retry.getAttribute("aria-pressed") !== "true";
+      retry.setAttribute("aria-pressed", String(on));
+      clearInterval(retryTimer);
+      if (on) {
+        attempt();
+        retryTimer = window.setInterval(attempt, 2000);
+      }
+    });
+
+    setInterval(render, 250);
+  }
+</script>
+
+<style>
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    cursor: pointer;
+  }
+
+  [aria-pressed="true"] {
+    border-color: var(--nav);
+    color: var(--heading);
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  dl div {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--bg);
+  }
+
+  dt {
+    color: var(--nav);
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  dd {
+    margin-top: 0.25rem;
+    color: var(--heading);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .blocked {
+    color: var(--code-inline);
+  }
+</style>

@@ -1,9 +1,8 @@
 ---
 title: Fulgur
-description: One project for a React app and its fully typed API, without a monorepo.
+description: One project for a web app and its fully typed API, without a monorepo.
 url: https://wiizzl.github.io/fulgur
 repo: https://github.com/wiizzl/fulgur
-stack: [TypeScript, Bun, Vite, Elysia]
 order: 2
 ---
 
@@ -11,9 +10,9 @@ order: 2
 
 Fulgur started as a framework to build [WorldSkills](https://worldskills.org) test projects quickly. In [Web Technologies](https://worldskills.org/skills/id/127), every module is timed: you get a subject, a few hours, and you have to ship a working app. I wanted a fullstack setup ready in seconds, with a typed API between the frontend and the backend, so I wouldn't lose time on plumbing.
 
-While training, I realized that I was solving the wrong problem. For WorldSkills, [Laravel](https://laravel.com) is simply a better fit: it already covers everything a module asks for, from routing and the ORM to authentication, validation, migrations and seeding. With Fulgur, I would have had to pick and wire a library for each of those, under the clock.
+While training, I realized that I was solving the wrong problem. [Laravel](https://laravel.com) is simply a better fit: it already covers everything a module asks for, from routing and the ORM to authentication, validation, migrations and seeding. With Fulgur, I would have had to pick and wire a library for each of those.
 
-Fulgur didn't go to waste, though. The part that worked really well, the typed link between a React app and its API, is exactly what I want for small TypeScript projects. So it became what it is today.
+Fulgur didn't go to waste, though. The part that worked really well, the typed link between a web app and its API, is exactly what I want for small TypeScript projects. So it became what it is today.
 
 ## The problem it solves
 
@@ -25,7 +24,7 @@ Fulgur removes that friction: one project, one config, one command.
 
 ## How it works
 
-Fulgur is not a framework, it's a glue layer. It doesn't replace Vite, Elysia or Eden, it just connects them.
+Fulgur is not a real framework, it's a glue layer. It doesn't replace Vite, Elysia or Eden, it just connects them.
 
 ```ts
 // vite.config.ts
@@ -81,4 +80,4 @@ At build time, Vite builds the frontend, and the plugin generates two small entr
 
 ## Status
 
-Fulgur is open source under the MIT license and [published on npm](https://npmjs.com/package/fulgur). The repository includes examples, and the full guide lives on [its documentation site](https://wiizzl.github.io/fulgur), built with VitePress.
+Fulgur is open source under the MIT license and [published on npm](https://npmx.dev/package/fulgur). The repository includes examples, and the full guide lives on [its documentation site](https://wiizzl.github.io/fulgur).

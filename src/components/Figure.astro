@@ -11,7 +11,8 @@ const { src, alt, caption } = Astro.props;
 ---
 
 <figure>
-  <Image src={src} alt={alt} />
+  <!-- The text column is at most 36rem wide: the browser picks the smallest file that stays sharp, 2x screens included. The original size is always there for the zoom -->
+  <Image src={src} alt={alt} widths={[576, 1152, 1920].filter((width) => width < src.width).concat(src.width)} sizes="(width >= 40rem) 36rem, 100vw" />
   <figcaption>{caption}</figcaption>
 </figure>
 

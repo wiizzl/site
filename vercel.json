@@ -8,5 +8,16 @@
       "destination": "https://github.com/wiizzl/resume/releases/latest/download/Pierre_Houlliere_CV.pdf",
       "permanent": false
     }
+  ],
+  "headers": [
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
   ]
 }

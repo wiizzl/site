@@ -1,0 +1,123 @@
+<div class="fold-demo">
+  <label>
+    Course name
+    <input type="text" value="Mathématiques appliquées à la recherche opérationnelle et à l’optimisation" />
+  </label>
+
+  <div class="results">
+    <div>
+      <p class="title">Cut every 75 bytes</p>
+      <ol data-fold="naive"></ol>
+    </div>
+    <div>
+      <p class="title">Cut at the start of a character</p>
+      <ol data-fold="safe"></ol>
+    </div>
+  </div>
+</div>
+
+<script>
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
+
+  // Same rules as the Go code: 75 bytes on the first line, 74 on the next ones, which start with a space
+  const fold = (bytes: Uint8Array, safe: boolean) => {
+    const lines: Uint8Array[] = [];
+    let start = 0;
+    let limit = 75;
+    while (start < bytes.length) {
+      let end = Math.min(start + limit, bytes.length);
+      // A byte starting with 10 in binary continues a character: move back to where that character starts
+      while (safe && end < bytes.length && (bytes[end] & 0xc0) === 0x80) end--;
+      lines.push(bytes.slice(start, end));
+      start = end;
+      limit = 74;
+    }
+    return lines;
+  };
+
+  for (const demo of document.querySelectorAll<HTMLElement>(".fold-demo")) {
+    const input = demo.querySelector("input");
+    const lists = demo.querySelectorAll<HTMLOListElement>("ol");
+    if (!input) continue;
+
+    const render = () => {
+      const bytes = encoder.encode(`SUMMARY:${input.value}`);
+      for (const list of lists) {
+        list.replaceChildren(
+          ...fold(bytes, list.dataset.fold === "safe").map((line, i) => {
+            const item = document.createElement("li");
+            // Each line is decoded on its own, like the calendar apps that don't join the lines back first
+            const text = decoder.decode(line);
+            item.textContent = `${i > 0 ? " " : ""}${text}`;
+            item.dataset.bytes = `${line.length + (i > 0 ? 1 : 0)} bytes`;
+            item.classList.toggle("broken", text.includes("�"));
+            return item;
+          }),
+        );
+      }
+    };
+
+    input.addEventListener("input", render);
+    render();
+  }
+</script>
+
+<style>
+  label {
+    display: grid;
+    gap: 0.375rem;
+    color: var(--nav);
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .results {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    @media (width >= 40rem) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .title {
+    margin-bottom: 0.5rem;
+    color: var(--heading);
+    font-weight: 600;
+  }
+
+  ol {
+    display: grid;
+    gap: 0.375rem;
+  }
+
+  /* The lines are created by the script, so they need a global selector */
+  ol :global(li) {
+    padding: 0.375rem 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--bg);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+
+    &::after {
+      content: attr(data-bytes);
+      display: block;
+      margin-top: 0.25rem;
+      color: var(--nav);
+      font-family: var(--font-sans);
+    }
+  }
+
+  ol :global(.broken) {
+    outline: 1px solid var(--code-inline);
+  }
+</style>

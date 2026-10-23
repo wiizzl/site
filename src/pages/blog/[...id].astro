@@ -3,6 +3,8 @@ import { render } from "astro:content";
 
 import ArticleLayout from "#/layouts/ArticleLayout.astro";
 
+import Link from "#/components/Link.astro";
+
 import { formatMonth, getPosts, readingTime } from "#/lib/content";
 
 export const getStaticPaths = async () => {
@@ -16,36 +18,11 @@ const { Content } = await render(post);
 ---
 
 <ArticleLayout title={post.data.title} description={post.data.description} publishedTime={post.data.date} image={post.data.image}>
-  <div slot="before" class="reading-progress" aria-hidden="true"></div>
   <Fragment slot="meta">
     <time datetime={post.data.date.toISOString()}>{formatMonth(post.data.date)}</time>
     <span aria-hidden="true">&centerdot;</span>
     <span>{readingTime(post.body)}</span>
   </Fragment>
-  <Content />
+  <Content components={{ a: Link }} />
 </ArticleLayout>
 
-<style>
-  .reading-progress {
-    position: fixed;
-    inset-inline: 0;
-    top: 0;
-    z-index: 10;
-    display: none;
-    height: 2px;
-    background-color: var(--nav);
-
-    @supports (animation-timeline: scroll()) {
-      display: block;
-      transform-origin: left;
-      animation: reading-progress linear both;
-      animation-timeline: scroll(root);
-    }
-  }
-
-  @keyframes reading-progress {
-    from {
-      transform: scaleX(0);
-    }
-  }
-</style>

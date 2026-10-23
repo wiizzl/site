@@ -1,0 +1,12 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
+const { href, ...props } = Astro.props;
+
+// Like on the home page, other sites open in a new tab and pages of this site in the same one
+const external = /^https?:\/\//.test(String(href ?? ""));
+---
+
+<a href={href} target={external ? "_blank" : undefined} {...props}><slot /></a>

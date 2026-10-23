@@ -3,9 +3,13 @@ title: CESI Schedule
 description: My school timetable as a calendar feed, with encrypted stateless tokens.
 url: https://cesi-schedule.vercel.app
 repo: https://github.com/wiizzl/cesi-schedule
-stack: [Go, Redis, Vercel]
 order: 1
 ---
+
+import Demo from "#/components/Demo.astro";
+
+import FoldDemo from "./FoldDemo.astro";
+import RateLimitDemo from "./RateLimitDemo.astro";
 
 ## The problem
 
@@ -16,6 +20,7 @@ CESI Schedule turns the timetable into a standard iCalendar (`.ics`) feed. You e
 ## Logging in like a browser
 
 There is no public API, so the server logs in exactly like a browser would. The CESI login is a SAML flow that goes through several services:
+
 1. The **WAYF** page ("Where Are You From") receives the email and answers with a form containing a `SAMLRequest`.
 2. That form is posted to CESI's **ADFS** server, which returns the actual login form.
 3. The server fills `UserName` and `Password` and submits it. If the credentials are good, ADFS answers with a `SAMLResponse`.
@@ -44,7 +49,11 @@ A calendar feed is polled automatically, sometimes every few minutes, by apps th
 - **Load on CESI.** Calendars are cached for 15 minutes, logged-in sessions are reused, and a user can't trigger more than 30 refreshes per hour. Each instance runs at most 8 logins at the same time.
 - **Abuse.** Generating a link is limited to 5 attempts per IP every 15 minutes, so the form can't be used to test passwords.
 
-The cache and the counters live in [Upstash Redis](https://upstash.com). Users are identified by an HMAC of their email and password, so changing the password naturally gives a fresh cache. Cache entries are encrypted too: the Redis database never sees a timetable in clear. Rate limits use an `INCR` and a `PEXPIRE ... NX` in a single pipeline, so the counter's expiry is only set once, when the window starts.
+The cache and the counters live in [Upstash Redis](https://upstash.com). Users are identified by an HMAC of their email and password, so changing the password naturally gives a fresh cache. Cache entries are encrypted too: the Redis database never sees a timetable in clear. Rate limits use an `INCR` and a `PEXPIRE ... NX` in a single pipeline, so the counter's expiry is only set once, when the window starts. Without `NX`, every attempt would push the expiry back by 15 minutes, and an app that keeps retrying would stay blocked forever.
+
+<Demo caption="The link form's limit, sped up: one second here is one minute. Turn on the retries, then uncheck NX to see the window never end.">
+  <RateLimitDemo />
+</Demo>
 
 ## Writing iCalendar by hand
 
@@ -54,6 +63,12 @@ The `.ics` format looks trivial, but it has its quirks, and I wrote the generato
 - CESI returns dates with offsets like `+02` instead of `+02:00`, which Go's RFC 3339 parser refuses. They're fixed before parsing.
 - All-day events need dates without times, and an end date strictly after the start.
 - Commas, semicolons and line breaks must be escaped in text fields.
+
+The RFC asks apps to join folded lines back together before decoding them, but not all of them do. One that decodes each line on its own can't read either half of a cut character, and shows `�` instead.
+
+<Demo caption="Folding a course name. The apostrophe ’ takes 3 bytes: cut every 75 bytes, it ends up split across two lines.">
+  <FoldDemo />
+</Demo>
 
 The feed covers the previous week and the next 7 weeks, fetched in 28-day chunks. If the ENT session expires midway, the server logs in again and retries once.
 

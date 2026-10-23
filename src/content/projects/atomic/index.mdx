@@ -2,19 +2,12 @@
 title: Atomic
 description: My Linux machines as signed container images, built and shipped by CI.
 repo: https://github.com/wiizzl/atomic
-stack: [bootc, Fedora Atomic, chezmoi, GitHub Actions]
 order: 3
 ---
 
 import Figure from "#/components/Figure.astro";
 
 import desktop from "./desktop.webp";
-
-<Figure
-  src={desktop}
-  alt="My Hyprland desktop on the pier image: a vertical bar on the left, and a kitty terminal running fastfetch, which shows Fedora Linux 44, Hyprland and a read-only root filesystem."
-  caption="My Hyprland desktop on the pier image."
-/>
 
 ## The problem
 
@@ -84,6 +77,12 @@ Immutable systems have a few traps that took me a while to understand:
 My user settings live in the same repository, managed with [chezmoi](https://chezmoi.io): Hyprland (configured in Lua), the Noctalia shell, fish, kitty, Zed, git... On first run, chezmoi asks a few questions (Git name and email, whether to use the Bitwarden SSH agent, the key used to sign commits) and templates the files accordingly.
 
 Scripts run automatically when something changes: when the mise config changes, `mise install` runs again; when the Flatpak list changes, the apps are installed or updated. The dotfiles are made for the `pier` image, but they work on any Linux.
+
+<Figure
+  src={desktop}
+  alt="My Hyprland desktop on the pier image: a vertical bar on the left, and a kitty terminal running fastfetch, which shows Fedora Linux 44, Hyprland and a read-only root filesystem."
+  caption="My Hyprland desktop on the pier image, configured with chezmoi."
+/>
 
 Reinstalling a machine is now an ISO, a reboot, and one command:
 

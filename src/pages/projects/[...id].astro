@@ -3,6 +3,8 @@ import { render } from "astro:content";
 
 import ArticleLayout from "#/layouts/ArticleLayout.astro";
 
+import Link from "#/components/Link.astro";
+
 import { getProjects } from "#/lib/content";
 
 export const getStaticPaths = async () => {
@@ -33,7 +35,7 @@ const links = [
       </Fragment>
     ))}
   </p>
-  <Content />
+  <Content components={{ a: Link }} />
 </ArticleLayout>
 
 <style>

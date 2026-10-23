@@ -32,7 +32,7 @@ const posts = await getPosts();
 
     <div class="heading">
       <h2>Projects</h2>
-      <a href="https://github.com/wiizzl?tab=repositories" target="_blank">See more</a>
+      <a href={CONSTS.links[0].url} target="_blank">See more</a>
     </div>
     <Rows rows={projects.map((project) => ({ name: project.data.title, url: `/projects/${project.id}`, meta: project.data.description }))} />
 
