@@ -12,7 +12,6 @@ export const collections = {
       z.object({
         title: z.string(),
         description: z.string(),
-        tags: z.array(z.string()),
         date: z.coerce.date(),
         draft: z.boolean().default(false),
         image: z.object({ src: image(), alt: z.string() }).optional(),

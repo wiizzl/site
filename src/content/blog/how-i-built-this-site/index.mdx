@@ -1,7 +1,6 @@
 ---
 title: "How I built this site: minimal, fast and readable by AI"
 description: "A technical tour of my personal site: static HTML with Astro, MDX content collections, plain CSS, cross-document view transitions, and SEO for both search engines and AI assistants."
-tags: [astro, css, seo, web]
 date: 2026-10-14
 draft: true
 ---
@@ -37,7 +36,6 @@ blog: defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      tags: z.array(z.string()),
       date: z.coerce.date(),
       draft: z.boolean().default(false),
       image: z.object({ src: image(), alt: z.string() }).optional(),
@@ -55,7 +53,11 @@ Posts are written in MDX: Markdown, plus components when plain Markdown isn't en
 import Figure from "#/components/Figure.astro";
 import desktop from "./desktop.webp";
 
-<Figure src={desktop} alt="A long, precise description…" caption="My desktop." />
+<Figure
+  src={desktop}
+  alt="A long, precise description…"
+  caption="My desktop."
+/>
 ```
 
 MDX also lets me replace the HTML elements generated from Markdown. Every link in an article goes through a `Link` component, which opens other sites in a new tab and keeps the pages of this site in the same one:
@@ -178,7 +180,10 @@ The structured data is a JSON-LD `Person` block on the home page: who I am, wher
   "name": "Pierre Houllière",
   "jobTitle": "Apprentice software engineer",
   "worksFor": { "@type": "Organization", "name": "Docaposte Agility" },
-  "sameAs": ["https://github.com/wiizzl", "https://linkedin.com/in/pierrehoulliere"]
+  "sameAs": [
+    "https://github.com/wiizzl",
+    "https://linkedin.com/in/pierrehoulliere"
+  ]
 }
 ```
 

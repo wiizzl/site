@@ -24,58 +24,28 @@ const { title, ...props } = Astro.props;
     </div>
   </article>
   <dialog class="zoom" aria-label="Zoomed image">
-    <img alt="" />
     <p aria-hidden="true"></p>
   </dialog>
 </BaseLayout>
 
 <script>
   const dialog = document.querySelector<HTMLDialogElement>("dialog.zoom");
-  const zoomed = dialog?.querySelector("img");
   const caption = dialog?.querySelector("p");
 
-  // The article loads the size that fits the text column, the zoom needs the largest one in the srcset
-  const largest = (image: HTMLImageElement) =>
-    image.srcset
-      .split(",")
-      .map((candidate) => candidate.trim().split(/\s+/))
-      .map(([url, width]) => ({ url, width: Number.parseInt(width, 10) || 0 }))
-      .sort((a, b) => b.width - a.width)[0]?.url ?? image.currentSrc;
+  if (dialog && caption) {
+    const zoomed = new Image();
+    caption.before(zoomed);
 
-  if (dialog && zoomed && caption) {
-    for (const image of document.querySelectorAll<HTMLImageElement>(".prose img")) {
+    for (const image of document.querySelectorAll<HTMLImageElement>(".prose img:not(a img)")) {
       image.addEventListener("click", () => {
-        zoomed.src = largest(image);
+        zoomed.onload = zoomed.onerror = () => dialog.showModal();
+        zoomed.src = image.srcset.split(",").at(-1)?.trim().split(" ")[0] || image.currentSrc;
         zoomed.alt = image.alt;
         caption.textContent = image.closest("figure")?.querySelector("figcaption")?.textContent ?? "";
-        dialog.showModal();
       });
     }
 
     dialog.addEventListener("click", () => dialog.close());
-  }
-
-  for (const pre of document.querySelectorAll<HTMLPreElement>(".prose pre")) {
-    const wrapper = document.createElement("div");
-    wrapper.className = "code";
-    pre.replaceWith(wrapper);
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = "Copy";
-    wrapper.append(pre, button);
-
-    let reset: number | undefined;
-    button.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(pre.innerText);
-        button.textContent = "Copied";
-      } catch {
-        button.textContent = "Failed";
-      }
-      clearTimeout(reset);
-      reset = window.setTimeout(() => (button.textContent = "Copy"), 2000);
-    });
   }
 </script>
 
@@ -115,43 +85,8 @@ const { title, ...props } = Astro.props;
     line-height: 1rem;
   }
 
-  .prose :global(img) {
+  .prose :global(img:not(a img)) {
     cursor: zoom-in;
-  }
-
-  .prose :global(.code) {
-    position: relative;
-    margin-bottom: 1.5rem;
-
-    & pre {
-      margin-bottom: 0;
-    }
-
-    & button {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      padding: 0.25rem 0.5rem;
-      border: 1px solid var(--line);
-      border-radius: 0.375rem;
-      background-color: var(--surface);
-      color: var(--nav);
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
-      line-height: 1rem;
-      cursor: pointer;
-      transition:
-        color 0.3s var(--ease),
-        opacity 0.3s var(--ease);
-
-      &:hover {
-        color: var(--secondary);
-      }
-    }
-  }
-
-  .prose :global(.code:not(:hover) button:not(:focus-visible)) {
-    opacity: 0;
   }
 
   .zoom {
@@ -168,7 +103,7 @@ const { title, ...props } = Astro.props;
       background-color: color-mix(in oklab, var(--bg) 90%, transparent);
     }
 
-    & img {
+    & :global(img) {
       max-width: 95vw;
       max-height: 85svh;
       object-fit: contain;

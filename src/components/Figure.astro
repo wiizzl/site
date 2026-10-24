@@ -5,20 +5,24 @@ interface Props {
   src: ImageMetadata;
   alt: string;
   caption: string;
+  small?: boolean;
 }
 
-const { src, alt, caption } = Astro.props;
+const { src, alt, caption, small = false } = Astro.props;
 ---
 
-<figure>
-  <!-- The text column is at most 36rem wide: the browser picks the smallest file that stays sharp, 2x screens included. The original size is always there for the zoom -->
-  <Image src={src} alt={alt} widths={[576, 1152, 1920].filter((width) => width < src.width).concat(src.width)} sizes="(width >= 40rem) 36rem, 100vw" />
+<figure class:list={{ small }}>
+  <Image src={src} alt={alt} widths={[576, 1152, 1920].filter((width) => width < src.width).concat(src.width)} sizes={small ? "18rem" : "(width >= 40rem) 36rem, 100vw"} />
   <figcaption>{caption}</figcaption>
 </figure>
 
 <style>
   figure {
     margin-bottom: 1.5rem;
+  }
+
+  .small {
+    max-width: 18rem;
   }
 
   figcaption {
