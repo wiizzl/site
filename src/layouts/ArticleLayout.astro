@@ -68,7 +68,8 @@ const { title, ...props } = Astro.props;
     @supports (animation-timeline: scroll()) {
       display: block;
       transform-origin: left;
-      animation: reading-progress linear both;
+      animation-name: reading-progress;
+      animation-timing-function: linear;
       animation-timeline: scroll(root);
     }
   }
