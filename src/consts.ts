@@ -20,6 +20,6 @@ export const CONSTS = {
     { name: "GitHub", url: "https://github.com/wiizzl" },
     { name: "LinkedIn", url: "https://linkedin.com/in/pierrehoulliere" },
     { name: "Email", url: `mailto:${mail}` },
-    { name: "CV", url: "/cv" },
+    { name: "CV", url: "/cv/" },
   ],
 };

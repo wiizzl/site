@@ -7,6 +7,11 @@
       "source": "/(cv|resume)",
       "destination": "https://github.com/wiizzl/resume/releases/latest/download/Pierre_Houlliere_CV.pdf",
       "permanent": false
+    },
+    {
+      "source": "/(cv|resume)/",
+      "destination": "https://github.com/wiizzl/resume/releases/latest/download/Pierre_Houlliere_CV.pdf",
+      "permanent": false
     }
   ]
 }
