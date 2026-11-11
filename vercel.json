@@ -1,4 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "bunVersion": "1.x"
+  "bunVersion": "1.x",
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/(cv|resume)",
+      "destination": "https://github.com/wiizzl/resume/releases/latest/download/Pierre_Houlliere_CV.pdf",
+      "permanent": false
+    }
+  ]
 }

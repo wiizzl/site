@@ -1,0 +1,74 @@
+import ArticleLayout from "#/layouts/ArticleLayout.astro";
+
+import Figure from "#/components/Figure.astro";
+import FigureRow from "#/components/FigureRow.astro";
+import Link from "#/components/Link.astro";
+import LocationMap from "#/components/LocationMap.astro";
+
+import competing from "#/assets/activities/competing.webp";
+import speaking from "#/assets/activities/speaking.webp";
+import working from "#/assets/activities/working.webp";
+
+import { CONSTS } from "#/consts";
+
+export const components = { a: Link };
+
+<ArticleLayout title="About" description="Know more about me." progressBar={false}>
+
+Hi there, I'm {CONSTS.title.split(" ")[0]}. I currently live in Rouen, France. The picture you see on the side of the screen on desktop is the [Gros-Horloge](https://en.wikipedia.org/wiki/Gros_Horloge), the big clock of Rouen.
+
+<LocationMap url="https://openstreetmap.org/export/embed.html?bbox=1.02%2C49.40%2C1.16%2C49.47" />
+
+## Work
+
+I've been freelancing since November 2024. Besides that, I've had a few internships in different companies.
+
+I currently work at <Link href={CONSTS.company.url}>{CONSTS.company.name}</Link> as an {CONSTS.role.toLowerCase()}.
+
+## Studies
+
+I'm doing an engineering degree in computer science at [CESI Rouen](https://rouen.cesi.fr) (2026–2029), alternating one month at school and one month at the company. Before that, I did a 2 years HND in computer science.
+
+## WorldSkills
+
+I competed in Web Development at [WorldSkills France](https://www.worldskills-france.org), the biggest skills competition in the world. I won the Normandy regional title in 2024 and became French Vice-Champion in 2025. Since March 2026, I'm the deputy national expert for the next editions. You can read [my story](/blog/worldskills-france/).
+
+<FigureRow>
+  <Figure
+    src={speaking}
+    alt="Me speaking into a microphone during a panel discussion on stage."
+    caption="Me speaking during a panel discussion."
+  />
+  <Figure
+    src={competing}
+    alt="Me coding at my workstation during the WorldSkills France national finals."
+    caption="Me competing at the national finals."
+  />
+</FigureRow>
+
+## Free software
+
+I run Linux everywhere and try to depend as little as possible on big tech. I build [Atomic](/projects/atomic/), my immutable Linux images.
+
+I also use free and open source software as much as I can: [Zed](https://zed.dev) instead of VS Code, [Bruno](https://usebruno.com) instead of Postman, [Bitwarden](https://bitwarden.com) instead of 1Password. You got it right?
+
+## Tools
+
+TypeScript, Go, C# and Python on the back-end, React on the front-end. Docker, Kubernetes, CI/CD, GitOps and Ansible to ship it. PostgreSQL most of the time.
+
+## Languages
+
+French (native), English (C1) and German (A2).
+
+## Contact
+
+Want to work together or just say hi? Send me [an email](mailto:hi@houlliere.com).
+
+<Figure
+  src={working}
+  alt="Me wearing headphones, focused on my screens."
+  caption="Me looking for your mail."
+  small
+/>
+
+</ArticleLayout>

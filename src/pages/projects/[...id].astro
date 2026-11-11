@@ -1,0 +1,46 @@
+---
+import { render } from "astro:content";
+
+import ArticleLayout from "#/layouts/ArticleLayout.astro";
+
+import Link from "#/components/Link.astro";
+
+import { getProjects } from "#/lib/content";
+
+export const getStaticPaths = async () => {
+  const projects = await getProjects();
+
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+};
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const links = [
+  { name: "Project link", url: project.data.url },
+  { name: "Source code", url: project.data.repo },
+].filter((link) => link.url);
+---
+
+<ArticleLayout title={project.data.title} description={project.data.description} image={project.data.image} progressBar>
+  <span slot="meta">{project.data.description}</span>
+  <p slot="intro" class="dotted links">
+    {links.map((link, i) => (
+      <Fragment>
+        {i > 0 && <span aria-hidden="true">&centerdot;</span>}
+        <a href={link.url} target="_blank">{link.name}</a>
+      </Fragment>
+    ))}
+  </p>
+  <Content components={{ a: Link }} />
+</ArticleLayout>
+
+<style>
+  .links {
+    margin-bottom: 1.5rem;
+    color: var(--nav);
+  }
+</style>

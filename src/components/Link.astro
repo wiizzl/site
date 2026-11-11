@@ -1,35 +1,12 @@
 ---
-interface Props {
-  href: string;
-  blank?: boolean;
-  anonymize?: boolean;
-}
+import type { HTMLAttributes } from "astro/types";
 
-const { href, blank, anonymize } = Astro.props;
+type Props = HTMLAttributes<"a">;
 
-const target = blank ? "_blank" : "_self";
-const rel = blank ? "noreferrer noopener" : undefined;
+const { href, ...props } = Astro.props;
 
-const encodedHref = anonymize ? Buffer.from(href).toString("base64") : href;
+// Like on the home page, other sites open in a new tab and pages of this site in the same one
+const external = /^https?:\/\//.test(String(href ?? ""));
 ---
 
-{
-  anonymize ? (
-    <a
-      role="link"
-      tabindex="0"
-      class="hover:text-muted-foreground inline-block underline"
-      data-encoded={encodedHref}
-      target={target}
-      rel={rel}
-      onpointerenter="this.href = atob(this.dataset.encoded)"
-      onfocus="this.href = atob(this.dataset.encoded)"
-    >
-      <slot />
-    </a>
-  ) : (
-    <a href={href} class="hover:text-muted-foreground inline-block underline" target={target} rel={rel}>
-      <slot />
-    </a>
-  )
-}
+<a href={href} target={external ? "_blank" : undefined} {...props}><slot /></a>

@@ -1,23 +1,117 @@
 ---
-import BaseHead from "#/layouts/BaseHead.astro";
+import BaseHead, {
+  type Props as BaseHeadProps,
+} from "#/components/BaseHead.astro";
 
-interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-}
+import SideImage, {
+  type Props as SideImageProps,
+} from "#/components/SideImage.astro";
 
-const { title, description, image } = Astro.props;
+import { CONSTS } from "#/consts";
+
+type Props = Omit<BaseHeadProps, "image"> & {
+  image?: SideImageProps;
+};
+
+const { image, ...head } = Astro.props;
+
+const isHome = Astro.url.pathname === "/";
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang="en">
   <head>
-    <BaseHead title={title} description={description} image={image} />
+    <BaseHead {...head} image={image?.src} />
+    <slot name="head" />
   </head>
   <body>
-    <main class="mx-auto h-full w-full max-w-screen-2xl px-4 py-10 md:px-10 md:py-40 lg:px-52 xl:px-80">
-      <slot />
+    <main>
+      <div class="content">
+        <header>
+          {isHome ? <h1 class="name">{CONSTS.title}</h1> : <a href="/" class="name">{CONSTS.title}</a>}
+        </header>
+        <slot />
+      </div>
+      <aside>
+        <SideImage {...image} />
+      </aside>
     </main>
   </body>
 </html>
+
+<style>
+  main {
+    max-width: 96rem;
+    margin-inline: auto;
+    padding: 2.5rem 1.25rem;
+
+    @media (width >= 40rem) {
+      padding: 3rem;
+    }
+
+    @media (width >= 64rem) {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: flex-start;
+      gap: 3rem;
+      padding-bottom: 0;
+    }
+  }
+
+  .content {
+    max-width: 36rem;
+    margin-inline: auto;
+
+    @media (width >= 64rem) {
+      grid-column: span 3;
+      margin-inline: 0;
+      padding-bottom: 3rem;
+    }
+  }
+
+  header {
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    a {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .name {
+    view-transition-name: name;
+  }
+
+  :global(:root[data-name-hidden]) .name {
+    view-transition-name: none;
+  }
+
+  h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  a {
+    display: block;
+    width: fit-content;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-decoration: none;
+  }
+
+  aside {
+    display: none;
+
+    @media (width >= 64rem) {
+      position: sticky;
+      top: 0;
+      display: block;
+      grid-column: span 2;
+      height: 100svh;
+      margin-top: -3rem;
+      padding-block: 3rem;
+    }
+  }
+</style>

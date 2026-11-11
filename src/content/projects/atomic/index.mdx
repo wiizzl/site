@@ -1,0 +1,35 @@
+---
+title: Atomic
+description: My Linux machines as signed container images, built and shipped by CI.
+repo: https://github.com/wiizzl/atomic
+order: 3
+---
+
+I want every machine I use to be the same, and I want to reinstall one without losing a weekend. NixOS had the right idea but wanted a `flake.nix` for every project. Arch with chezmoi, then Fedora with Ansible, were simpler, but the system was only the result of a script run once: two machines slowly drifted apart, and a bad update had no way back.
+
+## The idea
+
+With [Fedora Atomic](https://fedoraproject.org/atomic-desktops) and [bootc](https://bootc-dev.github.io/bootc), the operating system is a **container image**. I write a `Containerfile`, CI builds it, and my machines pull it like any other image. An update is applied on reboot, and if it breaks, I boot the previous one. Development tools come from [mise](https://mise.jdx.dev), installed globally.
+
+Three images are rebuilt every week and published to `ghcr.io/wiizzl/atomic`: `pier` (my workstation), `pier-nvidia`, and `family`, a ready-to-use KDE desktop for my family that I can help remotely.
+
+## How it's built
+
+- **One `Containerfile`, one folder per variant.** Each has a base image pinned by digest (Renovate bumps it every Monday), a `rootfs` copied over the system, and numbered scripts run in order, merged with a shared layer.
+- **Only what changed gets rebuilt**, and images are rechunked so a small change doesn't make machines download gigabytes again.
+- **Images are signed** with cosign, and a fresh install only accepts signed images from my registry.
+- **Installer ISOs** are the official Fedora netinstall ISO with a kickstart injected by `mkksiso`: it pulls my image from the registry, so the ISO never goes stale.
+
+## Dark corners
+
+- `/home` is really `/var/home`, and tools disagree about the symlink, so the kickstart fixes every user's home.
+- `/var` isn't part of the image: directories services expect there (libvirt's, for example) must be created at boot with `systemd-tmpfiles`.
+- Flatpak apps can't see my host tools, so a small wrapper generates shims that forward to the host with `flatpak-spawn --host`.
+
+## Dotfiles
+
+My settings live in the same repository, managed by chezmoi. Reinstalling a machine is now an ISO, a reboot, and one command:
+
+```sh
+chezmoi init wiizzl/atomic --apply
+```

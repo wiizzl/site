@@ -1,0 +1,27 @@
+---
+import { render } from "astro:content";
+
+import ArticleLayout from "#/layouts/ArticleLayout.astro";
+
+import Link from "#/components/Link.astro";
+
+import { formatMonth, getPosts, readingTime } from "#/lib/content";
+
+export const getStaticPaths = async () => {
+  const posts = await getPosts();
+
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+};
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<ArticleLayout title={post.data.title} description={post.data.description} publishedTime={post.data.date} image={post.data.image} progressBar>
+  <Fragment slot="meta">
+    <time datetime={post.data.date.toISOString()}>{formatMonth(post.data.date)}</time>
+    <span aria-hidden="true">&centerdot;</span>
+    <span>{readingTime(post.body)}</span>
+  </Fragment>
+  <Content components={{ a: Link }} />
+</ArticleLayout>

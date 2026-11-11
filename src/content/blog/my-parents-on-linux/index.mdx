@@ -1,0 +1,79 @@
+---
+title: "I moved my parents to Linux"
+description: "My parents went from Windows to Linux. How it went, what was hard, and why an immutable system is a good idea when you are the family's tech support."
+date: 2026-09-10
+---
+
+My parents used Windows. Today, they all use Linux.
+
+None of them asked for it. I did it because I was tired of being their tech support on a system that breaks in new ways every few months, and because I wanted to see if the setup I built for myself could survive contact with people who don't care about operating systems.
+
+## Why
+
+For a while now, I've been trying to depend as little as possible on big tech companies. Moving my own machines was the easy part. Moving my family's was the real test: if it works for people who don't care about operating systems, it works.
+
+There is also a very practical reason. I'm the one they call when something goes wrong. A system I can update, roll back and look at remotely is worth more to me than any feature.
+
+## What they use
+
+My parents run [Aurora](https://getaurora.dev), through the `family` image of my [Atomic](/projects/atomic/) setup. My brother has the same setup as me. If you want to know how these images are built and shipped, that's what the [Atomic project page](/projects/atomic/) is about. Here, I'll stay on the family side.
+
+Aurora is a KDE desktop built by the [Universal Blue](https://universal-blue.org) project on top of Fedora's atomic base. "Atomic" (or "immutable") means the operating system is not a pile of packages installed one by one, it is a single image that is replaced as a whole. Three consequences matter for a family:
+
+- **Updates are all or nothing.** The new system is applied on the next reboot. There is no half-updated state.
+- **Going back is one reboot away.** If an update breaks something, the previous version is still on disk, and I can boot it. For someone who can't debug anything, this is the most important property.
+- **The computer can't drift.** Nobody installs a random toolbar, and two machines built from the same image behave the same. When my mother has a problem, I can reproduce it on my side.
+
+Red Hat explains the idea well in [Immutability in Silverblue](https://www.redhat.com/en/blog/immutability-silverblue), the system Aurora is derived from. If you want a longer overview of the whole ecosystem, with its trade-offs, [Immutable Linux Desktops](https://blog.hofstede.it/immutable-linux-desktops-universal-blue-ostree-and-the-future-of-desktop-linux) by Christian Hofstede-Kuhn and [The Immutable Linux Paradox](https://jnsgr.uk/2025/09/immutable-linux-paradox) by Jon Seager are both worth reading.
+
+The `family` image is Aurora with a few changes of my own: LibreOffice is included, KDE desktop sharing is enabled so I can see their screen and help, and the developer tools they will never use are removed. A new version is built every week.
+
+## My mother
+
+My mother is a teacher at a middle school. Her computer is a work tool: she enters grades, writes documents and handles her emails. Nothing exotic, but she does it every day, and she can't afford a computer that doesn't work on Monday morning.
+
+This is the easiest kind of profile to migrate, and the reason is simple: **almost everything she does happens in a browser or in standard file formats**. A grades entry system is a website, so it works the same on any system. Her documents are text files and spreadsheets, which LibreOffice opens and saves in the formats her colleagues use.
+
+She got used to it quickly. KDE looks a lot like Windows: a taskbar at the bottom, a start menu, windows that behave the way she expects. I didn't try to teach her anything new, I tried to make sure there was nothing new to learn.
+
+## My father
+
+My father is an amateur radio operator, and that was the hard part. His radio equipment talks to the computer through COM ports (serial ports), to control the radio from the screen or to exchange data with it, and a lot of the programs that drive it were written for Windows.
+
+### How serial ports work on Linux
+
+On Windows, a serial device is `COM3`. On Linux, it is a file: `/dev/ttyS0` for a real serial port, and `/dev/ttyUSB0` or `/dev/ttyACM0` for a USB adapter or a device that exposes itself as one. Today, even computers that have no serial connector still use them, through a USB-to-serial cable.
+
+Two things make this different from Windows:
+
+1. **The number is not stable.** Unplug the device and plug it back in, and `ttyUSB0` can become `ttyUSB1`. A [udev rule](https://wiki.archlinux.org/title/Udev) can give the device a fixed name based on its vendor and product ID.
+2. **You need the right to open it.** By default only root and the `dialout` group can. A udev rule can also give access to the user who is logged in on the machine, without touching any group:
+
+```bash
+# /etc/udev/rules.d/99-radio.rules
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="radio", TAG+="uaccess"
+```
+
+The two IDs come from `lsusb`, and the example above is the ID of a common FTDI adapter. With this rule, the device is always available as `/dev/radio`, whatever number the kernel gave it.
+
+### Making Windows programs see a COM port
+
+Some radio software already exists on Linux, like [WSJT-X](https://wsjtx.github.io/wsjtx) for digital modes or [CHIRP](https://chirpmyradio.com) to program radios, and [Hamlib](https://hamlib.github.io) is a library many programs use to control a radio. But the rest runs with [Wine](https://winehq.org), which runs Windows programs on Linux. Wine can expose a Linux device as a COM port: it looks for symbolic links named `com1`, `com2`… in the `dosdevices` folder of the Wine prefix.
+
+```bash
+ln -s /dev/radio ~/.wine/dosdevices/com1
+```
+
+From the program's point of view, `COM1` now exists. This is an old trick, and the WineHQ forum is full of unsolved threads about it, for example [this one about `/dev/ttyUSB0` and `com1`](https://forum.winehq.org/viewtopic.php?p=84875).
+
+The traps are the usual ones: a program that has the port number written in its own settings, a device that changes name after being unplugged, and sometimes a program that works with a real serial port but not through an emulated one.
+
+## Would I do it again
+
+Yes, without hesitation.
+
+First, they stopped worrying about Windows features. No more pop-ups pushing an account or a subscription, no more settings that move after an update, no more "new" things nobody asked for. The system does what they need and stays out of the way, and they take less of their own time (and mine) fighting it.
+
+Second, it pushes them to use more and more free software. Every program they get used to is one they are not tied to a vendor for. Each person who switches, even without caring about it, is one more user and one more bug report for these projects, and that is good for FOSS.
+
+If you want to do the same, start with the profile that is easiest to move, like my mother's, whose whole work happens in a browser. Keep an image you can roll back and a way to see their screen. And accept that one of them might have a corner case, like my father's radio, that takes time.

@@ -1,0 +1,41 @@
+---
+title: CESI Schedule
+description: My school timetable as a calendar feed, with encrypted stateless tokens.
+repo: https://github.com/wiizzl/cesi-schedule
+order: 1
+---
+
+import Demo from "#/components/Demo.astro";
+
+import FoldDemo from "./FoldDemo.astro";
+import RateLimitDemo from "./RateLimitDemo.astro";
+
+At [CESI](https://cesi.fr), the timetable lives behind the school's single sign-on. CESI Schedule turns it into a standard iCalendar (`.ics`) feed: you enter your credentials once, get a private link, and subscribe to it from any calendar app.
+
+## Logging in like a browser
+
+There is no public API, so the server replays the SAML login flow (WAYF, then ADFS, then the ENT) by parsing each auto-submitting form and keeping its hidden fields. Since the password goes through it, every form target is checked before submitting: if CESI's pages change unexpectedly, the server fails instead of sending credentials elsewhere.
+
+## Storing nothing
+
+A calendar app can only poll a URL, so the credentials have to be in it, unreadable. The link is a **stateless token**: the credentials encrypted with AES-256-GCM, with separate derived keys for encryption and identifiers, a version byte, and the purpose bound as associated data. No user database, nothing to leak.
+
+## Protecting students and CESI
+
+Calendar apps poll forever, so the server defends both sides: rejected credentials are remembered for 6 hours to avoid locking an account, calendars are cached for 15 minutes (encrypted, in Upstash Redis), and generating a link is limited per IP.
+
+Rate limits use `INCR` and `PEXPIRE ... NX` in one pipeline. Without `NX`, every retry pushes the expiry back, and a persistent app stays blocked forever.
+
+<Demo caption="The link form's limit, sped up: one second here is one minute. Turn on the retries, then uncheck NX to see the window never end.">
+  <RateLimitDemo />
+</Demo>
+
+## Writing iCalendar by hand
+
+The format has quirks, so I wrote the generator myself. Lines must be folded at 75 bytes, and a naive cut can split a UTF-8 character in two, which some apps then show as `�`.
+
+<Demo caption="Folding a course name. The apostrophe ’ takes 3 bytes: cut every 75 bytes, it ends up split across two lines.">
+  <FoldDemo />
+</Demo>
+
+The whole project is Go's standard library only, runs on Vercel, and depends on CESI's HTML: if their pages change, it breaks until I update it.

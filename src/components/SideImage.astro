@@ -1,0 +1,53 @@
+---
+import { getImage } from "astro:assets";
+
+import grosHorloge from "#/assets/side/gros-horloge.webp";
+
+export interface Props {
+  src?: ImageMetadata;
+  alt?: string;
+}
+
+const {
+  src = grosHorloge,
+  alt = "The Gros-Horloge, the astronomical clock in the old town of Rouen, France.",
+} = Astro.props;
+
+const sizes = "40vw";
+const image = await getImage({
+  src,
+  width: 1280,
+  widths: [480, 960, 1280],
+  quality: 55,
+});
+const srcset = image.srcSet.attribute;
+---
+
+<link rel="preload" as="image" media="(width >= 64rem)" imagesrcset={srcset} imagesizes={sizes} fetchpriority="high" />
+<img
+  src={image.src}
+  srcset={srcset}
+  sizes={sizes}
+  alt={alt}
+  width={image.attributes.width}
+  height={image.attributes.height}
+  loading="lazy"
+  decoding="async"
+  draggable="false"
+  class="side-image"
+/>
+
+<style>
+  :global(.side-image) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
+    view-transition-name: side-image;
+
+    @media (prefers-color-scheme: dark) {
+      filter: brightness(90%);
+    }
+  }
+</style>

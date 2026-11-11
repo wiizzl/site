@@ -1,0 +1,34 @@
+---
+title: Fulgur
+description: One project for a web app and its fully typed API, without a monorepo.
+url: https://wiizzl.github.io/fulgur
+repo: https://github.com/wiizzl/fulgur
+order: 2
+---
+
+Fulgur started as a framework to ship [WorldSkills](https://worldskills.org) test projects quickly. While training I realized [Laravel](https://laravel.com) was simply a better fit, but the part that worked, the typed link between a web app and its API, is what I want for small TypeScript projects.
+
+I love [Eden Treaty](https://elysiajs.com/eden/treaty/overview): you write your API with [Elysia](https://elysiajs.com) and the client knows every route and type, with no codegen. But getting that meant setting up a monorepo first. Fulgur removes that friction: one project, one config, one command.
+
+## How it works
+
+It's a glue layer, not a framework: a Vite plugin that connects Vite, Elysia and Eden.
+
+```ts
+// vite.config.ts
+export default defineConfig({
+  plugins: [fulgur(), react()],
+});
+```
+
+The server entry exports the Elysia app and its type, and the client only imports the type, so no server code reaches the browser.
+
+- **In development**, the plugin starts the backend, proxies `/api` to it (WebSockets included, no CORS) and restarts it when a `*.server.ts` file changes.
+- **Server code stays out of the browser**: the plugin fails the build if client code imports a `*.server.ts` file, and separate TypeScript configs keep `window` and `Bun` apart.
+- **In production**, it generates a `start.ts` for a classic Bun server and a `vercel.ts` for serverless functions.
+
+## Dark corners
+
+Bun's child processes kept the port busy, so the backend runs in its own process group, killed all at once. The first requests failed because the backend wasn't ready, so the plugin polls a health endpoint before letting Vite continue.
+
+Fulgur is MIT licensed and [published on npm](https://npmx.dev/package/fulgur), with the full guide on [its documentation site](https://wiizzl.github.io/fulgur).
