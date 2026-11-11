@@ -7,9 +7,13 @@ export const GET: APIRoute = async ({ site }) => {
   const url = (path: string) => new URL(path, site).href;
   const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
 
-  const list = (items: { title: string; description: string; path: string }[]) =>
+  const list = (
+    items: { title: string; description: string; path: string }[],
+  ) =>
     items
-      .map((item) => `- [${item.title}](${url(item.path)}): ${item.description}`)
+      .map(
+        (item) => `- [${item.title}](${url(item.path)}): ${item.description}`,
+      )
       .join("\n");
 
   const body = `# ${CONSTS.title}
